@@ -13,21 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('blogs', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('content');
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id(); 
             $table->unsignedBigInteger('user_id');
-            $table->timestamp('publicationDate');
-            $table->string('tags')->nullable();
-            $table->string('featuredImage')->nullable();
-            $table->integer('likes')->default(0);
-            $table->integer('views')->default(0);
-            $table->string('status')->default('draft');
+            $table->unsignedBigInteger('blog_id');
+            $table->text('content');
             $table->timestamps();
-
+            
+            //foreign_key
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
+   
         });
     }
 
@@ -38,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('comments');
     }
 };

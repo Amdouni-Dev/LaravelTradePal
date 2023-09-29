@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::latest()->paginate(5);
+        $comments = Comment::latest()->paginate(5);
       
-        return view('blogs.index',compact('blogs'))
+        return view('comments.index',compact('comments'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +27,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog.create');
+        return view('comments.create');
     }
 
     /**
@@ -39,72 +39,68 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-            'tags' => 'required',
-            'status' => 'required',
+            'name' => 'required',
+            'detail' => 'required',
         ]);
       
-        Blog::create($request->all());
+        comment::create($request->all());
        
-        return redirect()->route('blogs.index')
-                        ->with('success','Blog created successfully.');
+        return redirect()->route('comments.index')
+                        ->with('success','comment created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show(Comment $comment)
     {
-        return view('blogs.show',compact('blog'));
-
+        return view('comments.show',compact('comment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog)
+    public function edit(Comment $comment)
     {
-        return view('blogs.edit',compact('blog'));
+        return view('comments.edit',compact('comment'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, Comment $comment)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'content' => 'required',
         ]);
       
-        $blog->update($request->all());
+        $comment->update($request->all());
       
-        return redirect()->route('blogs.index')
-                        ->with('success','blog updated successfully');
+        return redirect()->route('comments.index')
+                        ->with('success','comment updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy(Comment $comment)
     {
-        $blog->delete();
+        $comment->delete();
        
-        return redirect()->route('blogs.index')
-                        ->with('success','blog deleted successfully');
+        return redirect()->route('comments.index')
+                        ->with('success','comment deleted successfully');
     }
 }
