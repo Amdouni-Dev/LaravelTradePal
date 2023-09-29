@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function donation(){
-        return $this->belongsTo(Donation::class);
+    public function donations(){
+        return $this->hasMany(Donation::class);
     }
 }

@@ -25,7 +25,7 @@ class Donation extends Model
     }
 
     public function donor(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
 }
