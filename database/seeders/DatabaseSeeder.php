@@ -20,11 +20,19 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        
+
+        $this->call([
+           UserSeeder::class
+        ]);
+
+        $this->call([
+           HazelnutSeeder::class
+        ]);
+
         $this->call([
             BlogSeeder::class
         ]);
-        
+
         $this->call([
             CommentSeeder::class
         ]);

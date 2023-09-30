@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
             $table->enum('category', ['ELECTRONIQUE', 'VETEMENTS', 'MEUBLES', 'LIVRES', 'AUTRES']);
-            $table->string('description');
+            $table->text('description');
             $table->enum('status', ['DISPONIBLE', 'NONDISPONIBLE']);
             $table->decimal('amount', 10, 2);
             $table->string('picture');
