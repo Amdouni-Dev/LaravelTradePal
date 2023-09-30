@@ -10,6 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Donation;
 use App\Models\Blog;
 use App\Models\Comment;
+use App\Models\Item;
+use App\Models\Request;
 
 class User extends Authenticatable
 {
@@ -56,4 +58,10 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+    public function requests(){
+        return $this->hasMany(Request::class);
+    } 
+    public function items(){
+        return $this->hasMany(Item::class);
+       } 
 }
