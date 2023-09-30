@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('description');
             $table->enum('status', ['DISPONIBLE', 'NONDISPONIBLE']);
             $table->decimal('amount', 10, 2);
+            $table->string('picture');
             $table->timestamps();
         });
     }
