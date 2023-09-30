@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('hazelnuts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            // ->index() à utiliser avec une bd postgres dans une bd mysql il est automatiquement indexé
             $table->unsignedInteger('amount');
-            $table->string('status');
+            $table->enum('status', ['active', 'expired', 'pending'])->default('active');
             $table->timestamp('expiration_date')->nullable();
             $table->timestamps();
         });

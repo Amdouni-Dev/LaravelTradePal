@@ -17,6 +17,9 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $roles = [ 'user', 'admin', 'moderator'];
+        $status = ['active', 'inactive'];
+
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
@@ -24,10 +27,10 @@ class UserFactory extends Factory
             'username' => $this->faker->userName(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'role' => 'user',
+            'role' => $this->faker->randomElement($roles),
             'phone' => $this->faker->phoneNumber(),
             'profile_picture' => null,
-            'account_status' => 'active',
+            'account_status' => $this->faker->randomElement($status),
             'bio' => $this->faker->sentence(),
         ];
     }

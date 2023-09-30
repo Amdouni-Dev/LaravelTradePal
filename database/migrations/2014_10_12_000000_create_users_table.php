@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('profile_picture')->nullable();
-            $table->string('account_status')->default('active');
-            $table->string('role')->default('user');
+            $table->enum('account_status', ['active', 'inactive'])->default('active');
+            $table->enum('role', ['user', 'admin', 'moderator'])->default('user');
             $table->text('bio')->nullable();
             $table->rememberToken();
             $table->timestamps();
