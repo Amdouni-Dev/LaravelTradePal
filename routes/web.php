@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontEnd\WorkController;
 use App\Http\Controllers\FrontEnd\GameController;
 use App\Http\Controllers\FrontEnd\TrocController;
 use App\Http\Controllers\FrontEnd\SearchController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,10 @@ Route::get('/game',  [gameController::class, 'index']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
 Route::get('/JeParticipe',[App\Http\Controllers\Event\EventController::class,"sayhitoMouna"]);
+Route::prefix('dashboard')->group(function () {
+    Route::get('/blog/add',  [BlogController::class, 'create']);
+    Route::get('/blogs',  [BlogController::class, 'index']); 
+});
+Route::fallback(function () {
+    return view('backOffice.404'); 
+});

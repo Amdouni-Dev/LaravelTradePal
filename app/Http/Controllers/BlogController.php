@@ -14,9 +14,11 @@ class BlogController extends Controller
      */
     public function index()
     {
+        $viewPath = 'BackOffice.blog.table'; // Set the view path 
+
         $blogs = Blog::latest()->paginate(5);
       
-        return view('blogs.index',compact('blogs'))
+        return view('BackOffice.template',compact('viewPath','blogs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +29,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog.create');
+        $viewPath = 'BackOffice.blog.forms'; // Set the view path 
+        return view('BackOffice.template',compact('viewPath'));
     }
 
     /**
@@ -59,7 +62,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        return view('blogs.show',compact('blog'));
+        return view('BackOffice.blog.table',compact('blog'));
 
     }
 

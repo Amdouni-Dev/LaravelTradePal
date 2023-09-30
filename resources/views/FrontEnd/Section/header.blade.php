@@ -691,7 +691,7 @@
 		                    <img src='static/image/1px.png' data-src='/image/logo/mytroc_oeil@2x.png' alt='mytroc'
 		                        class='frame2 retina'>
 
-		                    <div class="title" data-fscale="1">Noi<strong>Sette</strong><span class="haf-caps"></span></div>
+		                    <div class="title" data-fscale="1">Trade<strong>Pal</strong><span class="haf-caps"></span></div>
 		                </a>
 		            </div>
 
