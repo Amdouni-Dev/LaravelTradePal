@@ -1,8 +1,10 @@
-		
+
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 		<HEAD>
-
+            @if (!View::hasSection('calender-style'))
+                <link rel="stylesheet" type="text/css" href="/css/style.css">
+            @endif
 		    <title>@yield('pageTitle') </title>
 		    <link rel="canonical" href="logout.html" />
 		    <link rel="author" href="https://plus.google.com/u/0/101907471159985991169/" />
@@ -415,7 +417,7 @@
 		    <script type="text/javascript" charset="UTF-8" src="../www.google.com/recaptcha/api9673.js?nocookie=true" async
 		        defer></script>
 		    <link rel="stylesheet" type="text/css" href="static/css/0.2/main.fonts.min.css">
-		    <link rel="stylesheet" type="text/css" href="/css/style.css">
+{{--		    <link rel="stylesheet" type="text/css" href="/css/style.css">--}}
 		    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans+Caption">
 		    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah">
 
@@ -712,10 +714,18 @@
 		                        <li class="   showAddTroc block-menu div-showAddTroc ">
 		                            <div class="hvr-grow">
 		                                <a href="/add-troc" class="waves waves-prune " data-wave-scale="20">
-		                                    <span>Je propose</span>
+		                                    <span>Je propose </span>
 		                                </a>
 		                            </div>
 		                        </li>
+
+                                <li class="   showAddTroc block-menu div-showAddTroc ">
+                                    <div class="hvr-grow">
+                                        <a href="/JeParticipe" class="waves waves-prune " data-wave-scale="20">
+                                            <span>Je participe </span>
+                                        </a>
+                                    </div>
+                                </li>
 		                        <li class="   showSearch block-menu div-showSearch ">
 		                            <div class="hvr-grow">
 		                                <a href="/search" class="waves waves-prune " data-wave-scale="20">
@@ -828,5 +838,4 @@
 		    </header>
 
 
-		    
-			
+

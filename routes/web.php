@@ -33,4 +33,4 @@ Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
-Route::get('/sayHiToMounaTest',[App\Http\Controllers\Event\EventController::class,"sayhitoMouna"]);
+Route::get('/JeParticipe',[App\Http\Controllers\Event\EventController::class,"sayhitoMouna"]);
