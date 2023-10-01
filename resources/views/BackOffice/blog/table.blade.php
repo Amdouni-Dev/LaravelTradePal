@@ -45,8 +45,13 @@
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-                  </div>
+                    <form action="{{ route('blogs.destroy', $blog) }}" method="POST" onsubmit= "return confirm('Etes-vous sûr de vouloir supprimer?');">
+                      @csrf
+                      @method('DELETE')
+                      <button class="dropdown-item" type="submit">
+                        <i class="bx bx-trash me-1"></i>Supprimer
+                      </button>
+                    </form>
                 </div>
               </td>
           </tr>

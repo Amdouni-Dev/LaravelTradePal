@@ -38,8 +38,10 @@ Route::get('/JeParticipe',[App\Http\Controllers\Event\EventController::class,"sa
 Route::prefix('dashboard')->group(function () {
     Route::get('/blog/add',  [BlogController::class, 'create']);
     Route::get('/blogs',  [BlogController::class, 'index']); 
+    Route::resource('/blogs', BlogController::class);
 });
-Route::resource('/blogs', BlogController::class);
+
+
 Route::fallback(function () {
     return view('backOffice.404'); 
 });

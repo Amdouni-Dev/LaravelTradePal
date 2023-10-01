@@ -114,8 +114,8 @@ class BlogController extends Controller
     public function destroy(Blog $blog)
     {
         $blog->delete();
-       
         return redirect()->route('blogs.index')
-                        ->with('success','blog deleted successfully');
+        ->with('success', 'Article a étè supprimer');
     }
+
 }
