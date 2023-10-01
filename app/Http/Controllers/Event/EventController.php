@@ -3,15 +3,25 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
 
-    public function sayhitoMouna(){
+    public function eventsForUser(){
 //return "hi Mounaaaa";
-        return view('Event.admin.events');
+        return view('Event.user.events');
+    }
+    public function eventsForAdmin(){
+//return "hi Mounaaaa";
+        $viewPath = 'Event.admin.events'; // Set the view path
+
+        $listEvents = Event::latest()->paginate(5);
+
+        return view('BackOffice.template',compact('viewPath','listEvents'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function affiche(Request $request){
         $listEvents = Event::where([
@@ -69,8 +79,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
-        return view('form');
+
+        return view('BackOffice.template', ['viewPath' => 'Event.admin.add']);
+
     }
 
     /**
@@ -88,9 +99,13 @@ class EventController extends Controller
         $event->description=$request->input('descEvent');
 
         $event->date=$request->input('dateEvent');
+        $event->start=$request->input('start');
+        $event->end=$request->input('end');
+
+                $event->color=$request->input('color');
 
         $event->save();
-        return redirect('/events');
+        return redirect('/dashboard/events');
     }
 
     /**
@@ -118,7 +133,9 @@ class EventController extends Controller
     {
         //
         $event=Event::find($request->id);
-        return view('edit',compact('event'));
+//        return view('edit',compact('event'));
+        return view('BackOffice.template', ['viewPath' => 'Event.admin.edit'],compact('event'));
+
 
     }
 
@@ -131,18 +148,21 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Récupérez l'événement en fonction de l'ID
+
         $event = Event::find($id);
 
-        // Mettez à jour les champs de l'événement avec les données du formulaire
         $event->nom = $request->input('nameEvent');
-        // Mettez à jour d'autres champs de la même manière
+        $event->lieu=$request->input('lieuEvent');
+        $event->description=$request->input('descEvent');
 
-        // Enregistrez les modifications
+        $event->date=$request->input('dateEvent');
+        $event->start=$request->input('start');
+        $event->end=$request->input('end');
+
+        $event->color=$request->input('color');
         $event->save();
 
-        // Redirigez l'utilisateur vers la page des événements ou une autre page appropriée
-        return redirect('/events')->with('success', 'Événement mis à jour avec succès.');
+        return redirect('/dashboard/events')->with('success', 'Événement mis à jour avec succès.');
     }
 
 
@@ -157,7 +177,7 @@ class EventController extends Controller
         //
         $event=Event::find($id);
         $event->delete();
-        return redirect('/events')->with('success', 'Événement supprimé avec succès.');
+        return redirect('/dashboard/events')->with('success', 'Événement supprimé avec succès.');
     }
 
 }

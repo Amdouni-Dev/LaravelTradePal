@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Event\ParticipationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\FrontEnd\GameController;
 use App\Http\Controllers\FrontEnd\TrocController;
 use App\Http\Controllers\FrontEnd\SearchController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\OrganizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,14 +37,35 @@ Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
-Route::get('/JeParticipe',[App\Http\Controllers\Event\EventController::class,"sayhitoMouna"]);
+Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::prefix('dashboard')->group(function () {
     Route::get('/blog/add',  [BlogController::class, 'create']);
-    Route::get('/blogs',  [BlogController::class, 'index']); 
+    Route::get('/blogs',  [BlogController::class, 'index']);
+    Route::get('/events', [EventController::class, 'eventsForAdmin']);
+    Route::get('/events/add', [EventController::class, 'create']);
+    Route::post('/events/add', [EventController::class, 'store'])->name('events.store');
+
+    Route::get('/events/{id}', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+
+
+
+    Route::get('/participations', [ParticipationController::class, 'participationsForAdmin']);
+    Route::get('/participations/create', [ParticipationController::class, 'create']);
+
+    Route::post('/participations', [ParticipationController::class, 'store'])->name('participations.store');
+    Route::get('/participations/edit/{id}', [ParticipationController::class, 'edit'])->name('participations.edit');
+    Route::put('/participations/{id}', [ParticipationController::class, 'update'])->name('participations.update');
+    Route::delete('/participations/{id}', [ParticipationController::class, 'destroy'])->name('participation.destroy');
+    Route::get('/blogs',  [BlogController::class, 'index']);
+    Route::get('/organization/add',  [OrganizationController::class, 'create']);
+    Route::get('/organization/list',  [OrganizationController::class, 'index']);
+    Route::resource('/organizations', OrganizationController::class);
     Route::resource('/blogs', BlogController::class);
 });
 
 
 Route::fallback(function () {
-    return view('backOffice.404'); 
+    return view('backOffice.404');
 });

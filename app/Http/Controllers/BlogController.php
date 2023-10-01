@@ -70,7 +70,8 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        return view('BackOffice.blog.table',compact('blog'));
+        $viewPath = 'BackOffice.blog.forms'; // Set the view path 
+        return view('BackOffice.template',compact('viewPath'));
 
     }
 
@@ -82,7 +83,8 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        return view('blogs.edit',compact('blog'));
+        $viewPath = 'BackOffice.blog.forms'; // Set the view path 
+        return view('BackOffice.template',compact('blog','viewPath'));
     }
 
     /**
@@ -95,14 +97,15 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'title' => 'required',
+            'tags' => 'required',
+            'status' => 'required',
+            'auteur' => 'required',
         ]);
-      
+        
         $blog->update($request->all());
-      
         return redirect()->route('blogs.index')
-                        ->with('success','blog updated successfully');
+            ->with('success', 'Article a étè modifier');
     }
 
     /**

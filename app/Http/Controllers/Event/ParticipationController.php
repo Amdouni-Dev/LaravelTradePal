@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Event;
 
+use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Participation;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,15 @@ class ParticipationController extends Controller
         return view('Participation.participations',compact('listParticipation'));
         //
     }
+    public function participationsForAdmin(){
+//return "hi Mounaaaa";
+        $viewPath = 'Event.admin.participations'; // Set the view path
 
+        $listparticipations = Participation::latest()->paginate(5);
+
+        return view('BackOffice.template',compact('viewPath','listparticipations'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,9 +36,10 @@ class ParticipationController extends Controller
      */
     public function create()
     {
-        //
-        return view('Participation.AddParticipation');
+        $events = Event::all();
+        return view('BackOffice.template', ['viewPath' => 'Event.admin.addParticipation', 'events' => $events]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -45,8 +56,9 @@ class ParticipationController extends Controller
         $participation->proposedObject=$request->input('proposedObject');
         $participation->descriptionObject=$request->input('descriptionObject');
         $participation->changedBy=$request->input('changedBy');
+        $participation->event_id=$request->input('event_id');
         $participation->save();
-        return redirect('/participations');
+        return redirect('/dashboard/participations');
 
     }
 
@@ -67,11 +79,14 @@ class ParticipationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
         //
-        $participation=Participation::find($id);
-        return view('Participation/edit', compact('participation'));
+        $events = Event::all();
+        $participation=Participation::find($request->id);
+//        return view('edit',compact('event'));
+        return view('BackOffice.template', ['viewPath' => 'Event.admin.editParticipation', 'events' => $events],compact('participation'));
+
 
     }
 
@@ -90,9 +105,9 @@ class ParticipationController extends Controller
         $participation->proposedObject=$request->input('proposedObject');
         $participation->descriptionObject=$request->input('descriptionObject');
         $participation->changedBy=$request->input('changedBy');
+        $participation->event_id=$request->input('event_id');
         $participation->save();
-        return redirect('/participations')->with('success', 'Participation modifiée avec succès');
-    }
+        return redirect('/dashboard/participations')->with('success', 'Participation mise à jour avec succès.');    }
 
     /**
      * Remove the specified resource from storage.
@@ -105,6 +120,6 @@ class ParticipationController extends Controller
         //
         $participation=Participation::find($id);
         $participation->delete();
-        return redirect('/participations')->with('success','Participation supprimée avec succès');
+        return redirect('/dashboard/participations')->with('success','Participation supprimée avec succès');
     }
 }
