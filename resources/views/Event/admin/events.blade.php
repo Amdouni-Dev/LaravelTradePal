@@ -1,115 +1,73 @@
+<table class="container-xxl flex-grow-1 container-p-y">
+    <tr><td>
+            <h4 class="fw-bold py-3 mb-4">
+                <span class="text-muted fw-light">Evenement /</span> Liste des evenements
+            </h4>
+        </td>
+        <td align="right">
+            <a href="/dashboard/events/add"  class="btn btn-primary">Ajouter</a>
+        </td>
+    <tr>
+</table>
 
-@extends('FrontEnd.section.header')
-@section('pageTitle', 'Noisette')
-<html lang="en" class="calender-page">
-<head>
+<div class="card">
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Evenement</th>
+                <th>Description</th>
+
+                <th>Categorie</th>
+                <th>Date</th>
+                <th>Lieu</th>
+                <th>couleur</th>
+
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            @foreach($listEvents as $listEvents)
+            <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $listEvents->nom }}</strong></td>
+                <td>{{ $listEvents->description }}</td>
+                <td>{{ $listEvents->categorie }}</td>
+                <td>{{ $listEvents->date }}</td>
+                <td>{{ $listEvents->Lieu }}</td>
+                <td><div style="width: auto; height: 20px; background-color: {{ $listEvents->color }};"></div></td>
+
+                {{--                <td>--}}
+{{--                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">--}}
+{{--                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">--}}
+{{--                            <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle">--}}
+{{--                        </li>--}}
+{{--                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Sophia Wilkerson">--}}
+{{--                            <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle">--}}
+{{--                        </li>--}}
+{{--                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Christina Parker">--}}
+{{--                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle">--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </td>--}}
+{{--                <td><span class="badge bg-label-primary me-1">Active</span></td>--}}
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('events.edit', $listEvents->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
 
 
-    @livewireStyles
-    @section('calender-style')
-        <link rel="stylesheet" type="text/css" href="/css/calender-style.css">
-
-    @endsection
-
-
-<style>
-    /* Style pour la classe btn */
-    .btn {
-        display: inline-block;
-        font-weight: 400;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        user-select: none;
-        border: 1px solid transparent;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: 0.25rem;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    }
-
-    /* Style pour la classe btn-warning (bouton d'avertissement) */
-    .btn-warning {
-        color: #fff;
-        background-color: #ffc107;
-        border-color: #ffc107;
-    }
-
-    /* Style au survol pour la classe btn-warning */
-    .btn-warning:hover {
-        color: #fff;
-        background-color: #e0a800;
-        border-color: #d39e00;
-    }
-
-</style>
-
-</head>
-{{--<div id="main">--}}
-<div id="animation-banner" class="web">
-    <div id="could-banner" class="no-overflow">
-        <div id="cloud1" class="cloud">
-            <img src='static/image/1px.png' data-load='/image/sketch/nuage1.svg' alt='nuage'
-                 class='svg'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage1.png' alt='nuage'
-                 class='img'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage1@2x.png'
-                 alt='nuage' class='retina'>
-        </div>
-        <div id="cloud2" class="cloud">
-            <img src='static/image/1px.png' data-load='/image/sketch/nuage2.svg' alt='nuage'
-                 class='svg'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage2.png' alt='nuage'
-                 class='img'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage2@2x.png'
-                 alt='nuage' class='retina'>
-
-        </div>
-        <div id="cloud3" class="cloud">
-            <img src='static/image/1px.png' data-load='/image/sketch/nuage3.svg' alt='nuage'
-                 class='svg'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage3.png' alt='nuage'
-                 class='img'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage3@2x.png'
-                 alt='nuage' class='retina'>
-
-        </div>
-        <div id="cloud4" class="cloud">
-            <img src='static/image/1px.png' data-load='/image/sketch/nuage1.svg' alt='nuage'
-                 class='svg'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage1.png' alt='nuage'
-                 class='img'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage1@2x.png'
-                 alt='nuage' class='retina'>
-
-        </div>
-        <div id="cloud5" class="cloud">
-            <img src='static/image/1px.png' data-load='/image/sketch/nuage2.svg' alt='nuage'
-                 class='svg'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage2.png' alt='nuage'
-                 class='img'>
-            <img src='static/image/1px.png' data-src='/static/image/sketch/nuage2@2x.png'
-                 alt='nuage' class='retina'>
-
-        </div>
+                                          <form action="{{ route('events.destroy', $listEvents->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                              <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
+                                </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
-    <H1 class="title">Evenements</H1>
-
 </div>
-
-
-<div class="content">
-    <button type="button" class="btn btn-warning">Add Event</button>
-    <div>
-        <livewire:calendar />
-        @livewireScripts
-        @stack('scripts')
-    </div>
-
-
-
-</div>
-
-{{--</div>--}}
-</html>
