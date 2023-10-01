@@ -34,10 +34,10 @@
                 <a href="/">
                   <table>
                     <tr>
-                      <td>		                    
+                      <td>
                         <img src="/image/logo/mytroc.svg" style="width:48px"alt="mytroc" class="frame1 svg">
                       </td>
-                      <td>		                    
+                      <td>
                         <div class="title" data-fscale="1" style="font-size:30px">Trade<strong>Pal</strong><span class="haf-caps"></span></div>
                       </td>
                     </tr>
@@ -71,13 +71,13 @@
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link" >
+            <a href="/dashboard/events" class="menu-link" >
               <i class="menu-icon tf-icons bx bx-calendar-event"></i>
               <div>Évènements</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link" >
+            <a href="/dashboard/participations" class="menu-link" >
               <i class="menu-icon tf-icons bx bx-sitemap"></i>
               <div>Participations</div>
             </a>
@@ -114,7 +114,7 @@
           </li>
             </ul>
           </li>
-          
+
         </ul>
       </aside>
       <div class="layout-page">
