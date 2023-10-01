@@ -10,6 +10,7 @@ use App\Http\Controllers\FrontEnd\GameController;
 use App\Http\Controllers\FrontEnd\TrocController;
 use App\Http\Controllers\FrontEnd\SearchController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\OrganizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::get('/JeParticipe',[App\Http\Controllers\Event\EventController::class,"sa
 Route::prefix('dashboard')->group(function () {
     Route::get('/blog/add',  [BlogController::class, 'create']);
     Route::get('/blogs',  [BlogController::class, 'index']); 
+    Route::get('/organization/add',  [OrganizationController::class, 'create']);
+    Route::get('/organization/list',  [OrganizationController::class, 'index']); 
 });
 Route::fallback(function () {
     return view('backOffice.404'); 

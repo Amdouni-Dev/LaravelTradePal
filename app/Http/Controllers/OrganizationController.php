@@ -14,8 +14,9 @@ class OrganizationController extends Controller
      */
     public function index()
     {
+        $viewPath = 'BackOffice.organization.table'; 
         $organizations = Organization::latest()->paginate(5);
-        return view('products.index',compact('products'))
+        return view('BackOffice.template',compact('viewPath','organizations'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -27,7 +28,7 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        return view('BackOffice.organizations.create');
     }
 
     /**
@@ -91,7 +92,7 @@ class OrganizationController extends Controller
             'description' => 'required',
 
         ]);
-        $product->update($request->all());
+        $organization->update($request->all());
         return redirect()->route('organization.index')
 
                         ->with('success','Organization updated successfully');
