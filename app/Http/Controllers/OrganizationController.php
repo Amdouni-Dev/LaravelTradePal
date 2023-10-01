@@ -14,9 +14,9 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        $viewPath = 'BackOffice.organization.table'; 
+        $viewPath = 'BackOffice.organization.table';
         $organizations = Organization::latest()->paginate(5);
-        return view('BackOffice.template',compact('viewPath','organizations'))
+        return view('BackOffice.template', compact('viewPath', 'organizations'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -28,7 +28,8 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        return view('BackOffice.organizations.create');
+        $viewPath = 'BackOffice.organization.forms';
+        return view('BackOffice.template', compact('viewPath'));
     }
 
     /**
@@ -39,20 +40,37 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-
             'name' => 'required',
-
             'description' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required|digits:8',
+            'website' => 'required|url',
+            'location' => 'required',
+            'founding_date' => 'required|date',
+            'type' => 'required'
 
         ]);
 
-        Organization::create($request->all());
+        $organization = new Organization();
+        $organization->name = $request->input('name');
+        $organization->description = $request->input('description');
+        $organization->email = $request->input('email');
+        $organization->phone_number = $request->input('phone_number');
+        $organization->website = $request->input('website');
+        $organization->location = $request->input('location');
+        $organization->founding_date = $request->input('founding_date');
+        $organization->type = $request->input('type');
+        $organization->archived = false;
 
-        return redirect()->route('organization.index')
 
-                        ->with('success','Organization created successfully.');
+        $organization->save();
+
+        return redirect()->route('organizations.index')
+            ->with('success', 'Organization created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -62,7 +80,9 @@ class OrganizationController extends Controller
      */
     public function show(Organization $organization)
     {
-        return view('organization.show',compact('organization'));
+        $viewPath = 'BackOffice.organization.table';
+
+        return view('BackOffice.template', compact('organization', 'viewPath'));
     }
 
     /**
@@ -73,7 +93,9 @@ class OrganizationController extends Controller
      */
     public function edit(Organization $organization)
     {
-        return view('organization.edit',compact('organization'));
+        $viewPath = 'BackOffice.organization.forms';
+
+        return view('BackOffice.template', compact('organization', 'viewPath'));
     }
 
     /**
@@ -86,16 +108,21 @@ class OrganizationController extends Controller
     public function update(Request $request, Organization $organization)
     {
         $request->validate([
-
             'name' => 'required',
-
             'description' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required|digits:8',
+            'website' => 'required|url',
+            'location' => 'required',
+            'founding_date' => 'required|date',
+            'type' => 'required'
 
         ]);
-        $organization->update($request->all());
-        return redirect()->route('organization.index')
 
-                        ->with('success','Organization updated successfully');
+        $organization->update($request->all());
+        return redirect()->route('organizations.index')
+
+            ->with('success', 'Organization updated successfully');
     }
 
     /**
@@ -108,10 +135,8 @@ class OrganizationController extends Controller
     {
         $organization->delete();
 
-       
+        return redirect()->route('organizations.index')
 
-        return redirect()->route('organization.index')
-
-                        ->with('success','Organization deleted successfully');
+            ->with('success', 'Organization deleted successfully');
     }
 }

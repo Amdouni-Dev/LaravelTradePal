@@ -35,13 +35,14 @@ Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
-Route::get('/JeParticipe',[App\Http\Controllers\Event\EventController::class,"sayhitoMouna"]);
+Route::get('/JeParticipe', [App\Http\Controllers\Event\EventController::class, "sayhitoMouna"]);
 Route::prefix('dashboard')->group(function () {
     Route::get('/blog/add',  [BlogController::class, 'create']);
-    Route::get('/blogs',  [BlogController::class, 'index']); 
+    Route::get('/blogs',  [BlogController::class, 'index']);
     Route::get('/organization/add',  [OrganizationController::class, 'create']);
-    Route::get('/organization/list',  [OrganizationController::class, 'index']); 
+    Route::get('/organization/list',  [OrganizationController::class, 'index']);
+    Route::resource('/organizations', OrganizationController::class);
 });
 Route::fallback(function () {
-    return view('backOffice.404'); 
+    return view('backOffice.404');
 });
