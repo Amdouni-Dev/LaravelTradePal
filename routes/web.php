@@ -39,6 +39,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/blog/add',  [BlogController::class, 'create']);
     Route::get('/blogs',  [BlogController::class, 'index']); 
 });
+Route::resource('/blogs', BlogController::class);
 Route::fallback(function () {
     return view('backOffice.404'); 
 });

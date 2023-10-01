@@ -43,15 +43,23 @@ class BlogController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required',
             'tags' => 'required',
             'status' => 'required',
+            'auteur' => 'required',
         ]);
       
-        Blog::create($request->all());
-       
+        $blog = new Blog();
+        $blog->title = $request->input('title');
+        $blog->content = "hello";
+        $blog->user_id = $request->input('auteur');
+        $blog->status = $request->input('status');
+        $blog->tags = $request->input('tags');
+        $blog->likes = 0;
+        $blog->views = 0;
+
+        $blog->save();
         return redirect()->route('blogs.index')
-                        ->with('success','Blog created successfully.');
+                        ->with('success','Article crée avec succées.');
     }
 
     /**

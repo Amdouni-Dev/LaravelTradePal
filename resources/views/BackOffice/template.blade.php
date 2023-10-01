@@ -230,5 +230,11 @@
             updateDate();
             setInterval(updateDate, 1000);
           </script>
+          <link rel="stylesheet" href="/back/assets/css/rte_theme_default.css" />
+          <script type="text/javascript" src="/back/assets/js/rte.js"></script>
+          <script type="text/javascript" src='/back/assets/js/all_plugins.js'></script>
+          <script>
+            var editor1 = new RichTextEditor("#div_editor1");
+          </script>
         </body>
         </html>
