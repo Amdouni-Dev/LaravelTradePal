@@ -8,6 +8,8 @@
     @csrf
     @if(isset($organization))
     @method('PUT')
+    @else
+    @method('POST')
     @endif
     <div class="col-xl">
         <div class="card mb-4">
@@ -73,11 +75,13 @@
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-select-multiple"></i></span>
                             <select name="type" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-                                <option value="1" {{ $organization->type == 1 ? 'selected' : '' }}>Education</option>
-                                <option value="2" {{ $organization->type == 2 ? 'selected' : '' }}>Environnement</option>
-                                <option value="3" {{ $organization->type == 3 ? 'selected' : '' }}>Santé</option>
-                                <option value="4" {{ $organization->type == 4 ? 'selected' : '' }}>Droits de l'homme</option>
+                                <option value="1" {{ isset($organization) && $organization->type == 1 ? 'selected' : '' }}>Education</option>
+                                <option value="2" {{ isset($organization) && $organization->type == 2 ? 'selected' : '' }}>Environnement</option>
+                                <option value="3" {{ isset($organization) && $organization->type == 3 ? 'selected' : '' }}>Santé</option>
+                                <option value="4" {{ isset($organization) && $organization->type == 4 ? 'selected' : '' }}>Droits de l'homme</option>
                             </select>
+
+
                         </div>
                     </div>
 
