@@ -66,6 +66,12 @@
               <div>Utilisateurs</div>
             </a>
           </li>
+            <li class="menu-item ">
+                <a href="/dashboard/hazelnuts" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-message-dots"></i>
+                    <div>Hazelnuts</div>
+                </a>
+            </li>
           <li class="menu-item ">
             <a href="/dashboard/organization/list" class="menu-link">
               <i class="menu-icon tf-icons bx bx-buildings"></i>

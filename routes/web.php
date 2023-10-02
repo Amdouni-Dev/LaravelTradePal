@@ -63,6 +63,9 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/organization/list',  [OrganizationController::class, 'index']);
     Route::resource('/organizations', OrganizationController::class);
     Route::resource('/blogs', BlogController::class);
+
+    Route::get('/hazelnuts', [\App\Http\Controllers\HazelnutController::class, 'hazelnutsForAdmin']);
+
 });
 
 
