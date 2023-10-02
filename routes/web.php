@@ -13,6 +13,8 @@ use App\Http\Controllers\FrontEnd\TrocController;
 use App\Http\Controllers\FrontEnd\SearchController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\RequestController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -72,3 +74,5 @@ Route::prefix('dashboard')->group(function () {
 Route::fallback(function () {
     return view('backOffice.404');
 });
+Route::resource('item',ItemController::class);
+Route::resource('request',RequestController::class);

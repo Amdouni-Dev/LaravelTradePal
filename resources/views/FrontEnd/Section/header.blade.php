@@ -713,8 +713,8 @@
 		                        </li>
 		                        <li class="   showAddTroc block-menu div-showAddTroc ">
 		                            <div class="hvr-grow">
-		                                <a href="/add-troc" class="waves waves-prune " data-wave-scale="20">
-		                                    <span>Je propose </span>
+		                                <a href="/item" class="waves waves-prune " data-wave-scale="20">
+		                                    <span>Echanges </span>
 		                                </a>
 		                            </div>
 		                        </li>

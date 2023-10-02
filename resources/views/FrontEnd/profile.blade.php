@@ -86,10 +86,11 @@
 		                    </li>
 		                    <li class="   ">
 		                        <div class="pancarte even ">
-		                            <a href="https://mytroc.fr/mes-trocs">
+		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
+									<a href="/item/show">
 		                                <div class="pancarte-content">
 
-		                                    <div class="link waves">Mes trocs</div>
+		                                    <div class="link waves">Mes offres</div>
 		                                    <div class="dot tl"></div>
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
