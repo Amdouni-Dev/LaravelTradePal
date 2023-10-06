@@ -43,15 +43,23 @@ class BlogController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required',
             'tags' => 'required',
             'status' => 'required',
+            'auteur' => 'required',
         ]);
       
-        Blog::create($request->all());
-       
+        $blog = new Blog();
+        $blog->title = $request->input('title');
+        $blog->content = "hello";
+        $blog->user_id = $request->input('auteur');
+        $blog->status = $request->input('status');
+        $blog->tags = $request->input('tags');
+        $blog->likes = 0;
+        $blog->views = 0;
+
+        $blog->save();
         return redirect()->route('blogs.index')
-                        ->with('success','Blog created successfully.');
+                        ->with('success','Article crée avec succées.');
     }
 
     /**
@@ -62,7 +70,8 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        return view('BackOffice.blog.table',compact('blog'));
+        $viewPath = 'BackOffice.blog.forms'; // Set the view path 
+        return view('BackOffice.template',compact('viewPath'));
 
     }
 
@@ -74,7 +83,8 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        return view('blogs.edit',compact('blog'));
+        $viewPath = 'BackOffice.blog.forms'; // Set the view path 
+        return view('BackOffice.template',compact('blog','viewPath'));
     }
 
     /**
@@ -87,14 +97,15 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'title' => 'required',
+            'tags' => 'required',
+            'status' => 'required',
+            'auteur' => 'required',
         ]);
-      
+        
         $blog->update($request->all());
-      
         return redirect()->route('blogs.index')
-                        ->with('success','blog updated successfully');
+            ->with('success', 'Article a étè modifier');
     }
 
     /**
@@ -106,8 +117,8 @@ class BlogController extends Controller
     public function destroy(Blog $blog)
     {
         $blog->delete();
-       
         return redirect()->route('blogs.index')
-                        ->with('success','blog deleted successfully');
+        ->with('success', 'Article a étè supprimer');
     }
+
 }

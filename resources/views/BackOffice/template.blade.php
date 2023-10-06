@@ -1,8 +1,9 @@
 <html class="light-style layout-menu-fixed" data-theme="theme-default" data-assets-path="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo/assets/" data-base-url="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo" data-framework="laravel" data-template="vertical-menu-laravel-template-free">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <title>Dashboard - Analytics | Sneat - HTML Laravel Free Admin Template </title>
+  <title>TradePal Dashboard</title>
   <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
   <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5, bootstrap 5 free, free admin template">
   <meta name="csrf-token" content="NKceRGYRa7QfdRiV3o6Z8YjzQTN8O9EKcWwLejjW">
@@ -23,6 +24,7 @@
   <style>
   </style>
 </head>
+
 <body>
   <div class="layout-wrapper layout-content-navbar ">
     <div class="layout-container">
@@ -35,7 +37,7 @@
                   <table>
                     <tr>
                       <td>
-                        <img src="/image/logo/mytroc.svg" style="width:48px"alt="mytroc" class="frame1 svg">
+                        <img src="/image/logo/mytroc.svg" style="width:48px" alt="mytroc" class="frame1 svg">
                       </td>
                       <td>
                         <div class="title" data-fscale="1" style="font-size:30px">Trade<strong>Pal</strong><span class="haf-caps"></span></div>
@@ -53,67 +55,73 @@
         <div class="menu-inner-shadow"></div>
         <ul class="menu-inner py-1">
           <li class="menu-item active">
-            <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo" class="menu-link" >
+            <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div>Tableau de bord</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link" >
+            <a href="cards/basic.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
               <div>Utilisateurs</div>
             </a>
           </li>
+            <li class="menu-item ">
+                <a href="/dashboard/hazelnuts" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-message-dots"></i>
+                    <div>Hazelnuts</div>
+                </a>
+            </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link" >
+            <a href="/dashboard/organization/list" class="menu-link">
               <i class="menu-icon tf-icons bx bx-buildings"></i>
-              <div>Oragnizations</div>
+              <div>Organisations</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="/dashboard/events" class="menu-link" >
+            <a href="/dashboard/events" class="menu-link">
               <i class="menu-icon tf-icons bx bx-calendar-event"></i>
               <div>Évènements</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="/dashboard/participations" class="menu-link" >
+            <a href="/dashboard/participations" class="menu-link">
               <i class="menu-icon tf-icons bx bx-sitemap"></i>
               <div>Participations</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link" >
+            <a href="cards/basic.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-package"></i>
               <div>Produits</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="/dashboard/blogs" class="menu-link" >
+            <a href="/dashboard/blogs" class="menu-link">
               <i class="menu-icon tf-icons bx bx-book-open"></i>
               <div>Articles</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link" >
+            <a href="cards/basic.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-repost"></i>
               <div>Échanges</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link" >
+            <a href="cards/basic.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-message-dots"></i>
               <div>Commentaires</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link" >
+            <a href="cards/basic.html" class="menu-link">
               <i class="menu-icon tf-icons bx bx-donate-heart"></i>
               <div>Donations</div>
             </a>
           </li>
-            </ul>
-          </li>
+        </ul>
+        </li>
 
         </ul>
       </aside>
@@ -135,7 +143,8 @@
             <ul class="navbar-nav flex-row align-items-center ms-auto">
               <li class="nav-item lh-1 me-3">
                 <a class="github-button" href="https://github.com/themeselection/sneat-html-laravel-admin-template-free" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-laravel-admin-template-free on GitHub" id="date-display"></a>
-              </li>      <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              </li>
+              <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
                     <img src="/back/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
@@ -193,42 +202,49 @@
                 </ul>
               </li>
             </ul>
-          </div></nav>
-          <div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
-              @includeWhen(isset($viewPath), $viewPath)
-            </div>
           </div>
-          <script src="/back/assets/vendor/libs/jquery/jquery0bfa.js?id=c9eab148c98f81221c99ba6da84fdbe2"></script>
-          <script src="/back/assets/vendor/libs/popper/popper3939.js?id=3b2f93fa0eb2f0ed310a789319de72fc"></script>
-          <script src="/back/assets/vendor/js/bootstrap1425.js?id=f4406bcd0acdeffbdcca24c2e1033ae6"></script>
-          <script src="/back/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar7d0f.js?id=2f948c841c6aca9e3a18f6ef2c65b140"></script>
-          <script src="/back/assets/vendor/js/menu68ea.js?id=3421096250c82e0d3760f641a4d2dba0"></script>
-          <script src="/back/assets/js/main84ce.js?id=0c91cceb5195b308a36d5ac021b16464"></script>
-          <script src="/back/assets/js/form-basic-inputs.js"></script>
-          <script>
-            function formatDate(date) {
-              const options = {
-                weekday: 'long',
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-              };
+        </nav>
+        <div class="content-wrapper">
+          <div class="container-xxl flex-grow-1 container-p-y">
+            @includeWhen(isset($viewPath), $viewPath)
+          </div>
+        </div>
+        <script src="/back/assets/vendor/libs/jquery/jquery0bfa.js?id=c9eab148c98f81221c99ba6da84fdbe2"></script>
+        <script src="/back/assets/vendor/libs/popper/popper3939.js?id=3b2f93fa0eb2f0ed310a789319de72fc"></script>
+        <script src="/back/assets/vendor/js/bootstrap1425.js?id=f4406bcd0acdeffbdcca24c2e1033ae6"></script>
+        <script src="/back/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar7d0f.js?id=2f948c841c6aca9e3a18f6ef2c65b140"></script>
+        <script src="/back/assets/vendor/js/menu68ea.js?id=3421096250c82e0d3760f641a4d2dba0"></script>
+        <script src="/back/assets/js/main84ce.js?id=0c91cceb5195b308a36d5ac021b16464"></script>
+        <script src="/back/assets/js/form-basic-inputs.js"></script>
+        <script>
+          function formatDate(date) {
+            const options = {
+              weekday: 'long',
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+            };
 
-              return date.toLocaleDateString('fr-FR', options);
-            }
+            return date.toLocaleDateString('fr-FR', options);
+          }
 
-            function updateDate() {
-              const date = new Date();
-              const formattedDate = formatDate(date);
-              document.getElementById('date-display').textContent = formattedDate;
-            }
+          function updateDate() {
+            const date = new Date();
+            const formattedDate = formatDate(date);
+            document.getElementById('date-display').textContent = formattedDate;
+          }
 
             updateDate();
             setInterval(updateDate, 1000);
+          </script>
+          <link rel="stylesheet" href="/back/assets/css/rte_theme_default.css" />
+          <script type="text/javascript" src="/back/assets/js/rte.js"></script>
+          <script type="text/javascript" src='/back/assets/js/all_plugins.js'></script>
+          <script>
+            var editor1 = new RichTextEditor("#div_editor1");
           </script>
         </body>
         </html>
