@@ -14,16 +14,26 @@ class EventController extends Controller
 //return "hi Mounaaaa";
         return view('Event.user.events');
     }
-    public function eventsForAdmin(){
+    public function eventsForAdmin(Request $request){
 //return "hi Mounaaaa";
-        $viewPath = 'Event.admin.events'; // Set the view path
+        $viewPath = 'Event.admin.events';
 
-        $listEvents = Event::latest()->paginate(5);
+        $listEvents = Event::where([
+            ['nom', '!=', Null],
+            [function($query) use ($request){
+                if(($term =$request->term)){
+                    $query->orWhere('nom','LIKE','%'.$term.'%')->get();
+                }
+            }  ]
+        ])
+            ->orderBy('id','asc')
+            ->paginate(20);
 
         return view('BackOffice.template',compact('viewPath','listEvents'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function affiche(Request $request){
+        $viewPath = 'Event.admin.events';
         $listEvents = Event::where([
             ['nom', '!=', Null],
             [function($query) use ($request){
@@ -39,11 +49,15 @@ class EventController extends Controller
 //        $listEvents =Event::orderBy('nom')->get();
 //        $listEvents =Event::where('id',1 )->orderBy('nom')->get();
 
-        return view('events',compact('listEvents'))->with('i',(request()->input('page',1)-1)*5);
+//        return view('events',compact('listEvents'))->with('i',(request()->input('page',1)-1)*5);
+
+        return view('BackOffice.template',compact('viewPath','listEvents'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 
     public function rechercheParDate(Request $request){
+        $viewPath = 'Event.admin.events';
         $listEvents = Event::where([
             ['date', '!=', Null],
             [function($query) use ($request){
@@ -53,13 +67,13 @@ class EventController extends Controller
             }  ]
         ])
             ->orderBy('id','asc')
-            ->paginate(10);
+            ->paginate(50);
 
         // tri
 //        $listEvents =Event::orderBy('nom')->get();
 //        $listEvents =Event::where('id',1 )->orderBy('nom')->get();
-
-        return view('events',compact('listEvents'))->with('i',(request()->input('page',1)-1)*5);
+        return view('BackOffice.template',compact('viewPath','listEvents'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -103,10 +117,33 @@ class EventController extends Controller
         $event->end=$request->input('end');
 
                 $event->color=$request->input('color');
+        $event->image_path=$this->storeImage($request);
+
+//        $uploadedFile = $request->file('image');
+
+//
+//        if ($uploadedFile) {
+//            $imagePath = $uploadedFile->store('public/assets/imagesForEvents');
+
+//            $event->image_path = $imagePath;
+//        }
+
+//        dd($request->file('image')->getClientOriginalName());
+
+//
+//        $event->image=$request->file('image')->getClientOriginalName();
 
         $event->save();
+        session()->flash('success', 'Image Upload successfully');
         return redirect('/dashboard/events');
     }
+
+
+    private function storeImage($request){
+        $newImageName = uniqid() . '-' .  '.' . $request->file('image')->extension();
+        return $request->file('image')->move(public_path('imagesForEvents/'), $newImageName);
+    }
+
 
     /**
      * Display the specified resource.
@@ -118,7 +155,10 @@ class EventController extends Controller
     {
         //
         $event=Event::find($id);
-        return view('show',compact('event'));
+//        return view('show',compact('event'));
+
+        return view('BackOffice.template', ['viewPath' => 'Event.admin.show', 'event' => $event]);
+
 
 
     }

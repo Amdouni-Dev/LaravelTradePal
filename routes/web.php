@@ -47,7 +47,10 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/events/{id}', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/events2',[EventController::class,'affiche'])->name('events.index');
 
+    Route::get('/events',[EventController::class,'rechercheParDate'])->name('events.rechercheParDate');
+    Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
 
 
     Route::get('/participations',[ParticipationController::class, 'participationsForAdmin']);
@@ -57,6 +60,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/participations/edit/{id}',[ParticipationController::class,'edit'])->name('participations.edit');
     Route::put('/participations/{id}',[ParticipationController::class,'update'])->name('participations.update');
     Route::delete('/participations/{id}',[ParticipationController::class,'destroy'])->name('participation.destroy');
+
 });
 Route::fallback(function () {
     return view('backOffice.404');

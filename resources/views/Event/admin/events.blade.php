@@ -12,6 +12,47 @@
 
 <div class="card">
     <div class="table-responsive text-nowrap">
+{{--        <form action="{{ route('events.index') }}" method="GET" role="search">--}}
+
+            <div class="input-group">
+                        <span class="input-group-btn mr-5 mt-1">
+                            <button class="btn btn-info" type="submit" title="Search events">
+                           <i class="bx bx-search fs-4 lh-0"></i>
+                            </button>
+                        </span>
+                <input type="text" class="form-control mr-2" name="term" placeholder="Search projects" id="term">
+{{--                <a href="{{ route('events.index') }}" class=" mt-1">--}}
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button" title="Refresh page">
+                                <i class="bx bx-refresh fs-4 lh-0"></i>
+
+                                </button>
+                            </span>
+                </a>
+            </div>
+        </form>    <table border="1">
+
+
+
+{{--            <form action="{{ route('events.rechercheParDate') }}" method="GET" role="search">--}}
+
+                <div class="input-group">
+                        <span class="input-group-btn mr-5 mt-1">
+                            <button class="btn btn-info" type="submit" title="Search events">
+                         <i class="bx bx-search fs-4 lh-0"></i>
+                            </button>
+                        </span>
+                    <input type="date" class="form-control mr-2" name="term" placeholder="Search projects" id="term">
+                    <a href="{{ route('events.rechercheParDate') }}" class=" mt-1">
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button" title="Refresh page">
+
+                                        <i class="bx bx-refresh fs-4 lh-0"></i>
+                                </button>
+                            </span>
+                    </a>
+                </div>
+            </form>
         <table class="table">
             <thead>
             <tr>
@@ -22,6 +63,7 @@
                 <th>Date</th>
                 <th>Lieu</th>
                 <th>couleur</th>
+                <th>Image</th>
 
                 <th>Actions</th>
             </tr>
@@ -36,6 +78,18 @@
                 <td>{{ $listEvents->Lieu }}</td>
                 <td><div style="width: auto; height: 20px; background-color: {{ $listEvents->color }};"></div></td>
 
+                <td>
+                    @php
+                        $imagePathParts = pathinfo($listEvents->image_path);
+                        $imageName = $imagePathParts['basename'];
+                    @endphp
+                    <img width="50" height="50"  src="{{ asset('imagesForEvents/' . $imageName) }}" alt="Description de l'image">
+                </td>
+{{--                <td>--}}
+{{--                    <img width="50" height="50" src="http://localhost:8000/imagesForEvents/6520717071b60-.jpg" alt="Description de l'image">--}}
+{{--                    <img width="50" height="50" src="{{ asset('imagesForEvents/' . $listEvents->image_path) }}" alt="Description de l'image">--}}
+
+{{--                </td>--}}
                 {{--                <td>--}}
 {{--                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">--}}
 {{--                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">--}}
