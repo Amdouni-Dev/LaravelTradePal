@@ -17,8 +17,10 @@ class BlogController extends Controller
     {
         $viewPath = 'BackOffice.blog.table'; // Set the view path 
 
-        $blogs = Blog::latest()->paginate(5);
-      
+        $blogs = Blog::join('users', 'blogs.user_id', '=', 'users.id')
+        ->select('blogs.*', 'users.name as username')
+        ->latest()
+        ->paginate(5);
         return view('BackOffice.template',compact('viewPath','blogs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -121,7 +123,6 @@ class BlogController extends Controller
             
             $imageName = null; 
         }
-
         $blog->featuredImage = $imageName;
         $blog->update($request->all());
         return redirect()->route('blogs.index')

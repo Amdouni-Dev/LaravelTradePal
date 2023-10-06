@@ -2,7 +2,7 @@
   <tr>
     <td>
       <h4 class="fw-bold py-3 mb-4">
-      <span class="text-muted fw-light">Article /</span> Liste des articles</h4>
+      <span class="text-muted fw-light">Articles /</span> Liste des articles</h4>
     </td>
     <td align="right">
       <a href="/dashboard/blog/add"  class="btn btn-primary">Ajouter</a>
@@ -32,26 +32,38 @@
           @foreach ($blogs as $blog )
             <tr>
               <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $i }}</strong></td>
-              <td>{{ $blog -> user_id }}</td>
+              <td>{{ $blog -> username}}</td>
               <td>{{ $blog -> title }}</td>
-              <td><img src="{{ $blog->featuredImage }}" alt="Avatar" class="rounded-circle"></td>
+              <td><img src="/blogs/{{ $blog->featuredImage }}" alt="Avatar" class="rounded-circle" style="width:22px"></td>
               <td>{{ $blog -> created_at }}</td>
-              <td>{{ $blog -> tags }}</td>
-              <td><span class="badge bg-label-primary me-1">{{ $blog -> status }}</span></td>
+              <td>
+                @if (!empty($blog->tags))
+                  <?php $tags = substr($blog->tags, 1); ?>
+                    [{{ $tags }}]
+                @endif
+              </td>
+              <td>
+                @if ($blog->status == "Publique")
+                    <span class="badge bg-success me-1">{{ $blog->status }}</span>
+                @else
+                    <span class="badge bg-danger me-1">{{ $blog->status }}</span>
+                @endif
+              </td>
               <td>{{ $blog -> views }}</td>
               <td>{{ $blog -> likes }}</td>
               <td>
                 <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ route('blogs.edit', $blog) }}"><i class="bx bx-edit-alt me-1"></i>Modifier</a>
-                    <form action="{{ route('blogs.destroy', $blog) }}" method="POST" onsubmit= "return confirm('Etes-vous sûr de vouloir supprimer?');">
-                      @csrf
-                      @method('DELETE')
-                      <button class="dropdown-item" type="submit">
-                        <i class="bx bx-trash me-1"></i>Supprimer
-                      </button>
-                    </form>
+                  <a class="dropdown-item" href=""><i class="bx bx-show-alt me-1"></i>Voir</a>  
+                  <a class="dropdown-item" href="{{ route('blogs.edit', $blog) }}"><i class="bx bx-edit-alt me-1"></i>Modifier</a>
+                  <form action="{{ route('blogs.destroy', $blog) }}" method="POST" onsubmit= "return confirm('Etes-vous sûr de vouloir supprimer?');">
+                    @csrf
+                    @method('DELETE')
+                    <button class="dropdown-item" type="submit">
+                      <i class="bx bx-trash me-1"></i>Supprimer
+                    </button>
+                  </form>
                 </div>
               </td>
           </tr>

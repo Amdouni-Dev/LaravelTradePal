@@ -166,7 +166,7 @@
     }
     window.onload = function() {
       const tagsValue = document.getElementById('tagsValue').value; 
-      const tagsArray = tagsValue.split("|");
+      const tagsArray = tagsValue.split(",");
       console.log(tagsArray);
       tagsArray.forEach(function (tag) {
         if (tag.trim() !== "") {
@@ -179,7 +179,7 @@
       var tagValue = tagInput.value.trim();  
       if (tagValue !== "") {
         addTag(tagValue);
-        tagsValue.value = tagsValue.value + "|" + tagValue + "|";
+        tagsValue.value = tagsValue.value + "," + tagValue ;
         tagInput.value = "";
       }
     });
