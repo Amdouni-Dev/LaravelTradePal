@@ -40,6 +40,7 @@ Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
+Route::get('/blogs',  [BlogController::class, 'listing']);
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::prefix('dashboard')->group(function () {
     Route::get('/blog/add',  [BlogController::class, 'create']);
