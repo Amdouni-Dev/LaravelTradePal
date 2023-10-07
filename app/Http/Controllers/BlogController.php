@@ -16,11 +16,10 @@ class BlogController extends Controller
     public function index()
     {
         $viewPath = 'BackOffice.blog.table'; // Set the view path 
-
         $blogs = Blog::join('users', 'blogs.user_id', '=', 'users.id')
-        ->select('blogs.*', 'users.name as username')
-        ->latest()
-        ->paginate(5);
+            ->select('blogs.*', 'users.name as username')
+            ->latest()
+            ->paginate(5);
         return view('BackOffice.template',compact('viewPath','blogs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -51,12 +50,12 @@ class BlogController extends Controller
             'status' => 'required',
             'auteur' => 'required',
         ]);
+        // Upload Image
         if ($request->hasFile('image')) {
             $image = $request->file('image'); 
             $imageName = time() . '.' . $image->getClientOriginalExtension(); 
             $image->move(public_path('blogs'), $imageName); 
         } else {
-            
             $imageName = null; 
         }
         $blog = new Blog();
@@ -79,12 +78,16 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show($id)
     {
-        $users = User::select('id', 'name')->get();
-        $viewPath = 'BackOffice.blog.forms'; // Set the view path 
-        return view('BackOffice.template',compact('viewPath','users'));
-
+        $blog = Blog::join('users', 'blogs.user_id', '=', 'users.id')
+            ->where('blogs.id', $id)
+            ->select('blogs.*', 'users.name as username')
+            ->first();
+        if (!$blog) {
+            abort(404); 
+        }
+        return view('FrontEnd.blogs.blog', compact('blog'));
     }
 
     /**
