@@ -5,7 +5,7 @@
             </h4>
         </td>
         <td align="right">
-<!--            <a href="/dashboard/events/add"  class="btn btn-primary">Ajouter</a>-->
+            <a href="/dashboard/hazelnuts/add"  class="btn btn-primary">Ajouter</a>
         </td>
     <tr>
 </table>
@@ -15,7 +15,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Hazelnuts</th>
                 <th>Amount</th>
 
                 <th>Status</th>

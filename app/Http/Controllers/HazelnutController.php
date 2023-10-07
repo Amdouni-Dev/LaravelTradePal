@@ -44,26 +44,6 @@ class HazelnutController extends Controller
     }
 
 
-    public function rechercheParDate(Request $request)
-    {
-        $listEvents = Event::where([
-            ['date', '!=', Null],
-            [function ($query) use ($request) {
-                if (($term = $request->term)) {
-                    $query->orWhere('date', 'LIKE', '%' . $term . '%')->get();
-                }
-            }]
-        ])
-            ->orderBy('id', 'asc')
-            ->paginate(10);
-
-        // tri
-//        $listEvents =Event::orderBy('nom')->get();
-//        $listEvents =Event::where('id',1 )->orderBy('nom')->get();
-
-        return view('events', compact('listEvents'))->with('i', (request()->input('page', 1) - 1) * 5);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -82,7 +62,7 @@ class HazelnutController extends Controller
     public function create()
     {
 
-        return view('BackOffice.template', ['viewPath' => 'Event.admin.add']);
+        return view('BackOffice.template', ['viewPath' => 'Hazelnut.Admin.add']);
 
     }
 
@@ -95,19 +75,11 @@ class HazelnutController extends Controller
     public function store(Request $request)
     {
 
-        $event = new Event;
-        $event->nom = $request->input('nameEvent');
-        $event->lieu = $request->input('lieuEvent');
-        $event->description = $request->input('descEvent');
+        $hazelnut = new Hazelnut();
+        $hazelnut->amount = $request->input('amount');
 
-        $event->date = $request->input('dateEvent');
-        $event->start = $request->input('start');
-        $event->end = $request->input('end');
-
-        $event->color = $request->input('color');
-
-        $event->save();
-        return redirect('/dashboard/events');
+        $hazelnut->save();
+        return redirect('/dashboard/hazelnuts');
     }
 
     /**
@@ -119,8 +91,8 @@ class HazelnutController extends Controller
     public function show($id)
     {
         //
-        $event = Event::find($id);
-        return view('show', compact('event'));
+        $hazelnut = Hazelnut::find($id);
+        return view('show', compact('hazelnut'));
 
 
     }
@@ -134,10 +106,9 @@ class HazelnutController extends Controller
     public function edit(Request $request)
     {
         //
-        $event = Event::find($request->id);
+        $hazelnut = Hazelnut::find($request->id);
 //        return view('edit',compact('event'));
-        return view('BackOffice.template', ['viewPath' => 'Event.admin.edit'], compact('event'));
-
+        return view('BackOffice.template', ['viewPath' => 'Event.admin.edit'], compact('hazelnut'));
 
     }
 
@@ -151,18 +122,18 @@ class HazelnutController extends Controller
     public function update(Request $request, $id)
     {
 
-        $event = Event::find($id);
+        $hazelnut = Event::find($id);
 
-        $event->nom = $request->input('nameEvent');
-        $event->lieu = $request->input('lieuEvent');
-        $event->description = $request->input('descEvent');
+        $hazelnut->nom = $request->input('nameEvent');
+        $hazelnut->lieu = $request->input('lieuEvent');
+        $hazelnut->description = $request->input('descEvent');
 
-        $event->date = $request->input('dateEvent');
-        $event->start = $request->input('start');
-        $event->end = $request->input('end');
+        $hazelnut->date = $request->input('dateEvent');
+        $hazelnut->start = $request->input('start');
+        $hazelnut->end = $request->input('end');
 
-        $event->color = $request->input('color');
-        $event->save();
+        $hazelnut->color = $request->input('color');
+        $hazelnut->save();
 
         return redirect('/dashboard/events')->with('success', 'Événement mis à jour avec succès.');
     }
@@ -177,8 +148,8 @@ class HazelnutController extends Controller
     public function destroy($id)
     {
         //
-        $event = Event::find($id);
-        $event->delete();
+        $hazelnut = Event::find($id);
+        $hazelnut->delete();
         return redirect('/dashboard/events')->with('success', 'Événement supprimé avec succès.');
     }
 

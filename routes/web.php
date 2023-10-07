@@ -14,7 +14,7 @@ use App\Http\Controllers\FrontEnd\SearchController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\RequestController; 
+use App\Http\Controllers\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +67,8 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('/blogs', BlogController::class);
 
     Route::get('/hazelnuts', [\App\Http\Controllers\HazelnutController::class, 'hazelnutsForAdmin']);
-
+    Route::get('/hazelnuts/add', [\App\Http\Controllers\HazelnutController::class, 'create']);
+    Route::post('/hazelnuts/add', [\App\Http\Controllers\HazelnutController::class, 'store'])->name('hazelnuts.store');
 });
 
 
