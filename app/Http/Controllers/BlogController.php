@@ -152,9 +152,10 @@ class BlogController extends Controller
      */
     public function listing()
     {
-        $blogs = Blog::latest()->paginate(5);
-        return view('FrontEnd.blogs.list',compact('blogs'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $blogs = Blog::join('users', 'blogs.user_id', '=', 'users.id')
+                        ->select('blogs.*', 'users.name as username')
+                        ->get();
+        return view('FrontEnd.blogs.list', compact('blogs'));
     }
 
 }

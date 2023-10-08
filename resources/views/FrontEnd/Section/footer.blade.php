@@ -1,6 +1,38 @@
-<footer>
+<footer><!--
+    <style>
+        .img1750 {
+            position: relative;
+            top: 0;
+            left: 0;
+            height: 120px;
+            transform: scaleX(-1);
+            animation: walking 12s linear infinite;
+            }
+
+            @keyframes walking {
+            0% {
+                left: 0;
+                transform: scaleX(-1);
+            }
+            49% {
+                transform: scaleX(-1);
+            }
+            50% {
+                left: 1100px;
+                transform: scaleX(1);
+            }
+            99% {
+                transform: scaleX(1);
+            }
+            100% {
+                left: 0;
+                transform: scaleX(-1);
+            }
+        }
+    </style>!-->
 
     <nav class="footer-menu">
+
         <ul class="footer-column">
             <H2>Voir aussi</H2>
             <li class=" ">

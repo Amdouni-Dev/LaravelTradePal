@@ -40,7 +40,7 @@ Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
-Route::get('/blogs',  [BlogController::class, 'listing']);
+Route::get('/blog', [BlogController::class, 'listing'])->name('blogs.listing');
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::prefix('dashboard')->group(function () {
@@ -51,7 +51,6 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
     Route::get('/events/add', [EventController::class, 'create']);
     Route::post('/events/add', [EventController::class, 'store'])->name('events.store');
-
     Route::get('/events/{id}', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
