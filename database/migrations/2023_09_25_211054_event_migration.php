@@ -16,6 +16,7 @@ return new class extends Migration
        Schema::create('events',function(Blueprint $table){
            $table->id();
            $table->string('nom');
+
             $table->string('Lieu');
             $table->string('categorie')->default('Autre');
             $table->date('date');
@@ -23,6 +24,10 @@ return new class extends Migration
            $table->dateTime('start');
            $table->dateTime('end')->nullable();
            $table->string('color');
+//           $table->string('image');
+           $table->string('image_path')->nullable(); // Vous pouvez rendre cette colonne nullable si nécessaire
+
+
            $table->timestamps();
 
 

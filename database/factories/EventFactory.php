@@ -28,6 +28,7 @@ class EventFactory extends Factory
             'categorie' => $this->faker->randomElement(['Vêtements', 'Électronique', 'Nourriture', 'Autre']),
             'start'=>$start,
             'end'=>$end,
+            'image_path'=>$this->faker->image,
 'color' => $color,
 
 

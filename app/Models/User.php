@@ -64,4 +64,12 @@ class User extends Authenticatable
     public function items(){
         return $this->hasMany(Item::class);
        }
+
+    public function claims(){
+        return $this->hasMany(Claim::class);
+    }
+
+    public function responses(){
+        return $this->hasMany(Response::class);
+    }
 }
