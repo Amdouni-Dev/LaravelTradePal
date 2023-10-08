@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('subject');
             $table->text('description');
             $table->timestamp('claim_date');
-            $table->enum('status', ['Pending', 'In progress', 'Resolved', 'Closed'])->default('Pending');
+            $table->enum('status', ['PENDING', 'IN PROGRESS', 'RESOLVED', 'CLOSED'])->default('Pending');
             $table->timestamps();
         });
     }

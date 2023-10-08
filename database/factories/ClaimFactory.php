@@ -17,7 +17,7 @@ class ClaimFactory extends Factory
      */
     public function definition()
     {
-        $status = ['Pending', 'In progress', 'Resolved', 'Closed'];
+        $status = ['PENDING', 'IN PROGRESS', 'RESOLVED', 'CLOSED'];
 
         return [
             'subject' => $this->faker->sentence,
