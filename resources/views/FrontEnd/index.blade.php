@@ -254,7 +254,8 @@
 
 <div class="pictos top-sep web">
 <div>
- <div class="sprites pictogrammes">			<img src="/image/sprites/pictos/gen/d91c3dce6f9e9f514cd47d4b2b3d50ba.svg" class="svg mytroc-made-in-france" alt="made in trunisie"></div>					<div>
+ <div class="sprites pictogrammes">			
+  <img style="width:4rem;left:0%;height:3.7rem" src="/image/sprites/pictos/gen/tunisie.png" class="svg mytroc-made-in-france" alt="made in trunisie"></div>					<div>
   <p>Votre site de troc</p>
   <p>100% made in tunisie</p>
 </div>

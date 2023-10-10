@@ -62,7 +62,7 @@
 						<li>
 							<div class="temoignage-pix square" style="width:80px">
 								<div class="square-content">
-									<img src="" class="">
+									<img src="/image/profils/user.jpg" class="">
 								</div>		
 							</div>
 							<div class="temoignage-content">

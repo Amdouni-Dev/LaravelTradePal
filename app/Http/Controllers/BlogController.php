@@ -158,4 +158,51 @@ class BlogController extends Controller
         return view('FrontEnd.blogs.list', compact('blogs'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function UserBlogForm()
+    {
+        $users = User::select('id', 'name')->get();
+        return view('FrontEnd.blogs.form',compact('users'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function userSaveBlog(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'tags' => 'required',
+            'status' => 'required',
+            'auteur' => 'required',
+        ]);
+        // Upload Image
+        if ($request->hasFile('image')) {
+            $image = $request->file('image'); 
+            $imageName = time() . '.' . $image->getClientOriginalExtension(); 
+            $image->move(public_path('blogs'), $imageName); 
+        } else {
+            $imageName = null; 
+        }
+        $blog = new Blog();
+        $blog->title = $request->input('title');
+        $blog->content = $request->input('content');
+        $blog->user_id = $request->input('auteur');
+        $blog->status = $request->input('status');
+        $blog->tags = $request->input('tags');
+        $blog->featuredImage = $imageName;
+        $blog->likes = 0;
+        $blog->views = 0;
+        $blog->save();
+        return redirect()->route('blogs.listing')
+                        ->with('success','Article crée avec succées.');
+    }
+
 }

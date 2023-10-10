@@ -40,6 +40,8 @@ Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
+Route::get('/new-blog',  [BlogController::class, 'UserBlogForm']);
+Route::post('/storeBlog', [BlogController::class, 'userSaveBlog']);
 Route::get('/blog', [BlogController::class, 'listing'])->name('blogs.listing');
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
