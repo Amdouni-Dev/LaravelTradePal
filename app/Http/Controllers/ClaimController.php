@@ -4,13 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Claim;
 use Illuminate\Http\Request;
+//use Laravel\Nova\Fields\Badge;
+//
+//Badge::make('status')
+//    ->map([
+//        'PENDING' => 'danger',
+//        'IN PROGRESS' => 'warning',
+//        'RESOLVED' => 'success',
+//        'CLOSED' => 'info',
+//    ]);
 
 class ClaimController extends Controller
 {
-    public function index()
+
+    public function claimsForAdmin()
     {
-        $claims = Claim::all();
-        return view('claims.index', compact('claims'));
+        $viewPath = 'BackOffice.claims.claims';
+
+        $listClaims = Claim::latest()->paginate(5);
+
+        return view('BackOffice.template', compact('viewPath', 'listClaims'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     // Show the form for creating a new claim

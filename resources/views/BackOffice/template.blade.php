@@ -120,6 +120,12 @@
               <div>Donations</div>
             </a>
           </li>
+            <li class="menu-item ">
+                <a href="/dashboard/claims" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-message-dots"></i>
+                    <div>Claims</div>
+                </a>
+            </li>
         </ul>
         </li>
 

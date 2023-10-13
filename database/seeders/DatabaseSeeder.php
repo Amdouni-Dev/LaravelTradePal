@@ -55,5 +55,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RequestSeeder::class
         ]);
+        $this->call([
+            ClaimSeeder::class
+        ]);
+        $this->call([
+            ResponseSeeder::class
+        ]);
     }
 }

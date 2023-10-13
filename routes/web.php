@@ -76,9 +76,16 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('/blogs', BlogController::class);
     Route::resource('/comments', CommentController::class);
 
+    /************************************************HAZELNUTS*/
     Route::get('/hazelnuts', [\App\Http\Controllers\HazelnutController::class, 'hazelnutsForAdmin']);
     Route::get('/hazelnuts/add', [\App\Http\Controllers\HazelnutController::class, 'create']);
     Route::post('/hazelnuts/add', [\App\Http\Controllers\HazelnutController::class, 'store'])->name('hazelnuts.store');
+
+
+    /************************************************CLAIMS*/
+    Route::get('claims', [\App\Http\Controllers\ClaimController::class, 'claimsForAdmin']);
+
+    /************************************************RESPONSES*/
 
 
 
