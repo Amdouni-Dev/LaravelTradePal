@@ -80,10 +80,11 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        $blog = Blog::join('users', 'blogs.user_id', '=', 'users.id')
-            ->where('blogs.id', $id)
-            ->select('blogs.*', 'users.name as username')
-            ->first();
+        $blog = Blog::with(['comments.user']) // Eager load comments and user info
+                    ->join('users', 'blogs.user_id', '=', 'users.id')
+                    ->where('blogs.id', $id)
+                    ->select('blogs.*', 'users.name as username')
+                    ->first();
         if (!$blog) {
             abort(404); 
         }
