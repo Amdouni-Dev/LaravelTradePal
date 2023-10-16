@@ -18,7 +18,7 @@ class Donation extends Model
         'timestamp',
         'organization_id',
         'amount',
-        'object',
+        'item_id',
     ];
 
     public function organization()

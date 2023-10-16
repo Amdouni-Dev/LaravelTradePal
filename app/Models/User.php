@@ -43,9 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function hazelnuts(){
-        return $this->hasMany(Hazelnut::class);
-    }
+   
 
     public function donations(){
         return $this->hasMany(Donation::class);
