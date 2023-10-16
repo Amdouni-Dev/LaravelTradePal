@@ -75,6 +75,7 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('/organizations', OrganizationController::class);
     Route::resource('/blogs', BlogController::class);
     Route::resource('/comments', CommentController::class);
+    Route::resource('/claims', \App\Http\Controllers\ClaimController::class);
 
     /************************************************HAZELNUTS*/
     Route::get('/hazelnuts', [\App\Http\Controllers\HazelnutController::class, 'hazelnutsForAdmin']);
@@ -82,10 +83,10 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/hazelnuts/add', [\App\Http\Controllers\HazelnutController::class, 'store'])->name('hazelnuts.store');
 
 
-    /************************************************CLAIMS*/
-    Route::get('claims', [\App\Http\Controllers\ClaimController::class, 'claimsForAdmin']);
+    Route::get('claims', [\App\Http\Controllers\ClaimController::class, 'claimsForAdmin'])->name('claimsForAdmin');
+    Route::get('/search', [\App\Http\Controllers\ClaimController::class, 'search'])->name('search');
+    Route::get('clear-filters', [\App\Http\Controllers\ClaimController::class, 'clearFilters'])->name('clearFilters');
 
-    /************************************************RESPONSES*/
 
 
 

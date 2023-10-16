@@ -4,15 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Claim;
 use Illuminate\Http\Request;
-//use Laravel\Nova\Fields\Badge;
-//
-//Badge::make('status')
-//    ->map([
-//        'PENDING' => 'danger',
-//        'IN PROGRESS' => 'warning',
-//        'RESOLVED' => 'success',
-//        'CLOSED' => 'info',
-//    ]);
+use Illuminate\Support\Facades\DB;
 
 class ClaimController extends Controller
 {
@@ -22,10 +14,54 @@ class ClaimController extends Controller
         $viewPath = 'BackOffice.claims.claims';
 
         $listClaims = Claim::latest()->paginate(5);
+        $claimsPerMonth = DB::table('claims')
+            ->selectRaw("DATE_FORMAT(claim_date, '%M') as month")
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('month')
+            ->get();
 
-        return view('BackOffice.template', compact('viewPath', 'listClaims'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('BackOffice.template', compact('viewPath', 'claimsPerMonth'))
+            ->with(['listClaims' => $listClaims, 'i' => (request()->input('page', 1) - 1) * 5]);
     }
+
+    public function search(Request $request)
+    {
+        $viewPath = 'BackOffice.claims.claims';
+        $search = $request->input('search');
+        $date = $request->input('date');
+        $status = $request->input('status');
+
+        $query = Claim::query();
+
+        if ($search) {
+            $query->where(function ($subquery) use ($search) {
+                $subquery->where('subject', 'like', '%' . $search . '%');
+//                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($date) {
+            $query->whereDate('claim_date', $date);
+        }
+
+        if ($status && in_array($status, ['PENDING', 'IN PROGRESS', 'RESOLVED', 'CLOSED'])) {
+            $query->where('status', $status);
+        }
+
+        $listClaims = $query->paginate(5);
+
+        return view('BackOffice.template', compact('viewPath'))
+            ->with(['listClaims' => $listClaims]);
+    }
+
+
+    public function clearFilters()
+    {
+        $viewPath = 'BackOffice.claims.claims';
+        $listClaims = Claim::latest()->paginate(5);
+        return view('BackOffice.template', compact('viewPath', 'listClaims'));
+    }
+
 
     // Show the form for creating a new claim
     public function create()
@@ -82,6 +118,6 @@ class ClaimController extends Controller
         $claim = Claim::findOrFail($id);
         $claim->delete();
 
-        return redirect()->route('claims.index')->with('success', 'Claim deleted successfully');
+        return redirect()->route('claimsForAdmin')->with('success', 'Claim deleted successfully');
     }
 }
