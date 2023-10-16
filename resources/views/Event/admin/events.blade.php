@@ -1,3 +1,21 @@
+<script>
+    function toggleDescription() {
+        var shortDescription = document.getElementById('short-description');
+        var fullDescription = document.getElementById('full-description');
+        var toggleLink = document.getElementById('toggle-link');
+
+        if (shortDescription.style.display === 'none') {
+            shortDescription.style.display = 'inline';
+            fullDescription.style.display = 'none';
+            toggleLink.innerHTML = 'Lire la suite';
+        } else {
+            shortDescription.style.display = 'none';
+            fullDescription.style.display = 'inline';
+            toggleLink.innerHTML = 'Lire moins';
+        }
+    }
+</script>
+
 <table class="container-xxl flex-grow-1 container-p-y">
     <tr><td>
             <h4 class="fw-bold py-3 mb-4">
@@ -61,6 +79,8 @@
 
                 <th>Categorie</th>
                 <th>Date</th>
+                <th>Date Debut</th>
+                <th>Date Fin</th>
                 <th>Lieu</th>
                 <th>couleur</th>
                 <th>Image</th>
@@ -72,9 +92,20 @@
             @foreach($listEvents as $listEvents)
             <tr>
                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $listEvents->nom }}</strong></td>
-                <td>{{ $listEvents->description }}</td>
+                <td>
+                    @if (strlen($listEvents->description) > 100)
+                        <span id="short-description">{{ substr($listEvents->description, 0, 100) }}...</span>
+                        <span id="full-description" style="display: none;">{{ $listEvents->description }}</span>
+                        <a href="javascript:void(0);" onclick="toggleDescription()" id="toggle-link">Lire la suite</a>
+                    @else
+                        {{ $listEvents->description }}
+                    @endif
+                </td>
+
                 <td>{{ $listEvents->categorie }}</td>
                 <td>{{ $listEvents->date }}</td>
+                <td>     {{ date('H:i', strtotime($listEvents->start)) }}</td>
+                <td> {{ $listEvents->end }} {{ date('H:i', strtotime($listEvents->end)) }}</td>
                 <td>{{ $listEvents->Lieu }}</td>
                 <td><div style="width: auto; height: 20px; background-color: {{ $listEvents->color }};"></div></td>
 
@@ -125,3 +156,4 @@
         </table>
     </div>
 </div>
+
