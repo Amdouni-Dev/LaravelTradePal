@@ -6,7 +6,7 @@
       </h4>
     </td>
     <td align="right">
-      <a href="/dashboard/organization/add" class="btn btn-primary">Ajouter</a>
+      <a href="{{ route('organizations.create') }}" class="btn btn-primary">Ajouter</a>
     </td>
   <tr>
 </table>
@@ -44,7 +44,8 @@
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('organizations.edit', $organization) }}"><i class="bx bx-edit-alt me-1"></i> Modifier</a>
-                <form action="{{ route('organizations.destroy', $organization) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this organization?');">
+                <a class="dropdown-item" href="{{ route('organizations.show', $organization) }}"><i class="bx bx-show me-1"></i> Voir</a>
+                <form action="{{ route('organizations.destroy', $organization) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette organisation ?');">
                   @csrf
                   @method('DELETE')
                   <button class="dropdown-item" type="submit">

@@ -16,6 +16,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\DonationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,12 +69,10 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/participations/edit/{id}', [ParticipationController::class, 'edit'])->name('participations.edit');
     Route::put('/participations/{id}', [ParticipationController::class, 'update'])->name('participations.update');
     Route::delete('/participations/{id}', [ParticipationController::class, 'destroy'])->name('participation.destroy');
-    Route::get('/blogs', [BlogController::class, 'index']);
-    Route::get('/comments',  [BlogController::class, 'index']);
-    Route::get('/organization/add', [OrganizationController::class, 'create']);
-    Route::get('/organization/list', [OrganizationController::class, 'index']);
+    Route::get('/blogs',  [BlogController::class, 'index']);
     Route::resource('/organizations', OrganizationController::class);
     Route::resource('/blogs', BlogController::class);
+    Route::resource('/donations', DonationController::class);
     Route::resource('/comments', CommentController::class);
 
     /************************************************HAZELNUTS*/
@@ -89,9 +88,12 @@ Route::prefix('dashboard')->group(function () {
 
 
 
-
     Route::fallback(function () {
         return view('backOffice.404');
     });
-    Route::resource('item', ItemController::class);
-    Route::resource('request', RequestController::class);});
+    Route::resource('item',  ItemController::class);
+    Route::resource('request',  RequestController::class);
+});
+Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.show');
+Route::get('/organizations', [OrganizationController::class, 'indexFrontOffice'])->name('organizations.indexFrontOffice');
+Route::get('/search-organizations', [OrganizationController::class, 'search'])->name('organizations.search');
