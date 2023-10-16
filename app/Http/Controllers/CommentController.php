@@ -14,9 +14,11 @@ class CommentController extends Controller
      */
     public function index()
     {
+        $viewPath = 'BackOffice.comment.table'; // Set the view path 
+
         $comments = Comment::latest()->paginate(5);
       
-        return view('comments.index',compact('comments'))
+        return view('BackOffice.template',compact('viewPath','comments'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +29,8 @@ class CommentController extends Controller
      */
     public function create()
     {
-        return view('comments.create');
+        $viewPath = 'BackOffice.comment.forms'; // Set the view path 
+        return view('BackOffice.template',compact('viewPath'));
     }
 
     /**
@@ -39,14 +42,18 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'title' => 'required',
+            'tags' => 'required',
+            'status' => 'required',
+            'auteur' => 'required',
         ]);
       
-        comment::create($request->all());
-       
+        $comment = new Comment();
+        $comment->title = $request->input('content');
+
+        $comment->save();
         return redirect()->route('comments.index')
-                        ->with('success','comment created successfully.');
+                        ->with('success','Article crée avec succées.');
     }
 
     /**
@@ -57,7 +64,9 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        return view('comments.show',compact('comment'));
+        $viewPath = 'BackOffice.comment.forms'; // Set the view path 
+        return view('BackOffice.template',compact('viewPath'));
+
     }
 
     /**
@@ -68,7 +77,8 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        return view('comments.edit',compact('comment'));
+        $viewPath = 'BackOffice.comment.forms'; // Set the view path 
+        return view('BackOffice.template',compact('comment','viewPath'));
     }
 
     /**
@@ -81,13 +91,15 @@ class CommentController extends Controller
     public function update(Request $request, Comment $comment)
     {
         $request->validate([
-            'content' => 'required',
+            'title' => 'required',
+            'tags' => 'required',
+            'status' => 'required',
+            'auteur' => 'required',
         ]);
-      
+        
         $comment->update($request->all());
-      
         return redirect()->route('comments.index')
-                        ->with('success','comment updated successfully');
+            ->with('success', 'Article a étè modifier');
     }
 
     /**
@@ -99,8 +111,8 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
-       
         return redirect()->route('comments.index')
-                        ->with('success','comment deleted successfully');
+        ->with('success', 'Article a étè supprimer');
     }
+
 }

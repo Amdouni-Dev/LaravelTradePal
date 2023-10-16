@@ -16,6 +16,8 @@ class OrganizationFactory extends Factory
      */
     public function definition()
     {
+        $imagePath = '/organization_logos';
+
         return [
             'name' => $this->faker->company,
             'type' => $this->faker->word,
@@ -26,6 +28,7 @@ class OrganizationFactory extends Factory
             'description' => $this->faker->paragraph,
             'founding_date' => $this->faker->date,
             'archived' => $this->faker->boolean(0),
+            'logo' => $this->faker->image(public_path($imagePath), 200, 200, 'business', false)
         ];
     }
 }

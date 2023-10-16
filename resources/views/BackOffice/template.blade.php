@@ -66,14 +66,9 @@
               <div>Utilisateurs</div>
             </a>
           </li>
-            <li class="menu-item ">
-                <a href="/dashboard/hazelnuts" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-message-dots"></i>
-                    <div>Hazelnuts</div>
-                </a>
-            </li>
+         
           <li class="menu-item ">
-            <a href="/dashboard/organization/list" class="menu-link">
+            <a href="/dashboard/organizations" class="menu-link">
               <i class="menu-icon tf-icons bx bx-buildings"></i>
               <div>Organisations</div>
             </a>
@@ -115,11 +110,17 @@
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link">
+            <a href="/dashboard/donations" class="menu-link">
               <i class="menu-icon tf-icons bx bx-donate-heart"></i>
-              <div>Donations</div>
+              <div>Dons</div>
             </a>
           </li>
+            <li class="menu-item ">
+                <a href="/dashboard/claims" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-message-dots"></i>
+                    <div>Claims</div>
+                </a>
+            </li>
         </ul>
         </li>
 
@@ -237,14 +238,15 @@
             document.getElementById('date-display').textContent = formattedDate;
           }
 
-            updateDate();
-            setInterval(updateDate, 1000);
-          </script>
-          <link rel="stylesheet" href="/back/assets/css/rte_theme_default.css" />
-          <script type="text/javascript" src="/back/assets/js/rte.js"></script>
-          <script type="text/javascript" src='/back/assets/js/all_plugins.js'></script>
-          <script>
-            var editor1 = new RichTextEditor("#div_editor1");
-          </script>
-        </body>
-        </html>
+          updateDate();
+          setInterval(updateDate, 1000);
+        </script>
+        <link rel="stylesheet" href="/back/assets/css/rte_theme_default.css" />
+        <script type="text/javascript" src="/back/assets/js/rte.js"></script>
+        <script type="text/javascript" src='/back/assets/js/all_plugins.js'></script>
+        <script>
+          var editor1 = new RichTextEditor("#div_editor1");
+        </script>
+</body>
+
+</html>

@@ -11,11 +11,12 @@ class Organization extends Model
     use HasFactory;
     protected $fillable = [
 
-        'name', 'description', 'type', 'location', 'phone_number', 'email', 'website', 'founding_date'
+        'name', 'description', 'type', 'location', 'phone_number', 'email', 'website', 'founding_date', 'logo'
 
     ];
 
-    public function donations(){
+    public function donations()
+    {
         return $this->hasMany(Donation::class);
     }
 }

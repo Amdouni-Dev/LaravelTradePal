@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hazelnuts', function (Blueprint $table) {
+        Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            // ->index() à utiliser avec une bd postgres dans une bd mysql il est automatiquement indexé
-            $table->unsignedInteger('amount');
-            $table->enum('status', ['active', 'expired', 'pending'])->default('active');
-            $table->timestamp('expiration_date')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('claim_id');
+            $table->foreign('claim_id')->references('id')->on('claims');
+            $table->text('content');
+            $table->timestamp('response_date');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hazelnuts');
+        Schema::dropIfExists('responses');
     }
 };

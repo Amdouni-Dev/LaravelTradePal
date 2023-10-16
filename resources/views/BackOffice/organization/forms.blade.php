@@ -4,7 +4,7 @@
 
 
 <!-- Form controls -->
-<form action="{{ isset($organization) ? route('organizations.update', $organization) : route('organizations.store') }}" method="POST">
+<form action="{{ isset($organization) ? route('organizations.update', $organization) : route('organizations.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @if(isset($organization))
     @method('PUT')
@@ -62,6 +62,14 @@
             <div class="card mb-4">
                 <h5 class="card-header">Details</h5>
                 <div class="card-body">
+
+                    <div class="mb-3">
+                        <label class="form-label" for="inputGroupFile02">Logo</label>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="inputGroupFile02" name="logo">
+                            <label class="input-group-text" for="inputGroupFile02">Ajouter</label>
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label" for="basic-icon-default-phone">Date de fondation</label>
                         <div class="input-group input-group-merge">
@@ -80,8 +88,6 @@
                                 <option value="3" {{ isset($organization) && $organization->type == 3 ? 'selected' : '' }}>Santé</option>
                                 <option value="4" {{ isset($organization) && $organization->type == 4 ? 'selected' : '' }}>Droits de l'homme</option>
                             </select>
-
-
                         </div>
                     </div>
 

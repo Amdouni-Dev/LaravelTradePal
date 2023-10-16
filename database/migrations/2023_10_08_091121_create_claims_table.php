@@ -13,23 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('organizations', function (Blueprint $table) {
+        Schema::create('claims', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('type');
-            $table->string('location');
-            $table->string('phone_number');
-            $table->string('email');
-            $table->string('website');
-            $table->string('logo')->nullable();;
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('subject');
             $table->text('description');
-            $table->date('founding_date');
-            $table->boolean('archived');
+            $table->timestamp('claim_date');
+            $table->enum('status', ['PENDING', 'IN PROGRESS', 'RESOLVED', 'CLOSED'])->default('Pending');
             $table->timestamps();
         });
     }
-
-
 
     /**
      * Reverse the migrations.
@@ -38,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organizations');
+        Schema::dropIfExists('claims');
     }
 };
