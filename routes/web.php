@@ -97,3 +97,4 @@ Route::prefix('dashboard')->group(function () {
 Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.show');
 Route::get('/organizations', [OrganizationController::class, 'indexFrontOffice'])->name('organizations.indexFrontOffice');
 Route::get('/search-organizations', [OrganizationController::class, 'search'])->name('organizations.search');
+Route::post('/donations/add', [DonationController::class, 'store']);

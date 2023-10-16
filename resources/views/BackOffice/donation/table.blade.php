@@ -5,9 +5,7 @@
         <span class="text-muted fw-light">Dons /</span> Liste des dons
       </h4>
     </td>
-    <td align="right">
-      <a href="/dashboard/donation/add" class="btn btn-primary">Ajouter</a>
-    </td>
+
   <tr>
 </table>
 
@@ -40,7 +38,6 @@
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ route('donations.edit', $donation) }}"><i class="bx bx-edit-alt me-1"></i> Modifier</a>
                 <form action="{{ route('donations.destroy', $donation) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this donation?');">
                   @csrf
                   @method('DELETE')

@@ -30,11 +30,9 @@ class DonationController extends Controller
 
     {
 
+        $viewPath = 'BackOffice.donation.table';
         $donations = Donation::latest()->paginate(5);
-
-
-
-        return view('donations.index', compact('donations'))
+        return view('BackOffice.template', compact('viewPath', 'donations'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -55,11 +53,8 @@ class DonationController extends Controller
 
     {
 
-        $viewPath = 'BackOffice.donation.table';
-        $donations = Donation::latest()->paginate(5);
-        return view('BackOffice.template', compact('viewPath', 'donations'))
-
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $viewPath = 'BackOffice.donation.forms';
+        return view('BackOffice.template', compact('viewPath'));
     }
 
 
@@ -80,20 +75,15 @@ class DonationController extends Controller
 
     {
 
-        $request->validate([
+        $donation = new Donation();
+        $donation->user_id = $request->input('user_id');
+        $donation->organization_id = $request->input('organization_id');
+        $donation->amount = $request->input('amount');
+        $donation->category = $request->input('category');
+        $donation->object = $request->input('object');
 
-            'user_id' => 'required',
-            'category' => 'required',
-            'timestamp' => 'required|date',
-            'organization_id' => 'required',
-            'amount' => 'required|numeric',
-            'object' => 'required',
-
-        ]);
-
-        Donation::create($request->all());
-
-        return redirect()->route('donation.index')
+        $donation->save();
+        return redirect()->route('organizations.show', ['id' => $donation->organization_id])
 
             ->with('success', 'Donation created successfully.');
     }
@@ -167,7 +157,7 @@ class DonationController extends Controller
             'user_id' => 'required',
             'category' => 'required',
             'timestamp' => 'required|date',
-            'organization_id' => 'required',
+            'donation_id' => 'required',
             'amount' => 'required|numeric',
             'object' => 'required',
 

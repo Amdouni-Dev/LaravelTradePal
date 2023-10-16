@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrganizationController extends Controller
 {
@@ -91,8 +92,11 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
-        $organization = Organization::find($id);
-
+        $organization = Organization::leftJoin('donations', 'organizations.id', '=', 'donations.organization_id')
+            ->where('organizations.id', $id)
+            ->select('organizations.id', 'organizations.name', 'organizations.description', 'organizations.type', 'organizations.location', 'organizations.phone_number', 'organizations.email', 'organizations.website', 'organizations.founding_date', 'organizations.logo', DB::raw('IFNULL(SUM(donations.amount), 0) as total_donations'))
+            ->groupBy('organizations.id', 'organizations.name', 'organizations.description', 'organizations.type', 'organizations.location', 'organizations.phone_number', 'organizations.email', 'organizations.website', 'organizations.founding_date', 'organizations.logo')
+            ->first();
         if (!$organization) {
             abort(404);
         }
