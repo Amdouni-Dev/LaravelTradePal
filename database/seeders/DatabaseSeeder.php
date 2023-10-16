@@ -25,9 +25,7 @@ class DatabaseSeeder extends Seeder
            UserSeeder::class
         ]);
 
-        $this->call([
-           HazelnutSeeder::class
-        ]);
+   
 
         $this->call([
             BlogSeeder::class

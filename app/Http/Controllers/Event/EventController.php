@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
@@ -118,7 +119,43 @@ class EventController extends Controller
 
                 $event->color=$request->input('color');
         $event->image_path=$this->storeImage($request);
+        $validator = Validator::make($request->all(), [
+            'nameEvent' => 'required',
+            'lieuEvent' => 'required',
+            'descEvent' => 'required',
+            'dateEvent' => 'required|date',
+            'start' => [
+                'required',
+                'date_format:Y-m-d\TH:i',
+                function ($attribute, $value, $fail) use ($request) {
+                    // Vérifiez si l'heure de début est le même jour que la date de l'événement
+                    $startDateTime = new \DateTime($value);
+                    $eventDate = new \DateTime($request->input('dateEvent'));
 
+                    if ($startDateTime->format('Y-m-d') !== $eventDate->format('Y-m-d')) {
+                        $fail('L\'heure de début doit être le même jour que la date de l\'événement.');
+                    }
+                },
+            ],
+            'end' => [
+                'required',
+                'date_format:Y-m-d\TH:i',
+                function ($attribute, $value, $fail) use ($request) {
+
+                    $startDateTime = new \DateTime($request->input('start'));
+                    $endDateTime = new \DateTime($value);
+
+                    if ($endDateTime <= $startDateTime) {
+                        $fail('L\'heure de fin doit être après l\'heure de début.');
+                    }
+                },
+            ],
+            'color' => 'required',
+//            'image' => 'required',
+        ]);
+        if($validator->fails()){
+            return redirect('/dashboard/events/add')->withErrors($validator)->withInput();
+        }
 //        $uploadedFile = $request->file('image');
 
 //

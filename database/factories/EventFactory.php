@@ -28,7 +28,8 @@ class EventFactory extends Factory
             'categorie' => $this->faker->randomElement(['Vêtements', 'Électronique', 'Nourriture', 'Autre']),
             'start'=>$start,
             'end'=>$end,
-            'image_path'=>$this->faker->image,
+//            'image_path'=>$this->faker->image,
+            'image_path' => $this->copyFakerImage(),
 'color' => $color,
 
 
@@ -41,4 +42,14 @@ class EventFactory extends Factory
 //        $table->text('description');
         ];
     }
+
+    public function copyFakerImage()
+    {
+        $image = $this->faker->image('public/imagesForEvents', 400, 300, null, false);
+        return str_replace('public', 'storage', $image);
+    }
 }
+
+
+
+

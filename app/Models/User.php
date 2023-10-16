@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,7 +13,7 @@ use App\Models\Comment;
 use App\Models\Item;
 use App\Models\Request;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,7 +22,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [ 'name', 'email', 'password', 'username', 'role', 'phone', 'profile_picture', 'account_status', 'bio' ];
+    protected $fillable = [ 'hazelnuts','name', 'email', 'password', 'username', 'role', 'phone', 'profile_picture', 'account_status', 'bio' ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,9 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function hazelnuts(){
-        return $this->hasMany(Hazelnut::class);
-    }
+   
 
     public function donations(){
         return $this->hasMany(Donation::class);

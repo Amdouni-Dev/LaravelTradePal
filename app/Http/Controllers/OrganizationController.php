@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrganizationController extends Controller
 {
@@ -40,7 +41,6 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -49,8 +49,8 @@ class OrganizationController extends Controller
             'website' => 'required|url',
             'location' => 'required',
             'founding_date' => 'required|date',
-            'type' => 'required'
-
+            'type' => 'required',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $organization = new Organization();
@@ -64,6 +64,17 @@ class OrganizationController extends Controller
         $organization->type = $request->input('type');
         $organization->archived = false;
 
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+
+            $organizationName = preg_replace('/[^a-zA-Z0-9]/', '_', $request->input('name'));
+
+            $fileName = $organizationName . '_' . time() . '.' . $file->getClientOriginalExtension();
+
+            $file->move('organization_logos', $fileName);
+
+            $organization->logo = $fileName;
+        }
 
         $organization->save();
 
@@ -72,18 +83,27 @@ class OrganizationController extends Controller
     }
 
 
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function show(Organization $organization)
+    public function show($id)
     {
-        $viewPath = 'BackOffice.organization.table';
+        $organization = Organization::leftJoin('donations', 'organizations.id', '=', 'donations.organization_id')
+            ->where('organizations.id', $id)
+            ->select('organizations.id', 'organizations.name', 'organizations.description', 'organizations.type', 'organizations.location', 'organizations.phone_number', 'organizations.email', 'organizations.website', 'organizations.founding_date', 'organizations.logo', DB::raw('IFNULL(SUM(donations.amount), 0) as total_donations'))
+            ->groupBy('organizations.id', 'organizations.name', 'organizations.description', 'organizations.type', 'organizations.location', 'organizations.phone_number', 'organizations.email', 'organizations.website', 'organizations.founding_date', 'organizations.logo')
+            ->first();
+        if (!$organization) {
+            abort(404);
+        }
 
-        return view('BackOffice.template', compact('organization', 'viewPath'));
+        return view('FrontEnd.Organization.profile', compact('organization'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -138,5 +158,24 @@ class OrganizationController extends Controller
         return redirect()->route('organizations.index')
 
             ->with('success', 'Organization deleted successfully');
+    }
+
+    // FrontOffice Functions
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexFrontOffice()
+    {
+        $organizations = Organization::all();
+        return view('Frontend.Organization.list', compact('organizations'));
+    }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $organizations = Organization::where('name', 'like', '%' . $searchTerm . '%')->get();
+        return response()->json($organizations);
     }
 }
