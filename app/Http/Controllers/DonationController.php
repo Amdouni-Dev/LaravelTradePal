@@ -80,7 +80,7 @@ class DonationController extends Controller
         $donation->organization_id = $request->input('organization_id');
         $donation->amount = $request->input('amount');
         $donation->category = $request->input('category');
-        $donation->object = $request->input('object');
+        $donation->item_id = $request->input('object');
 
         $donation->save();
         return redirect()->route('organizations.show', ['id' => $donation->organization_id])

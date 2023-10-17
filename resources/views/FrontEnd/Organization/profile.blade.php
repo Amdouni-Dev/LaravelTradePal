@@ -102,11 +102,12 @@
                                         <p>Liste de vos objets publiés :</p>
                                         <select name="object">
                                             <option value="none">Sélectionnez votre objet</option>
-                                            <option value="item1">Item 1</option>
-                                            <option value="item2">Item 2</option>
-                                            <option value="item3">Item 3</option>
+                                            @foreach($items as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+
                                     <div id="don_noisettes_section" style="display: none;">
                                         <label for="amount">Entrer le montant que vous souhaitez donner :</label>
                                         <input type="number" name="amount">

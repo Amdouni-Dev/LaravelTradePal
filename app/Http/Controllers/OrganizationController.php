@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -100,8 +101,8 @@ class OrganizationController extends Controller
         if (!$organization) {
             abort(404);
         }
-
-        return view('FrontEnd.Organization.profile', compact('organization'));
+        $items = $this->getItemsForUser(48);
+        return view('FrontEnd.Organization.profile', compact('organization', 'items'));
     }
 
 
@@ -177,5 +178,18 @@ class OrganizationController extends Controller
         $searchTerm = $request->input('search');
         $organizations = Organization::where('name', 'like', '%' . $searchTerm . '%')->get();
         return response()->json($organizations);
+    }
+
+    public function getItemsForUser($userId)
+    {
+        $user = User::find($userId);
+
+        if (!$user) {
+            // Handle the case where the user doesn't exist.
+        }
+
+        $items = $user->items;
+
+        return $items;
     }
 }
