@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('FrontEnd.login');
     }
 
     /**
@@ -47,6 +47,7 @@ class RegisteredUserController extends Controller
             'hazelnuts' =>10,
 
         ]);
+
 
         event(new Registered($user));
 
