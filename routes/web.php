@@ -6,8 +6,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\LoginController;
-//use App\Http\Controllers\FrontEnd\ProfileController;
 use App\Http\Controllers\FrontEnd\BaremeController;
 use App\Http\Controllers\FrontEnd\WorkController;
 use App\Http\Controllers\FrontEnd\GameController;
@@ -31,17 +29,23 @@ use App\Http\Controllers\DonationController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/home',  [IndexController::class, 'index']);
 
 Route::get('/',  [IndexController::class, 'index']);
-Route::get('/login',  [LoginController::class, 'index']);
+Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create']);
+Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store'])->name('login');
+
+Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
+
+
 Route::get('/profile',  [ProfileController::class, 'index']);
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
@@ -68,7 +72,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-require __DIR__.'/auth.php';
 
     Route::get('/events', [EventController::class, 'rechercheParDate'])->name('events.rechercheParDate');
     Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
@@ -87,12 +90,14 @@ require __DIR__.'/auth.php';
     Route::resource('/donations', DonationController::class);
     Route::resource('/comments', CommentController::class);
     Route::resource('/claims', \App\Http\Controllers\ClaimController::class);
-
-
-
     Route::get('claims', [\App\Http\Controllers\ClaimController::class, 'claimsForAdmin'])->name('claimsForAdmin');
     Route::get('/search', [\App\Http\Controllers\ClaimController::class, 'search'])->name('search');
     Route::get('clear-filters', [\App\Http\Controllers\ClaimController::class, 'clearFilters'])->name('clearFilters');
+    Route::post('/responses', [\App\Http\Controllers\ClaimController::class])->name('responses.store');
+    Route::post('/claim/sendEmail/{claim}', [\App\Http\Controllers\ClaimController::class, 'sendEmail'])->name('sendEmail');
+    Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
+    Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
+
 
 
 
@@ -107,3 +112,4 @@ Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name
 Route::get('/organizations', [OrganizationController::class, 'indexFrontOffice'])->name('organizations.indexFrontOffice');
 Route::get('/search-organizations', [OrganizationController::class, 'search'])->name('organizations.search');
 Route::post('/donations/add', [DonationController::class, 'store']);
+//require __DIR__.'/auth.php';

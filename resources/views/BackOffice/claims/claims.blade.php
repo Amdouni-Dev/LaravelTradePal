@@ -79,20 +79,26 @@
                 </td>
                 <td>
                     <div class="d-flex">
-                        <button type="button" class="btn btn-icon me-2 btn-outline-primary" data-bs-toggle="modal" data-bs-target="#claimModal" data-claim-description="{{ $claim->description }}" data-claim-date="{{ $claim->claim_date }}" data-claim-status="{{ $claim->status }}">
+                        <button type="button" class="btn btn-icon me-2 btn-outline-primary" data-bs-toggle="modal" data-bs-target="#claimModal-{{ $claim->id }}">
                             <span class="bx bx-show-alt me-1 bx-tada"></span>
                         </button>
 
                         @if($claim->status != 'CLOSED')
                         @if($claim->status != 'RESOLVED')
-                        <button type="button" class="btn btn-icon me-2 btn-outline-info">
-                            <span class="bx bx-reply me-1 bx-tada"></span>
-                        </button>
+                        @if($claim->status == 'PENDING')
+                        <form action="{{ route('sendEmail', ['claim' => $claim->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-icon me-2 btn-outline-success">
+                                <span class="bx bx-mail-send me-1 bx-tada"></span>
+                            </button>
+                        </form>
                         @endif
 
-                        <button type="button" class="btn btn-icon me-2 btn-outline-success">
-                            <span class="bx bx-edit-alt me-1 bx-tada"></span>
-                        </button>
+                        @endif
+
+                        <a href="{{ route('reply.create',['claim_id'=> $claim->id])}}" class="btn btn-icon me-2 btn-outline-info">
+                            <span class="bx bx-reply me-1 bx-tada"></span>
+                        </a>
                         @endif
                         <form method="POST" action="{{ route('claims.destroy', $claim) }}">
                             @csrf
@@ -107,7 +113,7 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                                        <h5 class="modal-title" id="claimModalLabel">Confirm Deletion</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
@@ -132,6 +138,31 @@
 
 
             </tr>
+            <div class="modal fade" id="claimModal-{{ $claim->id }}" tabindex="-1" role="dialog" aria-labelledby="claimModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="claimModalLabel">Subject : {{ $claim->subject }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
+                            <p><b>Description:</b><span id="shortDescription">{{ substr($claim->description, 0, 80) }} <span id="dots">...</span></span>
+                                <span id="fullDescription" style="display: none;">{{ $claim->description }}</span>
+                                <a href="#" id="showMore" onclick="toggleDescription()">Read More</a></p>
+                            <p><b>Claim Date:</b> {{ $claim->claim_date }}</p>
+                            <p><b>Status:</b> <span class="badge @if($claim->status == 'PENDING') bg-label-danger
+                      @elseif($claim->status == 'IN PROGRESS') bg-label-warning
+                      @elseif($claim->status == 'RESOLVED') bg-label-success
+                      @else bg-label-dark @endif">
+        {{ $claim->status }}
+    </span></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @endforeach
             @endif
             </tbody>
@@ -169,13 +200,14 @@
 </table>
 
 <script>
-    var claimModal = document.getElementById('claimModal');
-    claimModal.addEventListener('show.bs.modal', function (event) {
+    var claimModal = new bootstrap.Modal(document.getElementById('claimModal'));
+
+    claimModal._element.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
-        var claimDescription = claimModal.querySelector('#claimDescription');
-        var claimDate = claimModal.querySelector('#claimDate');
-        var claimStatus = claimModal.querySelector('#claimStatus');
+        var claimDescription = document.getElementById('claimDescription');
+        var claimDate = document.getElementById('claimDate');
+        var claimStatus = document.getElementById('claimStatus');
 
         claimDescription.textContent = 'Description: ' + button.getAttribute('data-claim-description');
         claimDate.textContent = 'Claim Date: ' + button.getAttribute('data-claim-date');
@@ -188,6 +220,26 @@
         overflow-y: auto;
     }
 </style>
+<script>
+    function toggleDescription() {
+        var shortDescription = document.getElementById('shortDescription');
+        var fullDescription = document.getElementById('fullDescription');
+        var showMoreLink = document.getElementById('showMore');
+        var dots = document.getElementById('dots');
+
+        if (fullDescription.style.display === 'none') {
+            shortDescription.style.display = 'none';
+            fullDescription.style.display = 'inline';
+            showMoreLink.innerHTML = 'Read Less';
+            dots.style.display = 'none';
+        } else {
+            shortDescription.style.display = 'inline';
+            fullDescription.style.display = 'none';
+            showMoreLink.innerHTML = 'Read More';
+            dots.style.display = 'inline';
+        }
+    }
+</script>
 
 
 <div class="chart-container">

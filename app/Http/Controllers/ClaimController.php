@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Claim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Message;
 
 class ClaimController extends Controller
 {
@@ -120,4 +122,36 @@ class ClaimController extends Controller
 
         return redirect()->route('claimsForAdmin')->with('success', 'Claim deleted successfully');
     }
+
+    public function sendEmail($claimId)
+    {
+        $claim = Claim::find($claimId);
+
+        if (!$claim) {
+            return redirect()->route('claimsForAdmin')->with('error', 'Claim not found');
+        }
+
+        $recipientEmail = 'meddebyesmina123@gmail.com'; // Your Mailtrap email address
+        $emailSubject = 'Claim Status Changed';
+        $emailContent = 'The status of your claim has been changed to IN PROGRESS.';
+
+        \Log::info('sendEmail method called for claim ID: ' . $claimId);
+        \Log::info('Sending email with subject: ' . $emailSubject);
+        \Log::info('Email content: ' . $emailContent);
+
+        Mail::send([], [], function ($message) use ($recipientEmail, $emailSubject, $emailContent) {
+            $message->to($recipientEmail)
+                ->subject($emailSubject)
+                ->setBody($emailContent, 'text/plain');
+        });
+
+
+        $claim->status = 'IN PROGRESS';
+        $claim->save();
+
+        return redirect()->route('claimsForAdmin')->with('success', 'Email sent and status updated to IN PROGRESS');
+    }
+    //            Mail::to($claim->user->email)->send(new ClaimStatusChanged($claim, 'IN PROGRESS'));
+
+
 }
