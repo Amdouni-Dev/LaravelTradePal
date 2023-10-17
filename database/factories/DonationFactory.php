@@ -22,7 +22,7 @@ class DonationFactory extends Factory
             'timestamp' => $this->faker->dateTimeThisYear(),
             'organization_id' => \App\Models\Organization::factory(), 
             'amount' => $this->faker->randomFloat(2, 10, 1000),
-            'object' => $this->faker->sentence,
+            'item_id' => \App\Models\Item::factory(), 
         ];
     }
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('descriptionObject');
             $table->string('statusObject')->default('Autre');
             $table->string('changedBy'); // hedhy chnarbeth bel le sproduits elli mawjoudin fel base , tokhrejli lista feiha les produis lkol w ena nakhtar b chnowa de prefernce nbaddelha
-            $table->foreignId('event_id')->constrained();
+            $table->foreignId('event_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });

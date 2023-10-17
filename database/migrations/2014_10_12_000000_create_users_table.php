@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('phone')->nullable();
+            $table->integer('hazelnuts')->nullable();
             $table->string('profile_picture')->nullable();
             $table->enum('account_status', ['active', 'inactive'])->default('active');
             $table->enum('role', ['user', 'admin', 'moderator'])->default('user');

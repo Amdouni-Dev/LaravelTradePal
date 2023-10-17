@@ -10,6 +10,11 @@
     .custom-textarea {
         height: 1.5rem;
     }
+	.like-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
 </style>
 <div id="main">
 	<div id="animation-banner" class="web">		
@@ -33,7 +38,6 @@
 		<div id="birdheader" class="birdheader">				
 			<img src="/image/sketch/oiseau_banniere.svg" data-load="/image/sketch/oiseau_banniere.svg" alt="bird" class="svg">
 		</div>
-
 		<div class="content">
 			<article class="testify" style="background-color:#bddde3">
 				<div class="container top-sep" style="background-color: #bddde3;">
@@ -57,8 +61,19 @@
 						<div>
 							<div class="third">
 								<div>
-									<i style="font-size:3rem;color:#a54458" class="bx bx-heart me-1"></i>
-									<i style="font-size:3rem;color:#a54458" class="bx bxs-heart me-1"></i>							
+								<form action="{{ route('like.toggle', ['user_id' => 1, 'blog_id' => $blog->id]) }}" method="post">
+								@csrf
+								@if ($likedComments->isEmpty())
+									<button type="submit" class="like-button" >
+										<i style="font-size: 3rem; color: #a54458" class="bx bx-heart me-1"></i>
+									</button>
+									
+								@else
+									<button type="submit" class="like-button" >
+										<i style="font-size: 3rem; color: #a54458" class="bx bxs-heart me-1"></i>
+									</button>
+								@endif
+								</form>
 								</div>
 							</div>
 							<div class="third">

@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Hazelnut;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Claim;
 use Illuminate\Database\Seeder;
 
-class HazelnutSeeder extends Seeder
+class ClaimSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +14,6 @@ class HazelnutSeeder extends Seeder
      */
     public function run()
     {
-        Hazelnut::factory(10)->create();
-
+        Claim::factory(10)->create();
     }
 }

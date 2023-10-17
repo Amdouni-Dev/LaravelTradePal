@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('blog_id');
             $table->text('content');
+            $table->boolean('likes')->default(false);
             $table->timestamps();
             
             //foreign_key

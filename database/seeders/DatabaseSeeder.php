@@ -25,9 +25,7 @@ class DatabaseSeeder extends Seeder
            UserSeeder::class
         ]);
 
-        $this->call([
-           HazelnutSeeder::class
-        ]);
+   
 
         $this->call([
             BlogSeeder::class
@@ -54,6 +52,12 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call([
             RequestSeeder::class
+        ]);
+        $this->call([
+            ClaimSeeder::class
+        ]);
+        $this->call([
+            ResponseSeeder::class
         ]);
     }
 }

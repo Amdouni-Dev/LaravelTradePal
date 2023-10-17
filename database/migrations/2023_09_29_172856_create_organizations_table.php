@@ -21,12 +21,14 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('email');
             $table->string('website');
+            $table->string('logo')->nullable();;
             $table->text('description');
             $table->date('founding_date');
             $table->boolean('archived');
             $table->timestamps();
         });
     }
+
 
 
     /**

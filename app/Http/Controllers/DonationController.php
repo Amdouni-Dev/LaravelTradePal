@@ -1,16 +1,16 @@
 <?php
 
-  
+
 
 namespace App\Http\Controllers;
 
-  
+
 
 use App\Models\Donation;
 
 use Illuminate\Http\Request;
 
-  
+
 
 class DonationController extends Controller
 
@@ -30,17 +30,14 @@ class DonationController extends Controller
 
     {
 
+        $viewPath = 'BackOffice.donation.table';
         $donations = Donation::latest()->paginate(5);
-
-      
-
-        return view('donations.index',compact('donations'))
+        return view('BackOffice.template', compact('viewPath', 'donations'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
-
     }
 
-  
+
 
     /**
 
@@ -56,11 +53,11 @@ class DonationController extends Controller
 
     {
 
-        return view('donations.create');
-
+        $viewPath = 'BackOffice.donation.forms';
+        return view('BackOffice.template', compact('viewPath'));
     }
 
-  
+
 
     /**
 
@@ -78,26 +75,20 @@ class DonationController extends Controller
 
     {
 
-        $request->validate([
+        $donation = new Donation();
+        $donation->user_id = $request->input('user_id');
+        $donation->organization_id = $request->input('organization_id');
+        $donation->amount = $request->input('amount');
+        $donation->category = $request->input('category');
+        $donation->object = $request->input('object');
 
-        'user_id' => 'required', 
-        'category' => 'required',
-        'timestamp' => 'required|date', 
-        'organization_id' => 'required', 
-        'amount' => 'required|numeric', 
-        'object' => 'required',
+        $donation->save();
+        return redirect()->route('organizations.show', ['id' => $donation->organization_id])
 
-        ]);
-
-        Donation::create($request->all());
-
-        return redirect()->route('donation.index')
-
-                        ->with('success','Donation created successfully.');
-
+            ->with('success', 'Donation created successfully.');
     }
 
-  
+
 
     /**
 
@@ -115,11 +106,10 @@ class DonationController extends Controller
 
     {
 
-        return view('donations.show',compact('donation'));
-
+        return view('donations.show', compact('donation'));
     }
 
-  
+
 
     /**
 
@@ -137,11 +127,12 @@ class DonationController extends Controller
 
     {
 
-        return view('donations.edit',compact('donation'));
+        $viewPath = 'BackOffice.donation.forms';
 
+        return view('BackOffice.template', compact('donation', 'viewPath'));
     }
 
-  
+
 
     /**
 
@@ -163,20 +154,19 @@ class DonationController extends Controller
 
         $request->validate([
 
-        'user_id' => 'required', 
-        'category' => 'required',
-        'timestamp' => 'required|date', 
-        'organization_id' => 'required', 
-        'amount' => 'required|numeric', 
-        'object' => 'required',
+            'user_id' => 'required',
+            'category' => 'required',
+            'timestamp' => 'required|date',
+            'donation_id' => 'required',
+            'amount' => 'required|numeric',
+            'object' => 'required',
 
         ]);
 
         $donation->update($request->all());
         return redirect()->route('donations.index')
 
-                        ->with('success','Donation updated successfully');
-
+            ->with('success', 'Donation updated successfully');
     }
 
     /**
@@ -197,12 +187,10 @@ class DonationController extends Controller
 
         $donation->delete();
 
-       
+
 
         return redirect()->route('donations.index')
 
-                        ->with('success','Donation deleted successfully');
-
+            ->with('success', 'Donation deleted successfully');
     }
-
 }

@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\ParticipationController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\FrontEnd\ProfileController;
+//use App\Http\Controllers\FrontEnd\ProfileController;
 use App\Http\Controllers\FrontEnd\BaremeController;
 use App\Http\Controllers\FrontEnd\WorkController;
 use App\Http\Controllers\FrontEnd\GameController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\DonationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +26,19 @@ use App\Http\Controllers\RequestController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
-// Route::get('/', function () {
-//     return view('FrontEnd/index');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/',  [IndexController::class, 'index']);
 Route::get('/login',  [LoginController::class, 'index']);
@@ -44,6 +52,7 @@ Route::get('/new-blog',  [BlogController::class, 'UserBlogForm']);
 Route::post('/storeBlog', [BlogController::class, 'userSaveBlog']);
 Route::post('/storeComment', [CommentController::class, 'store']);
 Route::get('/read', [BlogController::class, 'listing']);
+Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::prefix('dashboard')->group(function () {
@@ -54,10 +63,15 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
     Route::get('/events/add', [EventController::class, 'create']);
     Route::post('/events/add', [EventController::class, 'store'])->name('events.store');
-    Route::get('/events/{id}', [EventController::class, 'edit'])->name('events.edit');
-    Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
-    Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
-    Route::get('/events2', [EventController::class, 'affiche'])->name('events.index');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+require __DIR__.'/auth.php';
 
     Route::get('/events', [EventController::class, 'rechercheParDate'])->name('events.rechercheParDate');
     Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
@@ -70,20 +84,29 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/participations/edit/{id}', [ParticipationController::class, 'edit'])->name('participations.edit');
     Route::put('/participations/{id}', [ParticipationController::class, 'update'])->name('participations.update');
     Route::delete('/participations/{id}', [ParticipationController::class, 'destroy'])->name('participation.destroy');
-    Route::get('/blogs', [BlogController::class, 'index']);
-    Route::get('/comments',  [BlogController::class, 'index']);
-    Route::get('/organization/add', [OrganizationController::class, 'create']);
-    Route::get('/organization/list', [OrganizationController::class, 'index']);
+    Route::get('/blogs',  [BlogController::class, 'index']);
     Route::resource('/organizations', OrganizationController::class);
     Route::resource('/blogs', BlogController::class);
+    Route::resource('/donations', DonationController::class);
     Route::resource('/comments', CommentController::class);
+    Route::resource('/claims', \App\Http\Controllers\ClaimController::class);
 
-    Route::get('/hazelnuts', [\App\Http\Controllers\HazelnutController::class, 'hazelnutsForAdmin']);
+
+
+    Route::get('claims', [\App\Http\Controllers\ClaimController::class, 'claimsForAdmin'])->name('claimsForAdmin');
+    Route::get('/search', [\App\Http\Controllers\ClaimController::class, 'search'])->name('search');
+    Route::get('clear-filters', [\App\Http\Controllers\ClaimController::class, 'clearFilters'])->name('clearFilters');
+
 
 
 
     Route::fallback(function () {
         return view('backOffice.404');
     });
-    Route::resource('item', ItemController::class);
-    Route::resource('request', RequestController::class);});
+    Route::resource('item',  ItemController::class);
+    Route::resource('request',  RequestController::class);
+});
+Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.show');
+Route::get('/organizations', [OrganizationController::class, 'indexFrontOffice'])->name('organizations.indexFrontOffice');
+Route::get('/search-organizations', [OrganizationController::class, 'search'])->name('organizations.search');
+Route::post('/donations/add', [DonationController::class, 'store']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -80,7 +81,7 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        $blog = Blog::with(['comments.user']) // Eager load comments and user info
+        $blog = Blog::with(['comments.user']) 
                     ->join('users', 'blogs.user_id', '=', 'users.id')
                     ->where('blogs.id', $id)
                     ->select('blogs.*', 'users.name as username')
@@ -88,7 +89,15 @@ class BlogController extends Controller
         if (!$blog) {
             abort(404); 
         }
-        return view('FrontEnd.blogs.blog', compact('blog'));
+        $blogId = $id;
+        $userId = 1;
+
+        $likedComments = Comment::where('likes', '1')
+            ->where('blog_id', $blogId)
+            ->where('user_id', $userId)
+            ->get();
+        
+        return view('FrontEnd.blogs.blog', compact('blog', 'likedComments'));
     }
 
     /**

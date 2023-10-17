@@ -113,4 +113,15 @@ class CommentController extends Controller
         ->with('success', 'Article a étè supprimer');
     }
 
+    public function likeBlog($user_id, $blog_id)
+    {
+        $comment = Comment::firstOrNew([
+            'user_id' => 1,
+            'blog_id' => 1,
+        ]);
+        $comment->likes = !$comment->likes;
+        $comment->save();
+        return redirect()->back();
+    }
+
 }
