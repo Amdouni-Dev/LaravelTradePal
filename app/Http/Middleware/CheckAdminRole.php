@@ -16,7 +16,9 @@ class CheckAdminRole
      */
     public function handle($request, Closure $next)
     {
+        dd(auth()->user()->role);
         if (auth()->check() && auth()->user()->role === 'admin') {
+
             return $next($request);
         }
 

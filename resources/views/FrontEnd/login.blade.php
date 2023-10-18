@@ -1,6 +1,23 @@
 <HTML lang="fr-FR">
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'Connexion')
+<style>
+    .custom-button {
+        border: none;
+        border-radius: 0;
+        font-weight: 400;
+        font-size: 1.1em;
+        color: #fff;
+        background-color: #a23b50;
+        HEIGHT: 1.6rem;
+    }
+
+    .error {
+        left: 50%;
+        position: relative;
+        color: red;
+    }
+</style>
 <div id="main">
     <div id="animation-banner" class="web">
         <div id="could-banner" class="no-overflow">
@@ -44,12 +61,12 @@
         <article class="login-page top-sep">
 
             <div class="illu login-tree web">
-                <img src='static/image/1px.png' data-load='/image/sketch/arbre_optim.svg' alt='tree' class='web svg'>
+                <img src='static/image/1px.png' data-load='/image/sketch/arbre_optim.svg' alt='tree'
+                    class='web svg'>
                 <img src='static/image/1px.png' data-src='/static/image/sketch/arbre_optim.png' alt='tree'
                     class='web img'>
                 <img src='static/image/1px.png' data-src='/static/image/sketch/arbre_optim@2x.png' alt='tree'
                     class='web retina'>
-
             </div>
 
             <div class="ground top-sep"></div>
@@ -87,40 +104,40 @@
 
                         <!-- Email Address -->
                         <div>
-                            <x-input-label for="username" :value="__('username')" />
-                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
-                            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                            <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
+                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
+                                :value="old('username')" required autofocus autocomplete="username" />
+                            <x-input-error :messages="$errors->get('username')" class="error" />
                         </div>
 
                         <!-- Password -->
                         <div class="mt-4">
-                            <x-input-label for="password" :value="__('Password')" />
+                            <x-input-label for="password" :value="__('Mot de passe')" />
 
-                            <x-text-input id="password" class="block mt-1 w-full"
-                                          type="password"
-                                          name="password"
-                                          required autocomplete="current-password" />
+                            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                                required autocomplete="current-password" />
 
-                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('password')" class="error" />
                         </div>
 
                         <!-- Remember Me -->
-                        <div class="block mt-4">
-                            <label for="remember_me" class="inline-flex items-center">
-                                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                            </label>
-                        </div>
 
+                        <div class="remenber-me">
+                            <input id="remember-me" type="checkbox" name="remember">
+                            <label for="remember-me">
+                                {{ __('se souvenir de moi') }}</label>
+                        </div>
                         <div class="flex items-center justify-end mt-4">
                             @if (Route::has('password.request'))
-                            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
-                            </a>
+                                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    href="{{ route('password.request') }}">
+                                    {{ __('Forgot your password?') }}
+                                </a>
                             @endif
-
-                            <x-primary-button class="ml-3">
-                                {{ __('Log in') }}
+                        </div>
+                        <div class="form-button" onclick="submitForm()">
+                            <x-primary-button class="ml-3" class="ml-3 custom-button">
+                                {{ __('CONNEXION') }}
                             </x-primary-button>
                         </div>
                     </form>
@@ -132,12 +149,14 @@
                         <input type="hidden" name="mail" value="jenexistepas@jenexistepas.com">
                         <div>
                             <x-input-label for="username" :value="__('username')" />
-                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
-                            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
+                                :value="old('username')" required autofocus autocomplete="username" />
+                            <x-input-error :messages="$errors->get('username')" class="error" />
 
                             <div class="valid-hint">Vous devez rentrer une adresse email valide</div>
                             <label for="email-forgotten" class="main">Votre Email </label>
-                            <input id="email-forgotten" type="email" name="email" placeholder="email@ma-boite-email.fr">
+                            <input id="email-forgotten" type="email" name="email"
+                                placeholder="email@ma-boite-email.fr">
                             <div class="validator"></div>
                         </div>
 
@@ -159,58 +178,63 @@
                         @csrf
 
                         <div>
-                            <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <x-input-label for="name" :value="__('Nom')" />
+                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
+                                :value="old('name')" required autofocus autocomplete="name" />
+                            <x-input-error :messages="$errors->get('name')" class="error" />
                         </div>
 
                         <div class="mt-4">
                             <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                                :value="old('email')" required autocomplete="email" />
+                            <x-input-error :messages="$errors->get('email')" class="error" />
                         </div>
 
                         <div class="mt-4">
-                            <x-input-label for="username" :value="__('username')" />
-                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autocomplete="username" />
-                            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                            <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
+                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
+                                :value="old('username')" required autocomplete="username" />
+                            <x-input-error :messages="$errors->get('username')" class="error" />
                         </div>
 
                         <div class="mt-4">
-                            <x-input-label for="phone" :value="__('phone')" />
-                            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
-                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                            <x-input-label for="phone" :value="__('Téléphone')" />
+                            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
+                                :value="old('phone')" required />
+                            <x-input-error :messages="$errors->get('phone')" class="error" />
                         </div>
 
                         <div class="mt-4">
-                            <x-input-label for="password" :value="__('Password')" />
+                            <x-input-label for="password" :value="__('Mot de passe')" />
 
-                            <x-text-input id="password" class="block mt-1 w-full"
-                                          type="password"
-                                          name="password"
-                                          required autocomplete="new-password" />
+                            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                                required autocomplete="new-password" />
 
-                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('password')" class="error" />
                         </div>
 
                         <div class="mt-4">
-                            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                            <x-input-label for="password_confirmation" :value="__('Confirmer Mot de passe')" />
 
-                            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                          type="password"
-                                          name="password_confirmation" required autocomplete="new-password" />
+                            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                                name="password_confirmation" required autocomplete="new-password" />
 
-                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('password_confirmation')" class="error" />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                                {{ __('Already registered?') }}
+                            <a style="left: 77%;
+    position: relative;"
+                                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                href="{{ route('login') }}">
+                                {{ __('Déjà connetcé?') }}
                             </a>
-
-                            <x-primary-button class="ml-4">
-                                {{ __('Register') }}
-                            </x-primary-button>
+                            <div class="form-button" onclick="submitForm()">
+                                <x-primary-button class="ml-4" class="ml-3 custom-button">
+                                    {{ __('Crée mon compte') }}
+                                </x-primary-button>
+                            </div>
                         </div>
                     </form>
 
@@ -218,11 +242,6 @@
                 </div>
 
 
-            </div>
-            <div class="block-info-rgpd">
-                Les donn&eacute;es à caract&egrave;re personnel collect&eacute;es font l'objet d'un traitement dont
-                MyTroc est le responsable. <a id="show-popup-rgpd" class="rgpd-link show-popup-rgpd" href="#">En savoir
-                    plus</a>
             </div>
 
 
@@ -255,7 +274,8 @@
             Ce site utilise Javascript, vous devez activer Javascript pour que le site fonctionne correctement. <div>
                 &nbsp;</div>
             <div>
-                <a href="https://support.google.com/chrome/answer/114662?hl=fr" target="_blank" rel="external nofollow">
+                <a href="https://support.google.com/chrome/answer/114662?hl=fr" target="_blank"
+                    rel="external nofollow">
                     Param&egrave;trer javascript dans Google Chrome &copy; </a>
             </div>
             <div>
@@ -293,8 +313,7 @@
 <img style="opactiy:0" src="https://facebook.com/tr?id=1220149654723308&amp;ev=PageView&amp;noscript=1" />
 </BODY>
 
-<script type="text/javascript" charset="UTF-8" src="/js/script.js" async defer
-    onload="jQueryReadyCB()"></script>
+<script type="text/javascript" charset="UTF-8" src="/js/script.js" async defer onload="jQueryReadyCB()"></script>
 
 
 <!-- Mirrored from mytroc.fr/logout by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Sep 2023 15:18:21 GMT -->

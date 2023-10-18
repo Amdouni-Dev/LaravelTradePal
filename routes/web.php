@@ -64,6 +64,13 @@ Route::get('/read', [BlogController::class, 'listing']);
 Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/blog/add', [BlogController::class, 'create']);
@@ -73,22 +80,10 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
     Route::get('/events/add', [EventController::class, 'create']);
     Route::post('/events/add', [EventController::class, 'store'])->name('events.store');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-
-
     Route::get('/events', [EventController::class, 'rechercheParDate'])->name('events.rechercheParDate');
     Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
-
-
     Route::get('/participations', [ParticipationController::class, 'participationsForAdmin']);
     Route::get('/participations/create', [ParticipationController::class, 'create']);
-
     Route::post('/participations', [ParticipationController::class, 'store'])->name('participations.store');
     Route::get('/participations/edit/{id}', [ParticipationController::class, 'edit'])->name('participations.edit');
     Route::put('/participations/{id}', [ParticipationController::class, 'update'])->name('participations.update');
@@ -106,20 +101,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/claim/sendEmail/{claim}', [\App\Http\Controllers\ClaimController::class, 'sendEmail'])->name('sendEmail');
     Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
     Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
-
-
-
-
-
-    Route::fallback(function () {
-        return view('backOffice.404');
-    });
+    
     Route::resource('item',  ItemController::class);
     Route::resource('request',  RequestController::class);
 })->middleware(['auth', 'verified','checkAdmin'])->name('dashboard');
 
-
-
+Route::fallback(function () {
+    return view('backOffice.404');
+});
 Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.show');
 Route::get('/organizations', [OrganizationController::class, 'indexFrontOffice'])->name('organizations.indexFrontOffice');
 Route::get('/search-organizations', [OrganizationController::class, 'search'])->name('organizations.search');
