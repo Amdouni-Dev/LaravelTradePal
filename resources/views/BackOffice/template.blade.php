@@ -26,6 +26,12 @@
 </head>
 
 <body>
+@if(auth()->check() && auth()->user()->role !== 'admin')
+    @php
+        header("Location: /home"); 
+        exit;
+    @endphp
+@endif
   <div class="layout-wrapper layout-content-navbar ">
     <div class="layout-container">
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -55,13 +61,13 @@
         <div class="menu-inner-shadow"></div>
         <ul class="menu-inner py-1">
           <li class="menu-item active">
-            <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo" class="menu-link">
+            <a href="/dashboard/" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div>Tableau de bord</div>
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link">
+            <a href="/dashboard/" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
               <div>Utilisateurs</div>
             </a>
