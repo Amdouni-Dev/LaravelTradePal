@@ -26,6 +26,16 @@ class ClaimController extends Controller
             ->with(['listClaims' => $listClaims, 'i' => (request()->input('page', 1) - 1) * 5]);
     }
 
+    public function claimsForUser()
+    {
+        $user = auth()->user();
+
+        $claims = $user->claims;
+
+        return view('FrontEnd.Claims.list', ['claims' => $claims]);
+    }
+
+
     public function search(Request $request)
     {
         $viewPath = 'BackOffice.claims.claims';

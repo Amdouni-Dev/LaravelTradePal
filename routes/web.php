@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user/claims', [\App\Http\Controllers\ClaimController::class, 'claimsForUser'])->name('claimsForUser');
+    Route::get('/add', [\App\Http\Controllers\ClaimController::class, 'create'])->name('claim.create');
 });
 
 Route::prefix('dashboard')->group(function () {
@@ -101,7 +103,6 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/claim/sendEmail/{claim}', [\App\Http\Controllers\ClaimController::class, 'sendEmail'])->name('sendEmail');
     Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
     Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
-    
     Route::resource('item',  ItemController::class);
     Route::resource('request',  RequestController::class);
 })->middleware(['auth', 'verified','checkAdmin'])->name('dashboard');
