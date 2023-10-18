@@ -51,7 +51,7 @@ Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionControlle
 Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
 
 
-Route::get('/profile',  [ProfileController::class, 'index']);
+Route::get('/profile',  [ProfileController::class, 'edit']);
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
