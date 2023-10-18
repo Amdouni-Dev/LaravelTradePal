@@ -1,6 +1,23 @@
 <HTML lang="fr-FR">
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'Connexion')
+<style>
+    .custom-button {
+        border: none;
+        border-radius: 0;
+        font-weight: 400;
+        font-size: 1.1em;
+        color: #fff;
+        background-color: #a23b50;
+        HEIGHT: 1.6rem;
+    }
+
+    .error {
+        left: 50%;
+        position: relative;
+        color: red;
+    }
+</style>
 <div id="main">
     <div id="animation-banner" class="web">
         <div id="could-banner" class="no-overflow">
@@ -44,12 +61,12 @@
         <article class="login-page top-sep">
 
             <div class="illu login-tree web">
-                <img src='static/image/1px.png' data-load='/image/sketch/arbre_optim.svg' alt='tree' class='web svg'>
+                <img src='static/image/1px.png' data-load='/image/sketch/arbre_optim.svg' alt='tree'
+                    class='web svg'>
                 <img src='static/image/1px.png' data-src='/static/image/sketch/arbre_optim.png' alt='tree'
                     class='web img'>
                 <img src='static/image/1px.png' data-src='/static/image/sketch/arbre_optim@2x.png' alt='tree'
                     class='web retina'>
-
             </div>
 
             <div class="ground top-sep"></div>
@@ -78,89 +95,50 @@
                     </div>
 
                 </div>
-
-                <div class="social-login">
-                    <a
-                        href="https://www.facebook.com/v2.12/dialog/oauth?client_id=1291031004295418&amp;state=807fbbac9ab2f718223bd5b72d27a4fc&amp;response_type=code&amp;sdk=php-sdk-5.6.2&amp;redirect_uri=https%3A%2F%2Fmytroc.fr%2Fcb%2Ffacebook&amp;scope=email%2Cpublic_profile%2Cuser_location">
-                        <div id="login-facebook" class="ext-login">
-                            <div class='sprites-container'>
-                                <div class='sprites icones'> <img src='static/image/1px.png'
-                                        data-src='/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.png'
-                                        class='img social fb white' alt='facebook'> <img src='static/image/1px.png'
-                                        data-src='/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8@2x.png'
-                                        class='retina social fb white' alt='facebook'> <img
-                                        src='static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg'
-                                        class='svg social fb white' alt='facebook'></div>
-                            </div>
-                            <div class="center">Connexion Facebook</div>
-                        </div>
-                    </a>
-                    <a
-                        href="https://accounts.google.com/o/oauth2/auth?response_type=code&amp;access_type=online&amp;client_id=273103550296-bprtdibuhoara97rl52aekfrrrrpbpps.apps.googleusercontent.com&amp;redirect_uri=https%3A%2F%2Fmytroc.fr%2Fcb%2Fgoogleplus&amp;state&amp;scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.login%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&amp;approval_prompt=auto">
-                        <div id="login-google" class="ext-login">
-                            <div class='sprites-container'>
-                                <div class='sprites icones'> <img src='static/image/1px.png'
-                                        data-src='/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.png'
-                                        class='img social glogin' alt='google login'> <img src='static/image/1px.png'
-                                        data-src='/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8@2x.png'
-                                        class='retina social glogin' alt='google login'> <img
-                                        src='static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg'
-                                        class='svg social glogin' alt='google login'></div>
-                            </div>
-                            <div class="center">Connexion Google</div>
-                        </div>
-                    </a>
-                    <a href="https://www.messervices.etudiant.gouv.fr/Shibboleth.sso/Login?target=/mytroc">
-                        <div id="login-mse" class="ext-login">
-                            <div class='sprites-container'>
-                                <div class='sprites icones'> <img src='static/image/1px.png'
-                                        data-src='/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.png'
-                                        class='img social mse' alt='messerviceetudiants'> <img
-                                        src='static/image/1px.png'
-                                        data-src='/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8@2x.png'
-                                        class='retina social mse' alt='messerviceetudiants'> <img
-                                        src='static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg'
-                                        class='svg social mse' alt='messerviceetudiants'></div>
-                            </div>
-                            <div class="center">Connexion etudiant</div>
-                        </div>
-                    </a>
-                </div>
+                <!-----------------------------------LOGIN---------------------------->
 
                 <div class="form-login">
 
-                    <form id="login">
+                    <form id="login" method="POST" action="{{ route('login') }}">
+                        @csrf
 
-                        <input type="hidden" name="mail" value="jenexistepas@jenexistepas.com">
-
-
+                        <!-- Email Address -->
                         <div>
-                            <div class="valid-hint">Vous devez rentrer une adresse email valide </div>
-                            <label for="email" class="main">Votre Email </label>
-                            <input id="email" type="email" name="email" placeholder="email@ma-boite-email.fr">
-                            <div class="validator"></div>
+                            <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
+                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
+                                :value="old('username')" required autofocus autocomplete="username" />
+                            <x-input-error :messages="$errors->get('username')" class="error" />
                         </div>
 
-                        <div>
-                            <div class="valid-hint"> Votre mot de passe doit contenir au moins 6 caract&egrave;res</div>
-                            <label for="password" class="main">Mot de passe </label>
-                            <input id="password" type="password" name="password" placeholder="mot de passe">
-                            <input id="password-force" type="hidden" name="force" value="">
-                            <div class="validator"></div>
+                        <!-- Password -->
+                        <div class="mt-4">
+                            <x-input-label for="password" :value="__('Mot de passe')" />
+
+                            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                                required autocomplete="current-password" />
+
+                            <x-input-error :messages="$errors->get('password')" class="error" />
                         </div>
+
+                        <!-- Remember Me -->
+
                         <div class="remenber-me">
-                            <input id="remember-me" type="checkbox" name="cgu">
+                            <input id="remember-me" type="checkbox" name="remember">
                             <label for="remember-me">
-                                se souvenir de moi </label>
+                                {{ __('se souvenir de moi') }}</label>
                         </div>
-
-
-                        <div id="flash" class="flash" style="display:none"> </div>
-
-
-                        <div class="form-button">
-                            <div class="button valid-button">Se connecter</div>
-                            <div id="resendEmailValidator"></div>
+                        <div class="flex items-center justify-end mt-4">
+                            @if (Route::has('password.request'))
+                                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    href="{{ route('password.request') }}">
+                                    {{ __('Forgot your password?') }}
+                                </a>
+                            @endif
+                        </div>
+                        <div class="form-button" onclick="submitForm()">
+                            <x-primary-button class="ml-3" class="ml-3 custom-button">
+                                {{ __('CONNEXION') }}
+                            </x-primary-button>
                         </div>
                     </form>
 
@@ -170,9 +148,15 @@
 
                         <input type="hidden" name="mail" value="jenexistepas@jenexistepas.com">
                         <div>
+                            <x-input-label for="username" :value="__('username')" />
+                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
+                                :value="old('username')" required autofocus autocomplete="username" />
+                            <x-input-error :messages="$errors->get('username')" class="error" />
+
                             <div class="valid-hint">Vous devez rentrer une adresse email valide</div>
                             <label for="email-forgotten" class="main">Votre Email </label>
-                            <input id="email-forgotten" type="email" name="email" placeholder="email@ma-boite-email.fr">
+                            <input id="email-forgotten" type="email" name="email"
+                                placeholder="email@ma-boite-email.fr">
                             <div class="validator"></div>
                         </div>
 
@@ -187,216 +171,77 @@
 
                 </div>
 
+                <!-----------------------------REGISTER------------------------------>
                 <div class="form-registration form-login">
 
-                    <form id="registration">
-                        <input type="hidden" name="mail" value="jenexistepas@jenexistepas.com">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
                         <div>
-                            <div class="valid-hint">
-                                Vous devez rentrer une adresse email valide
-                            </div>
-                            <label for="email-register" class="main"> Votre Email<span class="required"></span></label>
-                            <input id="email-register" type="email" name="email" placeholder="email@ma-boite-email.fr">
-                            <div class="validator">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="valid-hint">Votre pseudo doit contenir au moins 5 caract&egrave;res
-                            </div>
-                            <label for="email" class="main">Votre Pseudo<span class="required"></span></label>
-                            <input id="pseudo" type="text" name="pseudo" placeholder="pseudo">
-                            <div class="validator">
-                            </div>
+                            <x-input-label for="name" :value="__('Nom')" />
+                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
+                                :value="old('name')" required autofocus autocomplete="name" />
+                            <x-input-error :messages="$errors->get('name')" class="error" />
                         </div>
 
+                        <div class="mt-4">
+                            <x-input-label for="email" :value="__('Email')" />
+                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                                :value="old('email')" required autocomplete="email" />
+                            <x-input-error :messages="$errors->get('email')" class="error" />
+                        </div>
 
-                        <div>
-                            <div class="valid-hint">
-                                Votre mot de passe doit contenir au moins 6 caract&egrave;res
+                        <div class="mt-4">
+                            <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
+                            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
+                                :value="old('username')" required autocomplete="username" />
+                            <x-input-error :messages="$errors->get('username')" class="error" />
+                        </div>
+
+                        <div class="mt-4">
+                            <x-input-label for="phone" :value="__('Téléphone')" />
+                            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
+                                :value="old('phone')" required />
+                            <x-input-error :messages="$errors->get('phone')" class="error" />
+                        </div>
+
+                        <div class="mt-4">
+                            <x-input-label for="password" :value="__('Mot de passe')" />
+
+                            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                                required autocomplete="new-password" />
+
+                            <x-input-error :messages="$errors->get('password')" class="error" />
+                        </div>
+
+                        <div class="mt-4">
+                            <x-input-label for="password_confirmation" :value="__('Confirmer Mot de passe')" />
+
+                            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                                name="password_confirmation" required autocomplete="new-password" />
+
+                            <x-input-error :messages="$errors->get('password_confirmation')" class="error" />
+                        </div>
+
+                        <div class="flex items-center justify-end mt-4">
+                            <a style="left: 77%;
+    position: relative;"
+                                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                href="{{ route('login') }}">
+                                {{ __('Déjà connetcé?') }}
+                            </a>
+                            <div class="form-button" onclick="submitForm()">
+                                <x-primary-button class="ml-4" class="ml-3 custom-button">
+                                    {{ __('Crée mon compte') }}
+                                </x-primary-button>
                             </div>
-                            <div class="relative">
-                                <label for="password-init" class="main">Mot de passe <span
-                                        class="required"></span></label>
-                                <input id="password-init" type="password" name="password" placeholder="mot de passe">
-                                <input id="password-force-register" type="hidden" name="force" value="">
-                                <div class="validator">
-                                </div>
-                            </div>
-                            <div class="form-info-pass">
-                                <div class="rflex">
-
-                                    <div class="f4 ">
-                                        <div>
-                                            Force du mot de passe
-                                        </div>
-                                    </div>
-                                    <div class="f6">
-                                        <div id="password-strength-validator" class="rflex ">
-                                            <div class="f1 pass-strength pweak">faible</div>
-                                            <div class="f1 pass-strength pmedium">moyen</div>
-                                            <div class="f1 pass-strength pstrong">fort</div>
-
-                                        </div>
-                                        <div id="password-recommandation">
-
-                                            <div class="vpad">Votre mode passe doit contenir 8 caractéres dont 1
-                                                majuscules, 1 minuscule, 1 chiffre et un 1 caractére spécial.
-                                                Voir les <a
-                                                    href="https://www.cnil.fr/fr/authentification-par-mot-de-passe-les-mesures-de-securite-elementaires"
-                                                    rel="noopener noreferrer" class='rgpd-link'
-                                                    target="_blank">recommandations de la CNIL en matière de mots de
-                                                    passe</a>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div>
-                                <div class="valid-hint">
-                                    La confirmation de votre mot de passe ne correspond pas
-                                </div>
-                                <label for="password-repeat" class="main">Confirmez le Mot de passe<span
-                                        class="required"></span></label>
-                                <input id="password-repeat" type="password" name="password-repeat"
-                                    placeholder="mot de passe">
-                                <div class="validator">
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="valid-hint">Vous devez entrer un code postal*</div>
-
-                                <label for="postal" class="main">Votre code postal<span class='required'></span>
-                                </label>
-
-                                <input id="postal" type="text" name="postal" maxlength="5" placeholder="Code postal"
-                                    value="">
-
-                                <div class="validator">
-                                </div>
-                            </div>
-
-                            <div>
-                                <div>
-                                    <div class="valid-hint">Vous devez entrer une ville</div>
-                                    <label for="city" class="main">Votre ville<span class='required'></span> </label>
-
-                                    <label for="city" class="select">
-                                        <select id="city" name="city" disabled>
-                                            <option value="enterPostcode">-- Entrez d'abord votre code postal --
-                                            </option>
-                                        </select>
-                                    </label>
-
-                                    <div class="validator"></div>
-                                </div>
-
-                                <div class="form-address">
-
-
-                                    <div>
-                                        <div class="valid-hint">Vous devez entrer un numero (sans bis/ter/etc...)</div>
-
-                                        <label class="main">Votre adresse<span class='required'></span> </label>
-                                        <input id="numero" type="text" name="numero" maxlength="7" placeholder="Numero"
-                                            value="">
-                                        <div class="validator"></div>
-
-                                    </div>
-
-                                    <div>
-
-
-                                        <label class="main"> </label>
-
-                                        <div class="autocomplete">
-                                            <div class="valid-hint">Vous devez entrer une rue</div>
-                                            <input id="street" type="text" name="street" maxlength="255"
-                                                placeholder="votre rue" value="">
-                                            <div id="streets" class="autocompleter" style="display:none"></div>
-                                            <input id="streetid" type="hidden" name="streetid" value="">
-                                            <div class="validator"></div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="privacy">l'adresse ne sera pas visible pour les autres utilisateurs
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-
-
-
-
-
-
-
-                            <div class="cgu">
-
-
-
-                                <input id="cgu" type="checkbox" name="cgu">
-                                <label for="cgu">
-                                    J'ai lu et j'accepte les Conditions G&eacute;n&eacute;rales d'utilisation<span
-                                        class='required'></span>
-                                    <div class="cgu-right">(<a href="cgu.html" target="_blank">voir les cgu</a>)</div>
-
-
-                                    <div class="validator">
-                                    </div>
-                                </label>
-
-
-
-                            </div>
-
-                            <div class="captcha-container">
-                                <div class="g-recaptcha" data-sitekey="6LfhcwgTAAAAACvhL5shtor_gntjcxZSWM3aqb3a">
-                                </div> <span class='required'></span>
-                            </div>
-
-                            <div>
-                                <div class="valid-hint">
-                                    Ce code semble invalide
-                                </div>
-                                <label for="code-promo" class="main">Code parrainage/promotion </label>
-                                <input id="code-promo" type="text" name="code-promo" placeholder="votre code">
-                                <div class="validator">
-                                </div>
-                            </div>
-
-                            <div id="promotionDescription">
-                            </div>
-
-                            <div id="flash" class="flash" style="display:none">
-                            </div>
-
-                            <div class="form-button">
-                                <div class="button valid-button">
-                                    S'enregistrer
-                                </div>
-                            </div>
-                            <div class="rgpdpad">
-                                <span class='required'></span><span class="rgpd  italic">Données obligatoires</span>
-                            </div>
-
+                        </div>
                     </form>
 
 
                 </div>
 
 
-            </div>
-            <div class="block-info-rgpd">
-                Les donn&eacute;es à caract&egrave;re personnel collect&eacute;es font l'objet d'un traitement dont
-                MyTroc est le responsable. <a id="show-popup-rgpd" class="rgpd-link show-popup-rgpd" href="#">En savoir
-                    plus</a>
             </div>
 
 
@@ -429,7 +274,8 @@
             Ce site utilise Javascript, vous devez activer Javascript pour que le site fonctionne correctement. <div>
                 &nbsp;</div>
             <div>
-                <a href="https://support.google.com/chrome/answer/114662?hl=fr" target="_blank" rel="external nofollow">
+                <a href="https://support.google.com/chrome/answer/114662?hl=fr" target="_blank"
+                    rel="external nofollow">
                     Param&egrave;trer javascript dans Google Chrome &copy; </a>
             </div>
             <div>
@@ -467,8 +313,7 @@
 <img style="opactiy:0" src="https://facebook.com/tr?id=1220149654723308&amp;ev=PageView&amp;noscript=1" />
 </BODY>
 
-<script type="text/javascript" charset="UTF-8" src="/js/script.js" async defer
-    onload="jQueryReadyCB()"></script>
+<script type="text/javascript" charset="UTF-8" src="/js/script.js" async defer onload="jQueryReadyCB()"></script>
 
 
 <!-- Mirrored from mytroc.fr/logout by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Sep 2023 15:18:21 GMT -->

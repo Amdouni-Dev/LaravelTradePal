@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Claim;
 use App\Models\Response;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class ResponseController extends Controller
     // Show the form for creating a new response
     public function create()
     {
-        return view('responses.create');
+        return view('BackOffice.claims.response-form');
     }
 
     // Store a newly created response in the database
@@ -57,7 +58,7 @@ class ResponseController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('responses.index')->with('success', 'Response updated successfully');
+        return redirect()->route('claims')->with('success', 'Response updated successfully');
     }
 
     // Remove the specified response from the database
@@ -68,5 +69,14 @@ class ResponseController extends Controller
 
         return redirect()->route('responses.index')->with('success', 'Response deleted successfully');
     }
+
+    public function showClaim($claimId)
+    {
+        $claim = Claim::find($claimId);
+
+
+        return view('your.blade.view', ['claim' => $claim]);
+    }
+
 
 }

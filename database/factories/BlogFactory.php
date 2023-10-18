@@ -23,7 +23,7 @@ class BlogFactory extends Factory
             'likes'=> $this->faker->randomNumber(2),
             'views'=> $this->faker->randomNumber(2),
             'status'=> $this->faker->name(20),
-            'featuredImage'=> $this->faker->name(20),
+            'featuredImage' => $this->faker->image(public_path('blogs'), 400, 300, null, false),
             'publicationDate'=> now(),
             'user_id' => \App\Models\User::factory(),
         ];

@@ -42,18 +42,16 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'tags' => 'required',
-            'status' => 'required',
-            'auteur' => 'required',
+            'content' => 'required'
         ]);
       
         $comment = new Comment();
-        $comment->title = $request->input('content');
+        $comment->content = $request->input('content');
+        $comment->blog_id = $request->input('blog_id');
+        $comment->user_id = $request->input('user_id');
 
         $comment->save();
-        return redirect()->route('comments.index')
-                        ->with('success','Article crée avec succées.');
+        return redirect()->back();
     }
 
     /**
@@ -113,6 +111,17 @@ class CommentController extends Controller
         $comment->delete();
         return redirect()->route('comments.index')
         ->with('success', 'Article a étè supprimer');
+    }
+
+    public function likeBlog($user_id, $blog_id)
+    {
+        $comment = Comment::firstOrNew([
+            'user_id' => 1,
+            'blog_id' => 1,
+        ]);
+        $comment->likes = !$comment->likes;
+        $comment->save();
+        return redirect()->back();
     }
 
 }
