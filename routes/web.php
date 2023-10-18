@@ -23,6 +23,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +41,7 @@ use App\Http\Controllers\DonationController;
 //});
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/home',  [IndexController::class, 'index']);
 
 Route::get('/',  [IndexController::class, 'index']);
@@ -66,6 +65,7 @@ Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::prefix('dashboard')->group(function () {
+    Route::get('/', [UserController::class, 'index']);
     Route::get('/blog/add', [BlogController::class, 'create']);
     Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/blogs', [BlogController::class, 'index']);
@@ -116,7 +116,10 @@ Route::middleware('auth')->group(function () {
     });
     Route::resource('item',  ItemController::class);
     Route::resource('request',  RequestController::class);
-});
+})->middleware(['auth', 'verified','checkAdmin'])->name('dashboard');
+
+
+
 Route::get('/organizations/{id}', [OrganizationController::class, 'show'])->name('organizations.show');
 Route::get('/organizations', [OrganizationController::class, 'indexFrontOffice'])->name('organizations.indexFrontOffice');
 Route::get('/search-organizations', [OrganizationController::class, 'search'])->name('organizations.search');
