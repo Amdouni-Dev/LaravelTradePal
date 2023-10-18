@@ -1,6 +1,6 @@
         
         <!DOCTYPE html>
-        @extends('FrontEnd.section.header')
+        @include('FrontEnd.section.header')
 @section('pageTitle', 'Noisette')
 <div id="main">
 	
@@ -49,7 +49,6 @@
   </div>        
 <div class="content">
 
-
 <div class="center-div">
 
 
@@ -96,6 +95,7 @@
  <div class="text-register">
   <a href="https://mytroc.fr/mon-profil#register">des biens et des services</a>  
 </div>
+
 
 
 
