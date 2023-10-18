@@ -18,20 +18,22 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-
+            
             $table->unsignedBigInteger('desired_id');
             $table->foreign('desired_id')->references('id')->on('items');
-
-
-            $table->unsignedBigInteger('exchangeable_id');
-            $table->foreign('exchangeable_id')->references('id')->on('items');
-
-
-            $table->string('note');
+    
+           
+            $table->unsignedBigInteger('exchangeable_id')->nullable();
+            $table->foreign('exchangeable_id')->references('id')->on('items'); 
+    
+            
+            $table->string('note')->nullable();;
             $table->enum('status', ['EN_COURS', 'CONFIRME', 'ANNULE']);
+            $table->decimal('amount', 10, 2)->nullable();;
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *

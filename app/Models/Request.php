@@ -14,12 +14,13 @@ class Request extends Model
         'exchangeable_id',
         'note',
         'status',
+        'amount'
     ];
-public function desiredItem(){
+public function desired(){
         return $this->belongsTo(Item::class);
 }
     
-public function exchangeableItem(){
+public function exchangeable(){
         return $this->belongsTo(Item::class);
     }
 public function user(){
