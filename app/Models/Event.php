@@ -10,9 +10,10 @@ class Event extends Model
     use HasFactory;
 //    protected $fillable = ['nom'];
 
-    protected $fillable = ['id', 'nom', 'start', 'end',   'image_path'];
+    protected $fillable = ['id'];
 
-    public function participations(){
+    public function participations()
+    {
         return $this->hasMany(Participation::class);
     }
 }

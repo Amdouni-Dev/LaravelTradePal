@@ -43,7 +43,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-   
+
 
     public function donations(){
         return $this->hasMany(Donation::class);
@@ -70,4 +70,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function responses(){
         return $this->hasMany(Response::class);
     }
+
+
+
+    public function participations()
+    {
+        return $this->hasMany(Participation::class);
+    }
+
 }

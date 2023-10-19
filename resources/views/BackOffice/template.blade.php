@@ -26,7 +26,7 @@
 </head>
 
 <body>
-@if (!auth()->check() || (auth()->check() && auth()->user()->role !== 'admin'))
+@if(!auth()->check() || (auth()->check() && auth()->user()->role !== 'admin'))
     @php
         header("Location: /home"); 
         exit;
@@ -92,9 +92,9 @@
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link">
+            <a href="/dashboard/item/list" class="menu-link">
               <i class="menu-icon tf-icons bx bx-package"></i>
-              <div>Produits</div>
+              <div>Objets</div>
             </a>
           </li>
           <li class="menu-item ">
@@ -104,9 +104,9 @@
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link">
+            <a href="/dashboard/request/list" class="menu-link">
               <i class="menu-icon tf-icons bx bx-repost"></i>
-              <div>Échanges</div>
+              <div>Demandes</div>
             </a>
           </li>
           <li class="menu-item ">
