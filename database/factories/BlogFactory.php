@@ -16,13 +16,13 @@ class BlogFactory extends Factory
      */
     public function definition()
     {
+        $status = ['Publique', 'Privé'];
         return [
             'title'=> $this->faker->name(20),
             'content'=> $this->faker->name(20),
             'tags'=> $this->faker->name(20),
-            'likes'=> $this->faker->randomNumber(2),
             'views'=> $this->faker->randomNumber(2),
-            'status'=> $this->faker->name(20),
+            'status'=> $this->faker->randomElement($status),
             'featuredImage' => $this->faker->image(public_path('blogs'), 400, 300, null, false),
             'publicationDate'=> now(),
             'user_id' => \App\Models\User::factory(),

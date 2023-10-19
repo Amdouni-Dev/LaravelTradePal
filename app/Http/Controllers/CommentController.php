@@ -116,10 +116,17 @@ class CommentController extends Controller
     public function likeBlog($user_id, $blog_id)
     {
         $comment = Comment::firstOrNew([
-            'user_id' => 1,
-            'blog_id' => 1,
+            'user_id' => $user_id,
+            'blog_id' => $blog_id,
         ]);
-        $comment->likes = !$comment->likes;
+        
+        if (!$comment->exists) {
+            $comment->user_id = $user_id;
+            $comment->blog_id = $blog_id;
+            $comment->likes = 1;
+        } else {
+            $comment->likes = !$comment->likes;
+        }
         $comment->save();
         return redirect()->back();
     }

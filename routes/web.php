@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\ParticipationController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FrontEnd\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\IndexController;
@@ -53,7 +53,7 @@ Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionControlle
 Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
 
 
-Route::get('/profile',  [ProfileController::class, 'index']);
+
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
@@ -153,6 +153,8 @@ Route::post('/donations/add', [DonationController::class, 'store']);
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
+    Route::get('/profile',  [ProfileController::class, 'index']);
+
 
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
                 ->middleware(['signed', 'throttle:6,1'])

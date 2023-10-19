@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -16,11 +17,11 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $viewPath = 'BackOffice.blog.table'; // Set the view path 
+        $viewPath = 'BackOffice.blog.table';
         $blogs = Blog::join('users', 'blogs.user_id', '=', 'users.id')
             ->select('blogs.*', 'users.name as username')
             ->latest()
-            ->paginate(5);
+            ->simplePaginate(5);
         return view('BackOffice.template',compact('viewPath','blogs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -90,7 +91,7 @@ class BlogController extends Controller
             abort(404); 
         }
         $blogId = $id;
-        $userId = 1;
+        $userId = Auth::id();
 
         $likedComments = Comment::where('likes', '1')
             ->where('blog_id', $blogId)

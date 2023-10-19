@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'TradePal - '  . $blog->title)
+<meta property="og:title" content="Your Page Title">
+    <meta property="og:description" content="A description of your page">
+    <meta property="og:image" content="https://example.com/path-to-thumbnail-image.jpg">
+    <meta property="og:url" content="https://yourwebsite.com/page-url">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Your Website Name">
 <link rel="stylesheet" href="/back/assets/vendor/fonts/boxicons076f.css?id=b821a646ad0904f9218f56d8be8f070c" />
 <link href="/css/emoji.css" rel="stylesheet">
 <meta charset="UTF-8">
@@ -57,74 +63,109 @@
 						<br><br>
 						<div> {!! $blog->content !!}</div>
 						<br><br>
-						<div><i style="font-size:3rem;color:#bfd578" class="bx bxs-purchase-tag-alt me-1"></i>{{ $blog->tags }}<br><br><br></div>
+						<div><i style="font-size:3rem;color:#bfd578" class="bx bxs-purchase-tag-alt me-1"></i>
+						@foreach (explode(',', $blog->tags) as $tag)
+							@php
+								$tag = trim($tag);
+							@endphp
+							<a href="{{ url('tag/' . $tag) }}">{{ $tag }}</a>
+						@endforeach
+						
+						<br><br><br></div>
 						<div>
 							<div class="third">
 								<div>
-								<form action="{{ route('like.toggle', ['user_id' => 1, 'blog_id' => $blog->id]) }}" method="post">
-								@csrf
-								@if ($likedComments->isEmpty())
-									<button type="submit" class="like-button" >
-										<i style="font-size: 3rem; color: #a54458" class="bx bx-heart me-1"></i>
-									</button>
-									
+								@auth
+									<form action="{{ route('like.toggle', ['user_id' => Auth::user()->id, 'blog_id' => $blog->id]) }}" method="post">
+										@csrf
+										@if ($likedComments->isEmpty())
+											<button type="submit" class="like-button">
+												<i style="font-size: 3rem; color: #a54458" class="bx bx-heart me-1"></i>
+											</button>
+										@else
+											<button type="submit" class="like-button">
+												<i style="font-size: 3rem; color: #a54458" class="bx bxs-heart me-1"></i>
+											</button>
+										@endif
+									</form>
 								@else
-									<button type="submit" class="like-button" >
-										<i style="font-size: 3rem; color: #a54458" class="bx bxs-heart me-1"></i>
-									</button>
-								@endif
-								</form>
+									<form action="/login" method="get">
+										<button type="submit" class="like-button">
+											<i style="font-size: 3rem; color: #a54458" class="bx bx-heart me-1"></i>
+										</button>
+									</form>
+								@endauth
 								</div>
 							</div>
 							<div class="third">
 								<div>
-									<i style="font-size:3rem;color:#3c7aa9" class="bx bxs-share-alt me-1"></i>							
+									<i style="font-size:3rem;color:#3c7aa9" class="bx bxs-share-alt me-1 btn facebook"></i>							
 								</div>
 							</div>
 						</div>			 
 					</div>
 					<ul class="temoignages">
 					@foreach($blog->comments as $comment)
-						<li>
-							<div class="temoignage-pix square" style="width:80px">
-								<div class="square-content">
-									<img src="/image/profils/user.jpg" class="">
-								</div>		
-							</div>
-							<div class="temoignage-content">
-			 					<table style="min-width: 100%;">
-									<tr>
-										<td  style="text-align: left;">
-											<h2>{{ $comment->user->name }}</h2>
-										</td>
-										<td style="text-align: right;">
-											<h2>{{ $comment->created_at }}</h2>
-										</td>
-									</tr>
-								</table>
-									<p style="font-size:20px">{{ $comment->content }}</p>				
-							</div>
-						</li>
+						@if($comment->content !== null)
+							<li>
+								<div class="temoignage-pix square" style="width:80px">
+									<div class="square-content">
+										<img src="/image/profils/user.jpg" class="">
+									</div>
+								</div>
+								<div class="temoignage-content">
+									<table style="min-width: 100%;">
+										<tr>
+											<td  style="text-align: left;">
+												<h2>{{ $comment->user->name }}</h2>
+											</td>
+											<td style="text-align: right;">
+												<h2>{{ $comment->created_at }}</h2>
+											</td>
+										</tr>
+									</table>
+									<p style="font-size:20px">{{ $comment->content }}</p>
+								</div>
+							</li>
+						@endif
 					@endforeach
-					<form method="POST" action="{{ url('/storeComment') }}">
-					@csrf
+					@auth
+						<form method="POST" action="{{ url('/storeComment') }}">
+						@csrf
+							<table>
+								<tr>
+									<td style="min-width: 45rem;">
+										<p class="lead emoji-picker-container" style="background:white">
+											<textarea name="content" style="min-height:0rem"  class="form-control textarea-control" rows="3" placeholder="Ecrire votre commentaire" data-emojiable="true"></textarea>
+										</p>
+										<input type="hidden" value="{{ $blog->id}}" name="blog_id">
+										<input type="hidden" value="{{ Auth::user()->id}}" name="user_id">
+									</td>
+									<td>
+										<button type="submit" style="background: transparent; border: none;">
+											<i style="font-size:3rem;color:#a54458;" class="bx bxs-send me-1"></i>							
+										</button>
+									</td>
+								</tr>
+							</table>
+						</form>
+					@else
 						<table>
-							<tr>
-								<td style="min-width: 45rem;">
-									<p class="lead emoji-picker-container" style="background:white">
-										<textarea name="content" style="min-height:0rem"  class="form-control textarea-control" rows="3" placeholder="Ecrire votre commentaire" data-emojiable="true"></textarea>
-									</p>
-									<input type="hidden" value="{{ $blog->id}}" name="blog_id">
-									<input type="hidden" value="{{ $blog->id}}" name="user_id">
-								</td>
-								<td>
-									<button type="submit" style="background: transparent; border: none;">
-										<i style="font-size:3rem;color:#a54458;" class="bx bxs-send me-1"></i>							
-									</button>
-								</td>
-							</tr>
-						</table>
-					</form>
+								<tr>
+									<td style="min-width: 45rem;">
+										<p class="lead emoji-picker-container" style="background:white">
+											<textarea name="content" style="min-height:0rem"  class="form-control textarea-control" rows="3" placeholder="Ecrire votre commentaire" data-emojiable="true"></textarea>
+										</p>
+										<input type="hidden" value="{{ $blog->id}}" name="blog_id">
+									</td>
+									<td>
+										<button style="background: transparent; border: none;" onclick="window.location.href = '/login';">
+											<i style="font-size:3rem;color:#a54458;" class="bx bxs-send me-1"></i>							
+										</button>
+									</td>
+								</tr>
+							</table>
+					@endauth
 				</ul>	
 			</div>
 		</article>
@@ -151,5 +192,29 @@
 	var textarea = document.querySelector(".textarea-control");
     textarea.style.backgroundColor = "white";
     });
+</script>
+<script>
+	var text = encodeURIComponent("Follow JavaScript Jeep form Amazing JavaScript Tutorial");
+	var url = "https://medium.com/@jagathishsaravanan/"; 
+	var user_id = "jagathish1123";
+	var hash_tags = "JS,JavaScript,100DaysOfCode,Programming";
+	var params = "menubar=no,toolbar=no,status=no,width=570,height=570"; // for window
+
+	var facebook = document.querySelector('.facebook');
+	var twitter = document.querySelector('.twitter');
+	let tags = [<?= json_encode(explode(',', $blog->tags)) ?>];
+
+consoloe.log(tags);
+	facebook.addEventListener('click', function(ev) {
+	console.log("hi");
+	
+		let shareMessage = "Check out this awesome blog post on TradePal!";
+		let shareUrl = `https://www.facebook.com/sharer/sharer.php?u=www.tradepal.tn/blog/{{$blog->id}}&hashtag=tagUrl`;
+		window.open(shareUrl,"NewWindow" , params);  
+	});
+	twitter.addEventListener('click', function(ev) {
+	let shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=${user_id}&hashtags=${hash_tags}`;
+	window.open(shareUrl,"NewWindow" , params);
+	});
 </script>
 </HTML>    

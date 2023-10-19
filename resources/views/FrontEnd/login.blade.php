@@ -16,7 +16,6 @@
     }
 
     .error {
-        left: 50%;
         position: relative;
         color: red;
     }
@@ -136,7 +135,7 @@
                             <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
                             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
                                 :value="old('username')" required autofocus autocomplete="username" />
-                            <x-input-error :messages="$errors->get('username')" class="error" />
+                            
                         </div>
 
                         <!-- Password -->
@@ -147,6 +146,8 @@
                                 required autocomplete="current-password" />
 
                             <x-input-error :messages="$errors->get('password')" class="error" />
+                            <x-input-error :messages="$errors->get('username')" class="error" />
+                            
                         </div>
 
                         <!-- Remember Me -->

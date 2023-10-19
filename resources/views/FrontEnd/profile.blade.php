@@ -195,7 +195,7 @@
 		                <div class="container">
 
 		                    <h1 class="smart">
-		                        Aymen Laroussi
+		                        {{ auth()->user()->name }}
 
 		                    </h1>
 		                    <div class="profil-head">
@@ -203,7 +203,7 @@
 
 		                            <div class="square ">
 		                                <div class="square-content">
-		                                    <img src="./Troc et consommation responsable sur MyTroc.fr_files/f91093af73e6dc5fbcbd259b8c084a86.jpg"
+		                                    <img src="{{ auth()->user()->profile_picture }}"
 		                                        alt="troqueur aymen laroussi , sur mytroc">
 
 		                                    <form id="image-upload" method="post" target="targetUpload"
@@ -211,7 +211,7 @@
 		                                        <div class="file-with-style">
 		                                            <label for="image-input">
 		                                                <div class="sprites icones"> <img
-		                                                        src="./Troc et consommation responsable sur MyTroc.fr_files/21e0151d35abd56f1a6a8a5a712ec8b8.svg"
+		                                                        src="/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg"
 		                                                        class="svg ic-mat-pix" alt="camera"></div>
 		                                            </label>
 		                                            <input id="image-input" type="file" name="piix" accept="image/*">
@@ -236,12 +236,20 @@
 
 		                            <h1 class="web">
 
-		                                Aymen Laroussi
+		                                {{ auth()->user()->name }}
 		                            </h1>
 
-		                            <div class="city"></div>
+		                            <div class="city">#{{ auth()->user()->username }}</div>
 
-		                            <div class="postal">00000</div>
+		                            <div class="postal">
+										
+										<br>
+										Email : {{ auth()->user()->email }}
+										<br>
+										Télephone : {{ auth()->user()->phone }}
+										<br>
+										Crée le : {{ auth()->user()->created_at }}
+									</div>
 
 
 		                        </div>
@@ -332,7 +340,7 @@
 		                                    <div id="troc-done" class="smart-half">
 		                                        <div class="measure">
 		                                            <div class="sprites icones"> <img
-		                                                    src="./Troc et consommation responsable sur MyTroc.fr_files/21e0151d35abd56f1a6a8a5a712ec8b8.svg"
+		                                                    src="/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg"
 		                                                    class="svg icone-box" alt="carton"></div>
 		                                            <span>0</span>
 		                                        </div>
@@ -347,7 +355,7 @@
 		                                    <a href="https://mytroc.fr/mes-noisettes">
 		                                        <div class="sprites icones"> <img 
 		                                                src="/image/menu/noisette.png"
-		                                                class="svg nuts" alt="noisette" style="width: 45px;"></div> 1
+		                                                class="svg nuts" alt="noisette" style="width: 45px;"></div> {{ auth()->user()->hazelnuts }}
 		                                    </a>
 		                                </div>
 
@@ -370,10 +378,10 @@
 
 
 
-		                                <h2>description </h2>
+		                                <h2>{{ auth()->user()->bio }}</h2>
 
 
-		                                <p>Ce troqueur n'a pas encore rempli sa description.</p>
+		                                <p>{{ auth()->user()->bio }}</p>
 
 
 		                            </div>
