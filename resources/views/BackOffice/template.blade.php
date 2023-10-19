@@ -26,7 +26,7 @@
 </head>
 
 <body>
-@if(auth()->check() && auth()->user()->role !== 'admin')
+@if (!auth()->check() || (auth()->check() && auth()->user()->role !== 'admin'))
     @php
         header("Location: /home"); 
         exit;

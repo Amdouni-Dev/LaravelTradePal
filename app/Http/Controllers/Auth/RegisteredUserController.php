@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'phone' => $request->phone,
             'hazelnuts' =>10,
-
+            'profile_picture' => '/image/profils/user.jpg',
         ]);
 
 
