@@ -180,7 +180,7 @@
                     </div>
                     <div>
                         <h2>Mes informations</h2>
-                        <form method="PUT" action="{{route('profile.update')}}" id="update-description" class="update-description"
+                        <form method="PUT" action="{{route('profile.updateProfile')}}" id="update-description" class="update-description"
                             data-form-type="">
                             <table style="width:45rem">
                                 <tr>
@@ -241,7 +241,7 @@
                             </table>
                         </form>
                     </div>
-                    
+
                     <div>
                         <h2>Mon mot de passe</h2>
                         <form id="updatepassword" class="input-block" data-dashlane-rid="aa2eded5831184f2"

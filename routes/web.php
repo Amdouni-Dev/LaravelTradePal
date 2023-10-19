@@ -44,8 +44,8 @@ use App\Http\Controllers\UserController;
 
 Route::get('/home',  [IndexController::class, 'index']);
 Route::get('/show2',  [EventController::class, 'show2']);
-
 Route::get('/',  [IndexController::class, 'index']);
+Route::get('/updateProfile', [ProfileUserController::class, 'updateProfile'])->name('profile.updateProfile');
 
 Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->middleware('guest');
 
@@ -79,7 +79,7 @@ Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('even
 
 
 Route::get('/profile', [ProfileUserController::class, 'edit'])->name('profile.edit');
-Route::put('/profile', [ProfileUserController::class, 'update1'])->name('profile.update');
+
 Route::get('/edit-profile', [ProfileUserController::class, 'showForm'])->name('profile.showForm');
 
 
