@@ -47,12 +47,8 @@ class RegisteredUserController extends Controller
             'hazelnuts' =>10,
             'profile_picture' => '/image/profils/user.jpg',
         ]);
-
-
         event(new Registered($user));
-
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

@@ -257,10 +257,14 @@ class EventController extends Controller
         $latestParticipationsSimilar = $participationsSimilar->sortByDesc('created_at');
 
         $user = auth()->user();
-        $isParticipated = Participation::where('event_id', $id)
-            ->where('user_id', $user->id)
-            ->exists();
-
+        if($user) {
+            $isParticipated = Participation::where('event_id', $id)
+                ->where('user_id', $user->id)
+                ->exists();
+        }
+        else{
+            return redirect('/login')->with('success', 'vous devez etre connecté pour voir ls evenements ');
+        }
         return view('BackOffice.template', [
             'viewPath' => 'Event.admin.show',
             'event' => $event,
@@ -271,7 +275,42 @@ class EventController extends Controller
     }
 
 
+public function  show2($id){
+    $event = Event::find($id);
+//        dd($event);
 
+    if (!$event) {
+        // Gérer le cas où l'événement n'a pas été trouvé, par exemple, rediriger vers une page d'erreur.
+        return view('backOffice.404');
+    }
+
+    $eventDate = $event->date;
+
+    $similarEvents = Event::whereDate('date', $eventDate)
+        ->where('id', '!=', $id)
+        ->get();
+
+    $participationsSimilar = Participation::whereIn('event_id', $similarEvents->pluck('id'))->get();
+
+    $latestParticipationsSimilar = $participationsSimilar->sortByDesc('created_at');
+
+    $user = auth()->user();
+    if($user) {
+        $isParticipated = Participation::where('event_id', $id)
+            ->where('user_id', $user->id)
+            ->exists();
+    }
+    else{
+        return redirect('/login')->with('success', 'vous devez etre connecté pour voir ls evenements ');
+    }
+    return view('Event.user.showDetailsEvent', [
+        'viewPath' => 'Event.admin.show',
+        'event' => $event,
+        'similarEvents' => $similarEvents,
+        'latestParticipationsSimilar' => $latestParticipationsSimilar,
+        'isParticipated' => $isParticipated,
+    ]);
+}
     /**
      * Show the form for editing the specified resource.
      *

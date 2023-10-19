@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\ParticipationController;
-use App\Http\Controllers\FrontEnd\ProfileController;
+use App\Http\Controllers\FrontEnd\ProfileUserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\IndexController;
@@ -43,9 +43,12 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/home',  [IndexController::class, 'index']);
+Route::get('/show2',  [EventController::class, 'show2']);
 
 Route::get('/',  [IndexController::class, 'index']);
-Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create']);
+
+Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->middleware('guest');
+
 Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store'])->name('login');
 
 Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
@@ -65,7 +68,7 @@ Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class,'participerEvent'])->name('participerEvent');
-Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
+Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('events.show');
 
 
  /******************* Items+ Requests Front*/
@@ -74,12 +77,13 @@ Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('event
  Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
   /******************* Items + Requests*/
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-});
+Route::get('/profile', [ProfileUserController::class, 'edit'])->name('profile.edit');
+Route::put('/profile', [ProfileUserController::class, 'update1'])->name('profile.update');
+Route::get('/edit-profile', [ProfileUserController::class, 'showForm'])->name('profile.showForm');
+
+
+
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, 'index']);
@@ -87,6 +91,8 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::get('/comments',  [BlogController::class, 'index']);
+    Route::post('/user/block/{id}', [UserController::class, 'blockUser'])->name('blockUser');
+Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
 
 
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
@@ -151,7 +157,7 @@ Route::post('/donations/add', [DonationController::class, 'store']);
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
-    Route::get('/profile',  [ProfileController::class, 'index']);
+    Route::get('/profile',  [ProfileUserController::class, 'index']);
 
 
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)

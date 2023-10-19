@@ -87,4 +87,35 @@ class UserController extends Controller
     {
         // Deletion logic here
     }
+
+
+    
+public function blockUser($id)
+{
+    $user = User::find($id);
+
+    if (!$user) {
+        return back()->with('error', 'Utilisateur introuvable');
+    }
+
+    $user->account_status = 'inactive';
+    $user->save();
+
+    return back()->with('success', 'L\'utilisateur a été bloqué avec succès');
+}
+
+public function activateUser($id)
+{
+    $user = User::find($id);
+
+    if (!$user) {
+        return back()->with('error', 'Utilisateur introuvable');
+    }
+
+    $user->account_status = 'active';
+    $user->save();
+
+    return back()->with('success', 'L\'utilisateur a été activé avec succès');
+}
+
 }

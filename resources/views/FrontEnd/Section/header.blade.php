@@ -733,13 +733,15 @@
                                 </a>
                             </div>
                         </li>
-                        <li class=" active  showMyProfil block-menu div-showMyProfil ">
+                        @if(auth()->check() || (auth()->check() && auth()->user()->role !== 'user'))
+                       <li class=" active  showMyProfil block-menu div-showMyProfil ">
                             <div class="hvr-grow">
                                 <a href="/profile" class="waves waves-prune " data-wave-scale="20">
                                     <span>Mon Profil</span>
                                 </a>
                             </div>
                         </li>
+                        @endif
                         <li class="  showMyProfil block-menu div-showMyProfil ">
                             <div class="hvr-grow">
                                 <a href="/profile" class="waves waves-prune " data-wave-scale="20">
