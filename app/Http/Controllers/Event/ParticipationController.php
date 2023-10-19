@@ -51,7 +51,7 @@ class ParticipationController extends Controller
     {
         //
         $participation=new Participation();
-        $participation->nomUser=$request->input('nomUser');
+//        $participation->nomUser=$request->input('nomUser');
 
         $participation->proposedObject=$request->input('proposedObject');
         $participation->descriptionObject=$request->input('descriptionObject');
@@ -101,10 +101,10 @@ class ParticipationController extends Controller
     {
         //
         $participation=Participation::find($id);
-        $participation->nomUser=$request->input('nomUser');
-        $participation->proposedObject=$request->input('proposedObject');
-        $participation->descriptionObject=$request->input('descriptionObject');
-        $participation->changedBy=$request->input('changedBy');
+//        $participation->nomUser=$request->input('nomUser');
+//        $participation->proposedObject=$request->input('proposedObject');
+//        $participation->descriptionObject=$request->input('descriptionObject');
+//        $participation->changedBy=$request->input('changedBy');
         $participation->event_id=$request->input('event_id');
         $participation->save();
         return redirect('/dashboard/participations')->with('success', 'Participation mise à jour avec succès.');    }

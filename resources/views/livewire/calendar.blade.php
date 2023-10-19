@@ -47,7 +47,7 @@
                 eventClick: function(info) {
                     const eventId = info.event.id;
 
-                    window.location.href = `/events/${eventId}`;
+                    window.location.href = `/eventsDetails/${eventId}`;
                 },
             });
 
