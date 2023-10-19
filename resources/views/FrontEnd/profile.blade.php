@@ -1,66 +1,38 @@
 		<!DOCTYPE html>
 		@extends('FrontEnd.section.header')
 		@section('pageTitle', 'Profile')
-
 		<div id="main">
-
-
-
 		    <div id="animation-banner" class="web">
 		        <div id="could-banner" class="no-overflow">
 		            <div id="cloud1" class="cloud">
 		                <img src="./Troc et consommation responsable sur MyTroc.fr_files/nuage1.svg"
 		                    data-load="https://cf.mytroc.fr/image/sketch/nuage1.svg" alt="nuage" class="svg">
-
-
 		            </div>
 		            <div id="cloud2" class="cloud">
 		                <img src="./Troc et consommation responsable sur MyTroc.fr_files/nuage2.svg"
 		                    data-load="https://cf.mytroc.fr/image/sketch/nuage2.svg" alt="nuage" class="svg">
-
-
-
 		            </div>
 		            <div id="cloud3" class="cloud">
 		                <img src="./Troc et consommation responsable sur MyTroc.fr_files/nuage3.svg"
 		                    data-load="https://cf.mytroc.fr/image/sketch/nuage3.svg" alt="nuage" class="svg">
-
-
-
 		            </div>
 		            <div id="cloud4" class="cloud">
 		                <img src="./Troc et consommation responsable sur MyTroc.fr_files/nuage1.svg"
 		                    data-load="https://cf.mytroc.fr/image/sketch/nuage1.svg" alt="nuage" class="svg">
-
-
-
 		            </div>
 		            <div id="cloud5" class="cloud">
 		                <img src="./Troc et consommation responsable sur MyTroc.fr_files/nuage2.svg"
 		                    data-load="https://cf.mytroc.fr/image/sketch/nuage2.svg" alt="nuage" class="svg">
-
-
-
 		            </div>
 		        </div>
 		        <h1 class="title">Mon Profil</h1>
-
 		    </div>
-
-
 		    <div class="content">
-
 		        <div class="my-profile top-sep">
-
 		            <div id="tree" class="web">
 		                <img src="./Troc et consommation responsable sur MyTroc.fr_files/arbre_optim.svg" alt="arbre"
 		                    class="svg">
-
-
-
-
 		            </div>
-
 		            <nav class="profile-menu">
 		                <ul>
 		                    <li class="   ">
@@ -69,15 +41,11 @@
 		                                <div class="pancarte-content">
 		                                    <img src="/image/menu/oiseau_right_up.svg"
 		                                        alt="oiseau" class="bird web svg">
-
-
-
 		                                    <div class="link waves">Mes messages<span class="nUnreadMessage"></span></div>
 		                                    <div class="dot tl"></div>
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
 		                                    <div class="dot br"></div>
-
 		                                </div>
 		                            </a>
 		                        </div>
@@ -89,13 +57,11 @@
 		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
 									<a href="/item/show">
 		                                <div class="pancarte-content">
-
 		                                    <div class="link waves">Mes offres</div>
 		                                    <div class="dot tl"></div>
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
 		                                    <div class="dot br"></div>
-
 		                                </div>
 		                            </a>
 		                        </div>
@@ -106,13 +72,11 @@
 		                        <div class="pancarte odd ">
 		                            <a href="https://mytroc.fr/mes-noisettes">
 		                                <div class="pancarte-content">
-
 		                                    <div class="link waves">Mes noisettes</div>
 		                                    <div class="dot tl"></div>
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
 		                                    <div class="dot br"></div>
-
 		                                </div>
 		                            </a>
 		                        </div>
@@ -129,7 +93,6 @@
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
 		                                    <div class="dot br"></div>
-
 		                                </div>
 		                            </a>
 		                        </div>
@@ -146,7 +109,6 @@
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
 		                                    <div class="dot br"></div>
-
 		                                </div>
 		                            </a>
 		                        </div>
@@ -163,7 +125,6 @@
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
 		                                    <div class="dot br"></div>
-
 		                                </div>
 		                            </a>
 		                        </div>
@@ -180,32 +141,26 @@
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
 		                                    <div class="dot br"></div>
-
 		                                </div>
 		                            </a>
 		                        </div>
 		                        <div class="rope right">&nbsp;</div>
 		                        <div class="rope left">&nbsp;</div>
 		                    </li>
-
 		                </ul>
 		            </nav>
-
 		            <article class="profil mine top-sep" style="max-width: 4096px;">
 		                <div class="container">
 
 		                    <h1 class="smart">
 		                        {{ auth()->user()->name }}
-
 		                    </h1>
 		                    <div class="profil-head">
 		                        <div class="profil-pix mine class_box_shadow">
-
 		                            <div class="square ">
 		                                <div class="square-content">
 		                                    <img src="{{ auth()->user()->profile_picture }}"
 		                                        alt="troqueur aymen laroussi , sur mytroc">
-
 		                                    <form id="image-upload" method="post" target="targetUpload"
 		                                        enctype="multipart/form-data">
 		                                        <div class="file-with-style">
@@ -218,31 +173,20 @@
 		                                        </div>
 		                                        <input type="hidden" name="MAX_FILE_SIZE" value="30000">
 		                                    </form>
-
 		                                    <div id="upload-img-error" class="flash" style="display:none"></div>
-
 		                                    <div class="dnone">
 		                                        <iframe id="targetUpload" name="targetUpload"
 		                                            src="./Troc et consommation responsable sur MyTroc.fr_files/saved_resource.html"></iframe>
 		                                    </div>
-
 		                                </div>
 		                            </div>
-
 		                        </div>
-
-
 		                        <div class="user-metas">
-
 		                            <h1 class="web">
-
 		                                {{ auth()->user()->name }}
 		                            </h1>
-
 		                            <div class="city">#{{ auth()->user()->username }}</div>
-
 		                            <div class="postal">
-										
 										<br>
 										Email : {{ auth()->user()->email }}
 										<br>
@@ -250,13 +194,8 @@
 										<br>
 										Crée le : {{ auth()->user()->created_at }}
 									</div>
-
-
 		                        </div>
-
 		                        <div id="animator" class=" web">
-
-
 		                        </div>
 		                    </div>
 		                    <!-- -->

@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\ParticipationController;
-use App\Http\Controllers\FrontEnd\ProfileController;
+use App\Http\Controllers\FrontEnd\ProfileUserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\IndexController;
@@ -74,12 +74,13 @@ Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('event
  Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
   /******************* Items + Requests*/
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-});
+Route::get('/profile', [ProfileUserController::class, 'edit'])->name('profile.edit');
+Route::put('/profile', [ProfileUserController::class, 'update1'])->name('profile.update');
+Route::get('/edit-profile', [ProfileUserController::class, 'showForm'])->name('profile.showForm');
+
+
+
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, 'index']);
@@ -151,7 +152,7 @@ Route::post('/donations/add', [DonationController::class, 'store']);
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
-    Route::get('/profile',  [ProfileController::class, 'index']);
+    Route::get('/profile',  [ProfileUserController::class, 'index']);
 
 
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
