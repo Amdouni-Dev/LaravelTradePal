@@ -21,7 +21,12 @@
     }
 </style>
 <div id="main">
+@if ($errors->has('message'))
+<div class="alert alert-danger">
 
+        {{ $errors->first('message') }}
+    </div>
+@endif
 
     <script>
 
