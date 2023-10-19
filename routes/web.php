@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\ParticipationController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FrontEnd\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\IndexController;
@@ -51,7 +51,7 @@ Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionControlle
 Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
 
 
-Route::get('/profile',  [ProfileController::class, 'index']);
+
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
 Route::get('/game',  [gameController::class, 'index']);
@@ -64,6 +64,8 @@ Route::get('/read', [BlogController::class, 'listing']);
 Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
+Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class,'participerEvent'])->name('participerEvent');
+Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
 
 
  /******************* Items+ Requests Front*/
@@ -76,6 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 Route::prefix('dashboard')->group(function () {
@@ -84,17 +87,28 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::get('/comments',  [BlogController::class, 'index']);
+
+
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
     Route::get('/events/add', [EventController::class, 'create']);
     Route::post('/events/add', [EventController::class, 'store'])->name('events.store');
+
+    Route::get('/events/{id}', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/events2', [EventController::class, 'affiche'])->name('events.index');
+
     Route::get('/events', [EventController::class, 'rechercheParDate'])->name('events.rechercheParDate');
-    Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
+
+
     Route::get('/participations', [ParticipationController::class, 'participationsForAdmin']);
     Route::get('/participations/create', [ParticipationController::class, 'create']);
+
     Route::post('/participations', [ParticipationController::class, 'store'])->name('participations.store');
     Route::get('/participations/edit/{id}', [ParticipationController::class, 'edit'])->name('participations.edit');
     Route::put('/participations/{id}', [ParticipationController::class, 'update'])->name('participations.update');
     Route::delete('/participations/{id}', [ParticipationController::class, 'destroy'])->name('participation.destroy');
+
     Route::get('/blogs',  [BlogController::class, 'index']);
     Route::resource('/organizations', OrganizationController::class);
     Route::resource('/blogs', BlogController::class);
@@ -108,7 +122,12 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/claim/sendEmail/{claim}', [\App\Http\Controllers\ClaimController::class, 'sendEmail'])->name('sendEmail');
     Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
     Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
-    
+
+
+    Route::resource('item',  ItemController::class);
+    Route::resource('request',  RequestController::class);
+
+
    /******************* Items + Requests Back */
    Route::get('/item/list', [ItemController::class, 'indexDash'])->name('item.indexDash');
    Route::get('/request/list', [RequestController::class, 'indexDash'])->name('request.indexDash');
@@ -116,7 +135,8 @@ Route::prefix('dashboard')->group(function () {
    Route::delete('/request/destroy/{id}', [RequestController::class, 'destroyDash'])->name('request.destroyDash');
    /*********************************** Items + Requests Back */
 
-   
+
+
 })->middleware(['auth', 'verified','checkAdmin'])->name('dashboard');
 
 Route::fallback(function () {
@@ -131,6 +151,8 @@ Route::post('/donations/add', [DonationController::class, 'store']);
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
+    Route::get('/profile',  [ProfileController::class, 'index']);
+
 
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
                 ->middleware(['signed', 'throttle:6,1'])
@@ -150,4 +172,5 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
     Route::get('logout', [AuthenticatedSessionController::class, 'goToHome']);
+
 });

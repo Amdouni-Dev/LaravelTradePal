@@ -8,17 +8,10 @@
                     <form action="{{route('participations.update',$participation->id)}}" method="POST">
                         @csrf
                         @method('PUT')
-                        <label for="defaultFormControlInput" class="form-label">Utilisateur</label>
-                        <input type="text" class="form-control" id="defaultFormControlInput" name="nomUser" value=" {{$participation->nomUser}} " aria-describedby="defaultFormControlHelp" />
-                        <br/>
-                        <label for="defaultFormControlInput" class="form-label">Objet proposé</label>
-                        <input type="text" class="form-control" id="defaultFormControlInput" name="proposedObject"   value=" {{$participation->proposedObject}} " aria-describedby="defaultFormControlHelp" />
-                        <br/>
-                        <label for="defaultFormControlInput" class="form-label">Description D'objet</label>
-                        <input type="text" class="form-control" id="defaultFormControlInput" name="descriptionObject"  value=" {{$participation->descriptionObject}} " aria-describedby="defaultFormControlHelp" />
-                        <br/>
-                        <label for="defaultFormControlInput" class="form-label">Changé par</label>
-                        <input type="text" class="form-control" id="defaultFormControlInput" name="changedBy" value=" {{$participation->changedBy}} "  aria-describedby="defaultFormControlHelp" />
+                        <label for="defaultFormControlInput" class="form-label">Participant</label>
+                        <input type="text" class="form-control" id="defaultFormControlInput" name="nomUser" value=" {{$participation->user->name}} " aria-describedby="defaultFormControlHelp" readonly />
+<small class="small error" >vous pouvez pas chnagé le participant ! pour des raisons de fiablité .</small>
+
                         <br/>
                         <label for="event_id" class="form-label">Événement</label>
                         <select class="form-select" id="event_id" name="event_id">

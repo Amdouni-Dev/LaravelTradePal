@@ -20,7 +20,7 @@ class CommentFactory extends Factory
             'content'=> $this->faker->name(20),
             'user_id' => \App\Models\User::factory(),
             'blog_id' => \App\Models\Blog::factory(),
-            'likes' => \App\Models\Blog::factory(),
+            'likes'=> $this->faker->randomElement([0, 1]),
         ];
     }
 }
