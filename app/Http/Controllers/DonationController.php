@@ -31,7 +31,7 @@ class DonationController extends Controller
     {
 
         $viewPath = 'BackOffice.donation.table';
-        $donations = Donation::latest()->paginate(5);
+        $donations = Donation::with('organization', 'donor', 'item')->simplePaginate(10);
         return view('BackOffice.template', compact('viewPath', 'donations'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);

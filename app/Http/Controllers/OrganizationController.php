@@ -197,17 +197,12 @@ class OrganizationController extends Controller
 
     public function getDonatedItems($organizationId)
     {
-        $donations = Donation::where('organization_id', $organizationId)->get();
-        $donatedItems = [];
-        foreach ($donations as $donation) {
-            if ($donation->category === 'object' && !is_null($donation->object)) {
-                $donatedItem = Item::find($donation->object);
+        $donatedItems = Item::join('donations', 'items.id', '=', 'donations.item_id')
+            ->where('donations.organization_id', $organizationId)
+            ->where('donations.category', 'object')
+            ->whereNotNull('items.id')
+            ->get();
 
-                if ($donatedItem) {
-                    $donatedItems[] = $donatedItem;
-                }
-            }
-        }
         return $donatedItems;
     }
 }
