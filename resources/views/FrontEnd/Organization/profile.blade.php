@@ -1,5 +1,6 @@
 <head>
     <link rel="stylesheet" href="/back/assets/vendor/fonts/boxicons076f.css?id=b821a646ad0904f9218f56d8be8f070c" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 @section('pageTitle', $organization->name)
 
@@ -134,9 +135,11 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
-            </article>
         </div>
+        </article>
+    </div>
     </div>
 </body>
 @extends('FrontEnd.section.footer')

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
-use App\Models\User;
+use App\Models\Donation;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class OrganizationController extends Controller
 {
@@ -17,7 +20,7 @@ class OrganizationController extends Controller
     public function index()
     {
         $viewPath = 'BackOffice.organization.table';
-        $organizations = Organization::latest()->paginate(5);
+        $organizations = Organization::latest()->simplePaginate(5);
         return view('BackOffice.template', compact('viewPath', 'organizations'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -93,6 +96,7 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
+        $userID = Auth::id();
         $organization = Organization::leftJoin('donations', 'organizations.id', '=', 'donations.organization_id')
             ->where('organizations.id', $id)
             ->select('organizations.id', 'organizations.name', 'organizations.description', 'organizations.type', 'organizations.location', 'organizations.phone_number', 'organizations.email', 'organizations.website', 'organizations.founding_date', 'organizations.logo', DB::raw('IFNULL(SUM(donations.amount), 0) as total_donations'))
@@ -101,8 +105,11 @@ class OrganizationController extends Controller
         if (!$organization) {
             abort(404);
         }
-        $items = $this->getItemsForUser(48);
-        return view('FrontEnd.Organization.profile', compact('organization', 'items'));
+        $items = $this->getItemsForUser($userID, 'DISPONIBLE');
+        $donations = $this->getDonatedItems($organization->id);
+        Log::info(print_r($donations, true));
+
+        return view('FrontEnd.Organization.profile', compact('organization', 'items', 'donations'));
     }
 
 
@@ -180,16 +187,27 @@ class OrganizationController extends Controller
         return response()->json($organizations);
     }
 
-    public function getItemsForUser($userId)
+    public function getItemsForUser($userID, $status)
     {
-        $user = User::find($userId);
+        return Item::where('user_id', $userID)
+            ->where('status', $status)
+            ->get()
+            ->all();
+    }
 
-        if (!$user) {
-            // Handle the case where the user doesn't exist.
+    public function getDonatedItems($organizationId)
+    {
+        $donations = Donation::where('organization_id', $organizationId)->get();
+        $donatedItems = [];
+        foreach ($donations as $donation) {
+            if ($donation->category === 'object' && !is_null($donation->object)) {
+                $donatedItem = Item::find($donation->object);
+
+                if ($donatedItem) {
+                    $donatedItems[] = $donatedItem;
+                }
+            }
         }
-
-        $items = $user->items;
-
-        return $items;
+        return $donatedItems;
     }
 }

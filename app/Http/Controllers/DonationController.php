@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Donation;
-
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 
@@ -83,6 +83,12 @@ class DonationController extends Controller
         $donation->item_id = $request->input('object');
 
         $donation->save();
+
+        $item = Item::find($request->input('object'));
+        if ($item) {
+            $item->status = 'NONDISPONIBLE';
+            $item->save();
+        }
         return redirect()->route('organizations.show', ['id' => $donation->organization_id])
 
             ->with('success', 'Donation created successfully.');
