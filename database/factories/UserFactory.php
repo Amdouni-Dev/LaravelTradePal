@@ -32,6 +32,7 @@ class UserFactory extends Factory
             'profile_picture' => null,
             'account_status' => $this->faker->randomElement($status),
             'bio' => $this->faker->sentence(),
+            'hazelnuts'=> 10,
         ];
     }
 

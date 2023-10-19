@@ -41,7 +41,7 @@
                   <span class="badge bg-danger me-1">{{ $user->role }}</span>
                 @endif
               </td>
-              <td>{{ $user -> hazelnuts}}</td>
+              <td>{{ $user->hazelnuts}}</td>
               <td>
                 @if ($user->account_status == "active")
                   <span class="badge bg-success me-1">{{ $user->account_status }}</span>
@@ -50,7 +50,26 @@
                 @endif
               </td>
               <td>{{ $user -> created_at}}</td>
-              
+              <td>
+    <div class="dropdown">
+        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+        <div class="dropdown-menu">
+            @csrf
+            @if ($user->account_status == "active")
+                <form action="{{ route('blockUser', ['id' => $user->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item"><i class="bx bx-lock me-1"></i> Bloquer</button>
+                </form>
+            @else
+                <form action="{{ route('activateUser', ['id' => $user->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item"><i class="bx bx-unlock me-1"></i> Activer</button>
+                </form>
+            @endif
+        </div>
+    </div>
+</td>
+
             </tr>
           @php $i++; @endphp
           @endforeach

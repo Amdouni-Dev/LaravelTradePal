@@ -43,9 +43,12 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/home',  [IndexController::class, 'index']);
+Route::get('/show2',  [EventController::class, 'show2']);
 
 Route::get('/',  [IndexController::class, 'index']);
-Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create']);
+
+Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->middleware('guest');
+
 Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store'])->name('login');
 
 Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
@@ -65,7 +68,7 @@ Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class,'participerEvent'])->name('participerEvent');
-Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
+Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('events.show');
 
 
  /******************* Items+ Requests Front*/
@@ -88,6 +91,8 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::get('/comments',  [BlogController::class, 'index']);
+    Route::post('/user/block/{id}', [UserController::class, 'blockUser'])->name('blockUser');
+Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
 
 
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
