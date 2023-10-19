@@ -67,6 +67,13 @@ Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class,'participerEvent'])->name('participerEvent');
 Route::get('/eventsDetails/{id}', [EventController::class, 'show'])->name('events.show');
 
+
+ /******************* Items+ Requests Front*/
+ Route::resource('item', ItemController::class);
+ Route::resource('request', RequestController::class);
+ Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
+  /******************* Items + Requests*/
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -116,8 +123,20 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
     Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
 
+
     Route::resource('item',  ItemController::class);
     Route::resource('request',  RequestController::class);
+
+
+   /******************* Items + Requests Back */
+   Route::get('/item/list', [ItemController::class, 'indexDash'])->name('item.indexDash');
+   Route::get('/request/list', [RequestController::class, 'indexDash'])->name('request.indexDash');
+   Route::delete('/item/destroy/{id}', [ItemController::class, 'destroyDash'])->name('item.destroyDash');
+   Route::delete('/request/destroy/{id}', [RequestController::class, 'destroyDash'])->name('request.destroyDash');
+   /*********************************** Items + Requests Back */
+
+
+
 })->middleware(['auth', 'verified','checkAdmin'])->name('dashboard');
 
 Route::fallback(function () {

@@ -21,10 +21,9 @@ class Item extends Model
         'picture'
 
     ];
-    public function requests()
-    {
-        return $this->hasMany(Request::class);
-    }
+    public function requests() {
+        return $this->hasMany(Request::class,'desired_id');
+    } 
     public function user()
     {
         return $this->belongsTo(User::class);
