@@ -46,6 +46,7 @@ Route::get('/home',  [IndexController::class, 'index']);
 Route::get('/show2',  [EventController::class, 'show2']);
 Route::get('/',  [IndexController::class, 'index']);
 Route::get('/updateProfile', [ProfileUserController::class, 'updateProfile'])->name('profile.updateProfile');
+Route::get('/updatePassword', [ProfileUserController::class, 'updatePassword'])->name('profile.updateProfile');
 
 Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->middleware('guest');
 
@@ -92,7 +93,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::get('/comments',  [BlogController::class, 'index']);
     Route::post('/user/block/{id}', [UserController::class, 'blockUser'])->name('blockUser');
-Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
+    Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
 
 
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
