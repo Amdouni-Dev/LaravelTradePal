@@ -62,6 +62,8 @@ Route::get('/game',  [gameController::class, 'index']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
 Route::get('/new-blog',  [BlogController::class, 'UserBlogForm']);
+Route::get('/blogs/author/{username}', [BlogController::class, 'filterByAuthor']);
+Route::get('/blog/tag/{tag}', [BlogController::class, 'fetchBlogsByTag']);
 Route::post('/storeBlog', [BlogController::class, 'userSaveBlog']);
 Route::post('/storeComment', [CommentController::class, 'store']);
 Route::get('/read', [BlogController::class, 'listing']);

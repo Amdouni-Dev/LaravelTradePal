@@ -22,6 +22,8 @@ class BlogFactory extends Factory
             'content'=> $this->faker->name(20),
             'tags'=> $this->faker->name(20),
             'views'=> $this->faker->randomNumber(2),
+            'likes'=> $this->faker->randomNumber(2),
+            'countomments'=> $this->faker->randomNumber(2),
             'status'=> $this->faker->randomElement($status),
             'featuredImage' => $this->faker->image(public_path('blogs'), 400, 300, null, false),
             'publicationDate'=> now(),

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 @extends('FrontEnd.section.header')
-@section('pageTitle', 'Profile')
+@section('pageTitle', 'Articles')
 <link rel="stylesheet" href="/back/assets/vendor/fonts/boxicons076f.css?id=b821a646ad0904f9218f56d8be8f070c" />
 <div id="main">
   <div class="content"> 
@@ -33,7 +33,7 @@
                         </div>
                         <div class="square-content">
                           <h2>{{$blog->title}}</h2>
-                          <i class="bx bx-calendar" style="font-color:white"> {{$blog->publicationDate}}</i>
+                          <i class="bx bx-calendar" style="color:white"> {{$blog->publicationDate}}</i>
                           <div class="square profil">
                             <div class="square-content">
                               <img src="/blogs/{{ $blog->featuredImage }}" style="height: 5.1rem" class="group-pix" >
@@ -53,8 +53,8 @@
                       </a>
                       <div class="syndication">
                         <div class="button half-button group-more-details" style="width:90%">
-                          <a href="https://mytroc.fr/group/les-petits-poa-612fe7c3656c7/">
-                            <i class="bx bx-pen"> {{$blog->username}}</i>
+                          <a href="/blogs/author/{{$blog->username}}">
+                            <i class="bx bx-pen"> {{$blog->nameuser}}</i>
                           </a>
                         </div>
                       </div>
@@ -62,12 +62,28 @@
                         <tbody>
                           <tr>
                             <td class="bright">
-                              <i style="font-size:2rem;color:#a54458" class="bx bxs-user me-1"></i>
+                              <i style="font-size:2rem;color:#bf9471" class="bx bxs-user me-1"></i>
                               <div class="value">{{$blog->views}} Visiteurs</div>
                             </td>
                             <td class="bright">
-                              <i style="font-size:2rem;color:#a54458" class="bx bxs-heart me-1"></i>
-                              <div class="value">{{$blog->likes}} J'aimes</div>
+                              <i style="font-size:2rem;color:#bf9471" class="bx bxs-heart me-1"></i>
+                              <div class="value">
+                                @if ($blog->likes == 0)
+                                    {{$blog->likes}} J'aime
+                                @else
+                                    {{$blog->likes}} J'aimes
+                                @endif
+                              </div>
+                            </td>
+                            <td class="bright">
+                              <i style="font-size:2rem;color:#bf9471" class="bx bxs-comment me-1"></i>
+                              <div class="value">
+                                @if ($blog->likes == 0)
+                                    0 commentaire
+                                @else
+                                    {{$blog->countomments}} commentaires
+                                @endif
+                              </div>
                             </td>
                           </tr>
                         </tbody>

@@ -55,9 +55,12 @@
 							<tr>
 								<td><i class="bx bx-show-alt me-1">{{$blog->views}}</i></td>
 								<td>⠀</td>
-								<td><i class="bx bx-like me-1">{{$blog->likes}}</i></td>
+								<td>
+										<i class="bx bx-like me-1">{{$likedCommentCount}}</i>
+									
+									</td>
 								<td>⠀</td>
-								<td><i class="menu-icon tf-icons bx bx-message-dots">{{$blog->likes}}</i></td>
+								<td><i class="menu-icon tf-icons bx bx-message-dots">{{$commentCount}}</i></td>
 							</tr>
 						</table>
 						<br><br>
@@ -68,7 +71,7 @@
 							@php
 								$tag = trim($tag);
 							@endphp
-							<a href="{{ url('tag/' . $tag) }}">{{ $tag }}</a>
+							<a href="{{ url('blog/tag/' . $tag) }}">{{ $tag }}</a>
 						@endforeach
 						
 						<br><br><br></div>
@@ -202,14 +205,23 @@
 
 	var facebook = document.querySelector('.facebook');
 	var twitter = document.querySelector('.twitter');
-	let tags = [<?= json_encode(explode(',', $blog->tags)) ?>];
 
-consoloe.log(tags);
 	facebook.addEventListener('click', function(ev) {
 	console.log("hi");
-	
-		let shareMessage = "Check out this awesome blog post on TradePal!";
-		let shareUrl = `https://www.facebook.com/sharer/sharer.php?u=www.tradepal.tn/blog/{{$blog->id}}&hashtag=tagUrl`;
+	var tags = [];
+
+		@foreach (explode(',', $blog->tags) as $tag)
+			@php
+				$tag = trim($tag);
+			@endphp
+
+			// Push each tag to the array
+			tags.push("{{ $tag }}");
+		@endforeach
+
+		// Join the tags array into a single string
+		var hashtags = tags.join('_');
+		let shareUrl = `https://www.facebook.com/sharer.php?u=www.tradepal.tn/blog/{{$blog->id}}&hashtag=%23${hashtags}&quote=repository%20of%20amiga%20software`;
 		window.open(shareUrl,"NewWindow" , params);  
 	});
 	twitter.addEventListener('click', function(ev) {
