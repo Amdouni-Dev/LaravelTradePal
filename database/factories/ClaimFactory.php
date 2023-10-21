@@ -24,6 +24,7 @@ class ClaimFactory extends Factory
             'description' => $this->faker->paragraph,
             'claim_date' => now(),
             'status' => $this->faker->randomElement($status),
+            'claimImage' => $this->faker->image(public_path('claims'), 400, 300, null, false),
             'user_id' => User::factory(),
         ];
     }

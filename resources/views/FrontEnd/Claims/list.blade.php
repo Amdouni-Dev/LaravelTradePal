@@ -1,4 +1,10 @@
 <HTML lang="fr-FR">
+<head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
 
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'Comment ça marche')
@@ -63,10 +69,12 @@
                         </label></div>
                 </div>
                     <div class="buttons quarter">
-                        <button class="log-button" style="margin-top: 90px; margin-right: 215px" data-bs-toggle="modal" data-bs-target="#createClaimModal">Ajouter</button>
+                        <a class="log-button" href="{{ route('claim.create') }}" style="margin-top: 90px; margin-right: 215px">Ajouter</a>
                     </div>
+
                 </div>
             </form><br><br>
+
         </div>
     </div>
 </div>
@@ -80,14 +88,19 @@
         <div class="main-title">Liste Des Réclamations </div>
 
         <ul id="search-result">
+            @if(!empty($userClaims))
+            @foreach ($userClaims as $claim)
             <li class="troc-resume ">
                 <div class="c1 square">
                     <div class="square-content">
-                        <a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune"><img src="/image/univers/300x200/5537409e141e5c2ce2832dd02f277e0f.jpg">	</a>
-                    </div>
+                        <a class="waves waves-prune">
+                            <img src="/claims/{{$claim->claimImage}}" alt="{{$claim->subject}}">
+                        </a>                    </div>
                 </div>
-                <div class="c2">
-                    <h2><a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune"><span>3 grands livres de cuisine</span></a></h2>
+                <div class="c2" style="margin-top: 25px; margin-left: 5px;position: relative;">
+                    <a class="delete-button" data-toggle="modal" data-target="#confirmDeleteModal" data-claim-id="{{ $claim->id }}" style="position: absolute; top: -15px; right: -1px; text-decoration: none; color: #ad1328; font-size: 35px;">&times;</a>
+
+                    <h2><a class="waves waves-prune"><span>{{$claim->subject}}</span></a></h2>
 
                     <div class="fields">
                         <div class="right">
@@ -96,7 +109,8 @@
                                 <div class="price right    price-nuts">
                                     <div class="corner top">
                                     </div>
-                                    <div class="inner">123<div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div></div>
+                                    <div class="inner">{{$claim->status}}<div class="sprites icones">
+                                            <img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div></div>
                                     <div class="corner bottom">
                                     </div>
                                     <div class="tail">
@@ -112,14 +126,15 @@
                         <div class="left">
                             <div>
                                 <div class="catType">
-                                    Biens									</div>
-                                <div class="catBread">
-                                    Livre / CD / DVD &gt;&nbsp;Livre
-                                </div>
+                                    <div class="author">
+                                        <a class="waves waves-prune"><span>Soumise à </span></a>
+                                    </div>
+                                   {{$claim->claim_date}}									</div>
+
                             </div>
 
                             <div class="author">
-                                <a href="https://mytroc.fr/troqueurs/annouk1" class="waves waves-prune"><span>Trokanik</span></a>
+                                <a class="waves waves-prune"><span>Description</span></a>
                             </div>
                         </div>
 
@@ -127,46 +142,75 @@
 
 
                     <div class="troc-content">
-                        <a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune">
-                            <p>Les 3 premiers tomes de la collection. Faire offre mais envoi à vos frais ou remise en main propre à Dinan ou Paris</p>
+                        <a class="waves waves-prune">
+                            <p>{{$claim->description}}</p>
                         </a>
                     </div>
-                    <div class="resume-footer">
-                        <div class="date">
-                            Mis en ligne le 23/09/2023						</div>
-
-                        <div class="dist">
-                            Dinan							 5390 km													</div>
-
-                    </div>
-
                 </div>
-
-                <div class="c1 favorite-button notFavorite" data-tid="342236">
-                    <div class="icone-fav notFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-white" alt="ajouter aux favoris"></div> J'aime <span></span>	</div>
-                    <div class="icone-fav  isFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-yellow" alt="dans les favoris"></div>	J'aime  <span></span> </div>
-                </div>
-
 
             </li>
+            @endforeach
+            @endif
 
 
         </ul>
 
-        <div id="suggester-head">
-            A voir aussi&nbsp;:
-        </div>
 
-        <div id="suggester" class="suggester">
-
-        </div>
 
         <div class="pagination bottom">
-            <span>1</span>
+            {{ $userClaims->links() }}
+        </div>
 
-            <a href="https://mytroc.fr/les-trocs/?n=1" role="next">2</a>
 
-            <a href="https://mytroc.fr/les-trocs/?n=2" role="next">3</a>
+    </div>
+
+</article><br><br><br><br><br><br><br>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmer la suppression</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer cette réclamation ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Supprimer</button>
+            </div>
         </div>
     </div>
-    </div>
+</div>
+
+@extends('FrontEnd.Section.footer')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        $('#confirmDelete').on('click', function() {
+            // Vous pouvez placer ici le code pour supprimer la réclamation
+            // Vous pouvez effectuer une demande AJAX pour supprimer la réclamation sur le serveur
+            // Après la suppression réussie, vous pouvez fermer le modal
+            // Pour plus de simplicité, nous fermons simplement le modal ici
+            $('#confirmDeleteModal').modal('hide');
+        });
+
+        // Ajoutez un gestionnaire d'événements pour réinitialiser le modal lorsque vous le fermez
+        $('#confirmDeleteModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset();
+        });
+    });
+
+</script>
+
+
+
+</body>
+</HTML>
+

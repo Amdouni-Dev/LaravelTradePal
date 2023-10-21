@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('subject');
             $table->text('description');
-            $table->timestamp('claim_date')->default(now());;
+            $table->timestamp('claim_date')->default(now());
+            $table->string('claimImage')->nullable();
             $table->enum('status', ['PENDING', 'IN PROGRESS', 'RESOLVED', 'CLOSED'])->default('Pending');
             $table->timestamps();
         });

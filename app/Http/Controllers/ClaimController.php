@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Claim;
+use App\Models\User;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Mail\Message;
+use Symfony\Component\Mime\Email;
+use function Termwind\render;
 
 class ClaimController extends Controller
 {
@@ -30,9 +34,9 @@ class ClaimController extends Controller
     {
         $user = auth()->user();
 
-        $claims = $user->claims;
+        $userClaims = $user->claims()->paginate(5);
 
-        return view('FrontEnd.Claims.list', ['claims' => $claims]);
+        return view('FrontEnd.Claims.list', ['userClaims' => $userClaims]);
     }
 
 
@@ -75,42 +79,43 @@ class ClaimController extends Controller
     }
 
 
-    // Show the form for creating a new claim
     public function create()
     {
-        return view('claims.create');
+        return view('FrontEnd.Claims.addClaim');
     }
 
-    // Store a newly created claim in the database
     public function store(Request $request)
     {
-        // Validation logic here
-
+        $user = auth()->user();
         $claim = new Claim([
-            'user_id' => $request->input('user_id'),
+            'user_id' => $user->getAuthIdentifier(),
             'subject' => $request->input('subject'),
             'description' => $request->input('description'),
-//            'photo' => $request->input('photo'),
             'claim_date' => now(),
             'status' => 'PENDING',
         ]);
 
-        $claim->save();
+        if ($request->hasFile('claimImage')) {
+            $image = $request->file('claimImage');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('claims'), $imageName);
+            $claim->claimImage = $imageName;
 
-        return redirect()->route('claims.index')->with('success', 'Claim created successfully');
     }
 
-    // Show the form for editing a claim
+        $claim->save();
+
+        return redirect()->route('claimsForUser')->with('success', 'Claim created successfully');
+    }
+
     public function edit($id)
     {
         $claim = Claim::findOrFail($id);
         return view('claims.edit', compact('claim'));
     }
 
-    // Update the specified claim in the database
     public function update(Request $request, $id)
     {
-        // Validation logic here
 
         $claim = Claim::findOrFail($id);
         $claim->update([
@@ -124,7 +129,6 @@ class ClaimController extends Controller
         return redirect()->route('claims.index')->with('success', 'Claim updated successfully');
     }
 
-    // Remove the specified claim from the database
     public function destroy($id)
     {
         $claim = Claim::findOrFail($id);
@@ -141,20 +145,18 @@ class ClaimController extends Controller
             return redirect()->route('claimsForAdmin')->with('error', 'Claim not found');
         }
 
-        $recipientEmail = 'meddebyesmina123@gmail.com'; // Your Mailtrap email address
-        $emailSubject = 'Claim Status Changed';
-        $emailContent = 'The status of your claim has been changed to IN PROGRESS.';
+        $user = $claim->user_id;
+        $owner = User::find($user);
+        $owner_email= $owner->email;
 
-        \Log::info('sendEmail method called for claim ID: ' . $claimId);
-        \Log::info('Sending email with subject: ' . $emailSubject);
-        \Log::info('Email content: ' . $emailContent);
+        $recipientEmail = $owner_email;
+        $emailSubject = 'Your Claim Is Being Processed';
+        $emailContent = "TradePal community is currently working on your claim. We will keep you updated with any progress or changes.";
 
-        Mail::send([], [], function ($message) use ($recipientEmail, $emailSubject, $emailContent) {
+        Mail::raw($emailContent, function ($message) use ($emailSubject, $recipientEmail) {
             $message->to($recipientEmail)
-                ->subject($emailSubject)
-                ->setBody($emailContent, 'text/plain');
+                ->subject($emailSubject);
         });
-
 
         $claim->status = 'IN PROGRESS';
         $claim->save();
@@ -164,4 +166,27 @@ class ClaimController extends Controller
     //            Mail::to($claim->user->email)->send(new ClaimStatusChanged($claim, 'IN PROGRESS'));
 
 
+
+    public function generatePdf(Claim $claim)
+    {
+        $pdf = new Dompdf();
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $pdf->setOptions($options);
+
+        $html = view('BackOffice.claims.claimPdf', compact('claim'))->render();
+
+        $pdf->loadHtml($html);
+
+        $pdf->render();
+
+        $pdf->stream("reclamation.pdf");
+    }
+
+    public function UserClaimDetail(){
+        return view('FrontEnd.Claims.detailsReclamation');
+    }
 }

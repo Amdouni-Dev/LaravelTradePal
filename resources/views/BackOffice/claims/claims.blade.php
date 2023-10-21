@@ -82,6 +82,9 @@
                         <button type="button" class="btn btn-icon me-2 btn-outline-primary" data-bs-toggle="modal" data-bs-target="#claimModal-{{ $claim->id }}">
                             <span class="bx bx-show-alt me-1 bx-tada"></span>
                         </button>
+                        <a href="{{ route('generatePdf', ['claim' => $claim->id]) }}" class="btn btn-icon me-2 btn-outline-warning">
+                            <span class="bx bxs-file-pdf me-1 bx-tada"></span>
+                        </a>
 
                         @if($claim->status != 'CLOSED')
                         @if($claim->status != 'RESOLVED')

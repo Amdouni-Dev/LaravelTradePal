@@ -65,12 +65,23 @@ Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 
+
+ /******************* Items+ Requests Front*/
+ Route::resource('item', ItemController::class);
+ Route::resource('request', RequestController::class);
+ Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
+  /******************* Items + Requests*/
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user/claims', [\App\Http\Controllers\ClaimController::class, 'claimsForUser'])->name('claimsForUser');
     Route::get('/add', [\App\Http\Controllers\ClaimController::class, 'create'])->name('claim.create');
+    Route::post('/add', [\App\Http\Controllers\ClaimController::class, 'store'])->name('claim.store');
+    Route::get('/generate-pdf/{claim}', [\App\Http\Controllers\ClaimController::class, 'generatePdf'])->name('generatePdf');
+    Route::get('/user/detail/claim/', [\App\Http\Controllers\ClaimController::class, 'userClaimDetail'])->name('UserClaimDetail');
+
 });
 
 Route::prefix('dashboard')->group(function () {
@@ -105,6 +116,17 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
     Route::resource('item',  ItemController::class);
     Route::resource('request',  RequestController::class);
+
+
+   /******************* Items + Requests Back */
+   Route::get('/item/list', [ItemController::class, 'indexDash'])->name('item.indexDash');
+   Route::get('/request/list', [RequestController::class, 'indexDash'])->name('request.indexDash');
+   Route::delete('/item/destroy/{id}', [ItemController::class, 'destroyDash'])->name('item.destroyDash');
+   Route::delete('/request/destroy/{id}', [RequestController::class, 'destroyDash'])->name('request.destroyDash');
+   /*********************************** Items + Requests Back */
+
+
+
 })->middleware(['auth', 'verified','checkAdmin'])->name('dashboard');
 
 Route::fallback(function () {
