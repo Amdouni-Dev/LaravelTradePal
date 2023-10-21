@@ -9,17 +9,43 @@
         </td>
     <tr>
 </table>
+@if (Session::has('success'))
+    <div class="alert alert-success alert-dismissible" role="alert" id="success-alert">
+        {{--        <button type="button" class="close" data-dismiss="alert">--}}
+        {{--            <i class="fa fa-times"></i>--}}
+        {{--        </button>--}}
+        <strong>Success !</strong> {{ session('success') }}
+    </div>
+@endif
 
+@if (Session::has('error'))
+    <div class="alert alert-danger alert-dismissible" role="alert" id="error-alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="fa fa-times"></i>
+        </button>
+        <strong>Error !</strong> {{ session('error') }}
+    </div>
+@endif
+
+<script>
+
+    setTimeout(function() {
+        document.getElementById('success-alert').style.display = 'none';
+        document.getElementById('error-alert').style.display = 'none';
+    }, 5000);
+</script>
 <div class="card">
     <div class="table-responsive text-nowrap">
         <table class="table">
             <thead>
             <tr>
                 <th>Personne</th>
-                <th>Objet proposé</th>
+                <th>Date Participation</th>
 
-                <th>Description Objet</th>
-                <th>Changé par</th>
+                {{--                <th>Objet proposé</th>--}}
+
+{{--                <th>Description Objet</th>--}}
+{{--                <th>Changé par</th>--}}
 
 
                 <th>Actions</th>
@@ -28,11 +54,11 @@
             <tbody class="table-border-bottom-0">
             @foreach($listparticipations as $listparticipations)
                 <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $listparticipations->nomUser }}</strong></td>
-                    <td>{{ $listparticipations->proposedObject }}</td>
-                    <td>{{ $listparticipations->descriptionObject }}</td>
-                    <td>{{ $listparticipations->changedBy }}</td>
-                    <td>{{ $listparticipations->description }}</td>
+                    <td><strong>  {{ $listparticipations->user->name }} </strong></td>
+                    <td>{{ $listparticipations->created_at }}</td>
+{{--                    <td>{{ $listparticipations->descriptionObject }}</td>--}}
+{{--                    <td>{{ $listparticipations->changedBy }}</td>--}}
+{{--                    <td>{{ $listparticipations->description }}</td>--}}
 
                     <td>
                         <div class="dropdown">
@@ -41,11 +67,12 @@
                                 <a class="dropdown-item" href="{{ route('participations.edit', $listparticipations->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
 
 
-                                <form action="{{ route('participation.destroy', $listparticipations->id) }}" method="POST">
+                                <form action="{{ route('participation.destroy', $listparticipations->id) }}" method="POST" id="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
+                                    <button type="button" class="dropdown-item" onclick="confirmDelete()"><i class="bx bx-trash me-1"></i> Delete</button>
                                 </form>
+
                             </div>
                         </div>
                     </td>
@@ -55,3 +82,13 @@
         </table>
     </div>
 </div>
+<script>
+    function confirmDelete() {
+        if (confirm("Êtes-vous sûr de vouloir supprimer cet élément? La suppression est irréversible.")) {
+
+            document.getElementById('delete-form').submit();
+        } else {
+
+        }
+    }
+</script>

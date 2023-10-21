@@ -1,6 +1,23 @@
 <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light">Evenemnt /</span> Ajouter un evenement
 </h4>
+@if (Session::has('success'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="fa fa-times"></i>
+        </button>
+        <strong>Success !</strong> {{ session('success') }}
+    </div>
+@endif
+
+@if (Session::has('error'))
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="fa fa-times"></i>
+        </button>
+        <strong>Error !</strong> {{ session('error') }}
+    </div>
+@endif
 <div class="row">
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card mb-4">

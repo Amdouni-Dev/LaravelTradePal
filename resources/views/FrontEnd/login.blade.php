@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <HTML lang="fr-FR">
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'Connexion')
@@ -13,12 +16,42 @@
     }
 
     .error {
-        left: 50%;
         position: relative;
         color: red;
     }
 </style>
 <div id="main">
+@if ($errors->has('message'))
+<div class="alert alert-danger">
+
+        {{ $errors->first('message') }}
+    </div>
+@endif
+
+    <script>
+
+        setTimeout(function() {
+            document.getElementById('success-alert').style.display = 'none';
+            document.getElementById('error-alert').style.display = 'none';
+        }, 5000);
+    </script>
+    @if (Session::has('success'))
+        <div class="alert alert-warning alert-dismissible" role="alert" id="success-alert">
+            {{--        <button type="button" class="close" data-dismiss="alert">--}}
+            {{--            <i class="fa fa-times"></i>--}}
+            {{--        </button>--}}
+            <strong>warning !</strong> {{ session('success') }}
+        </div>
+    @endif
+
+    @if (Session::has('error'))
+        <div class="alert alert-danger alert-dismissible" role="alert" id="error-alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            <strong>Error !</strong> {{ session('error') }}
+        </div>
+    @endif
     <div id="animation-banner" class="web">
         <div id="could-banner" class="no-overflow">
             <div id="cloud1" class="cloud">
@@ -107,7 +140,7 @@
                             <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
                             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username"
                                 :value="old('username')" required autofocus autocomplete="username" />
-                            <x-input-error :messages="$errors->get('username')" class="error" />
+                            
                         </div>
 
                         <!-- Password -->
@@ -118,6 +151,8 @@
                                 required autocomplete="current-password" />
 
                             <x-input-error :messages="$errors->get('password')" class="error" />
+                            <x-input-error :messages="$errors->get('username')" class="error" />
+                            
                         </div>
 
                         <!-- Remember Me -->

@@ -21,9 +21,8 @@ return new class extends Migration
             $table->timestamp('publicationDate');
             $table->string('tags')->nullable();
             $table->string('featuredImage')->nullable();
-            $table->integer('likes')->default(0);
             $table->integer('views')->default(0);
-            $table->string('status')->default('draft');
+            $table->enum('status', ['Publique', 'Privé'])->default('Publique');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

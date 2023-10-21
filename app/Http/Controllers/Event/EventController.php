@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 
 use App\Models\Event;
+use App\Models\Participation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -172,7 +173,7 @@ class EventController extends Controller
 
         $event->save();
         session()->flash('success', 'Image Upload successfully');
-        return redirect('/dashboard/events');
+        return redirect('/dashboard/events')->with('success', 'Evenement Ajouté avec Succes ');;
     }
 
 
@@ -188,18 +189,128 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+//    public function show($id)
+//    {
+//        $event = Event::find($id);
+//
+//        $eventDate = $event->date;
+//
+//
+//        $similarEventIds = Event::where('date', $eventDate)
+//            ->where('id', '!=', $id)
+//            ->pluck('id');
+//
+//        $participationsSimilar = Participation::whereIn('event_id', $similarEventIds)->get();
+//
+//
+//        $latestParticipationsSimilar = $participationsSimilar->sortByDesc('created_at');
+////        dd($latestParticipationsSimilar->first()->user->name);
+////        $lastUserParticip=$latestParticipationsSimilar->first()->user->name ;
+////        $latestSimilarParticipation = null;
+////        foreach ($latestParticipationsSimilar as $participation) {
+////            if ($participation->event_id == $id) {
+////                $latestSimilarParticipation = $participation;
+////                break;
+////            }
+////        }
+//
+//
+////        $latestParticipantName = $lastUserParticip ? $latestParticipation->user->name : 'Aucun participant';
+//
+//        $similarEvents = Event::where('date', $eventDate)
+//            ->where('id', '!=', $id)
+//            ->get();
+//        $user = auth()->user();
+//        $isParticipated = Participation::where('event_id', $id)
+//            ->where('user_id', $user->id)
+//            ->exists();
+//        return view('BackOffice.template', [
+//            'viewPath' => 'Event.admin.show',
+//            'event' => $event,
+////            'latestParticipantName' => $latestParticipantName,
+//            'similarEvents' => $similarEvents,
+////            'latestParticipation' => $latestParticipation,
+//            'latestParticipationsSimilar' => $latestParticipationsSimilar,
+//            'isParticipated' => $isParticipated,
+////            'lastUserParticip'=>$lastUserParticip,
+//        ]);
+//    }
+
     public function show($id)
     {
-        //
-        $event=Event::find($id);
-//        return view('show',compact('event'));
+        $event = Event::find($id);
+//        dd($event);
 
-        return view('BackOffice.template', ['viewPath' => 'Event.admin.show', 'event' => $event]);
+        if (!$event) {
+            // Gérer le cas où l'événement n'a pas été trouvé, par exemple, rediriger vers une page d'erreur.
+            return view('backOffice.404');
+        }
 
+        $eventDate = $event->date;
 
+        $similarEvents = Event::whereDate('date', $eventDate)
+            ->where('id', '!=', $id)
+            ->get();
 
+        $participationsSimilar = Participation::whereIn('event_id', $similarEvents->pluck('id'))->get();
+
+        $latestParticipationsSimilar = $participationsSimilar->sortByDesc('created_at');
+
+        $user = auth()->user();
+        if($user) {
+            $isParticipated = Participation::where('event_id', $id)
+                ->where('user_id', $user->id)
+                ->exists();
+        }
+        else{
+            return redirect('/login')->with('success', 'vous devez etre connecté pour voir ls evenements ');
+        }
+        return view('BackOffice.template', [
+            'viewPath' => 'Event.admin.show',
+            'event' => $event,
+            'similarEvents' => $similarEvents,
+            'latestParticipationsSimilar' => $latestParticipationsSimilar,
+            'isParticipated' => $isParticipated,
+        ]);
     }
 
+
+public function  show2($id){
+    $event = Event::find($id);
+//        dd($event);
+
+    if (!$event) {
+        // Gérer le cas où l'événement n'a pas été trouvé, par exemple, rediriger vers une page d'erreur.
+        return view('backOffice.404');
+    }
+
+    $eventDate = $event->date;
+
+    $similarEvents = Event::whereDate('date', $eventDate)
+        ->where('id', '!=', $id)
+        ->get();
+
+    $participationsSimilar = Participation::whereIn('event_id', $similarEvents->pluck('id'))->get();
+
+    $latestParticipationsSimilar = $participationsSimilar->sortByDesc('created_at');
+
+    $user = auth()->user();
+    if($user) {
+        $isParticipated = Participation::where('event_id', $id)
+            ->where('user_id', $user->id)
+            ->exists();
+    }
+    else{
+        return redirect('/login')->with('success', 'vous devez etre connecté pour voir ls evenements ');
+    }
+    return view('Event.user.showDetailsEvent', [
+        'viewPath' => 'Event.admin.show',
+        'event' => $event,
+        'similarEvents' => $similarEvents,
+        'latestParticipationsSimilar' => $latestParticipationsSimilar,
+        'isParticipated' => $isParticipated,
+    ]);
+}
     /**
      * Show the form for editing the specified resource.
      *
@@ -256,5 +367,63 @@ class EventController extends Controller
         $event->delete();
         return redirect('/dashboard/events')->with('success', 'Événement supprimé avec succès.');
     }
+    public function participerEvent($event_id, $user_id)
+    {
 
+        if (auth()->check()) {
+
+            $event = Event::find($event_id);
+
+
+            if ($event) {
+
+                $participation = new Participation();
+                $participation->user_id = $user_id;
+                $participation->event_id = $event_id;
+                $participation->proposedObject="Objet";
+
+                                $participation->changedBy="Objet";
+
+                                $participation->descriptionObject="Objet";
+
+                $participation->save();
+
+
+                return redirect("/JeParticipe");
+            } else {
+
+                return view('backOffice.404');
+            }
+        } else {
+
+            return redirect("/login");
+        }}
+//    public function annulerParticipationEvent
+//    ($event_id, $user_id)
+//    {
+//
+//        if (auth()->check()) {
+//
+//            $event = Event::find($event_id);
+//
+//
+//            if ($event) {
+//
+//                $participation =null;
+//           foreach($event->participations as $participationE){
+//
+//           }
+//
+//                $participation->delete();
+//
+//
+//                return redirect("/JeParticipe");
+//            } else {
+//
+//                return view('backOffice.404');
+//            }
+//        } else {
+//
+//            return redirect("/login");
+//        }}
 }
