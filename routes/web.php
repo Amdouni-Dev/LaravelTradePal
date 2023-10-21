@@ -58,17 +58,18 @@ Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::
 
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
-Route::get('/game',  [gameController::class, 'index']);
+Route::get('/game',  [UserController::class, 'gamePage']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
+Route::get('/read', [BlogController::class, 'listing']);
 Route::get('/new-blog',  [BlogController::class, 'UserBlogForm']);
+Route::post('/storeBlog', [BlogController::class, 'userSaveBlog']);
+Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/blogs/author/{username}', [BlogController::class, 'filterByAuthor']);
 Route::get('/blog/tag/{tag}', [BlogController::class, 'fetchBlogsByTag']);
-Route::post('/storeBlog', [BlogController::class, 'userSaveBlog']);
 Route::post('/storeComment', [CommentController::class, 'store']);
-Route::get('/read', [BlogController::class, 'listing']);
 Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
-Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::post('/game',  [UserController::class, 'game']);
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class,'participerEvent'])->name('participerEvent');
 Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('events.show');
@@ -91,8 +92,8 @@ Route::get('/edit-profile', [ProfileUserController::class, 'showForm'])->name('p
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/blog/add', [BlogController::class, 'create']);
-    Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/blogs', [BlogController::class, 'index']);
+    Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/comments',  [BlogController::class, 'index']);
     Route::post('/user/block/{id}', [UserController::class, 'blockUser'])->name('blockUser');
     Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');

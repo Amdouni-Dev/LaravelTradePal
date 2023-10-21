@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'Articles')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 <link rel="stylesheet" href="/back/assets/vendor/fonts/boxicons076f.css?id=b821a646ad0904f9218f56d8be8f070c" />
 <div id="main">
   <div class="content"> 
@@ -12,7 +13,7 @@
             <div class="button half-button  group-apply" data-gid="10077">
                     <div class="sprites group-icones">
                       <img src="/image/sprites/groups/gen/1ab094d311707c08f6204cdfa841a272.svg" class="svg add-white" alt="">
-                    </div> Rediger un article
+                    </div> <a href="/new-blog">Rediger un article</a>
                   </div>
           </a>
         </div>

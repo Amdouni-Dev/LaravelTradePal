@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'TradePal - '  . $blog->title)
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 <meta property="og:title" content="Your Page Title">
     <meta property="og:description" content="A description of your page">
     <meta property="og:image" content="https://example.com/path-to-thumbnail-image.jpg">

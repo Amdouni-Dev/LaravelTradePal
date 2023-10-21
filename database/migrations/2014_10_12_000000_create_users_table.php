@@ -22,10 +22,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->integer('hazelnuts')->nullable();
-            $table->string('profile_picture')->nullable();
+            $table->string('profile_picture')->nullable()->default('/image/profils/user.jpg');
             $table->enum('account_status', ['active', 'inactive'])->default('active');
             $table->enum('role', ['user', 'admin', 'moderator'])->default('user');
             $table->text('bio')->nullable();
+            $table->timestamp('winDate')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
         });
