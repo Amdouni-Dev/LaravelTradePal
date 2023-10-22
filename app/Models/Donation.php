@@ -28,11 +28,11 @@ class Donation extends Model
 
     public function donor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function item()
     {
-        return $this->hasOne(Item::class);
+        return $this->hasOne(Item::class, 'id', 'item_id');
     }
 }
