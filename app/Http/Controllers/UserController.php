@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\BlogChart;
+use App\Charts\UserChart;
+use App\Models\Blog;
+use App\Models\Comment;
+use App\Models\Donation;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -144,4 +151,18 @@ public function GamePage(){
     return view('FrontEnd.game',compact('users'));
 }
 
+public function dashboard(){
+    $viewPath = 'BackOffice.dashboard';
+    
+    return view('BackOffice.template',compact('viewPath'));
+}
+public function chart(){
+    $blogViewsData = Blog::select(
+        DB::raw("DAY(created_at) as month"),
+        DB::raw("SUM(views) as total_views")
+    )
+    ->groupBy('month')
+    ->get();
+
+ return response()->json($blogViewsData);}
 }

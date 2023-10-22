@@ -67,7 +67,7 @@
             </a>
           </li>
           <li class="menu-item ">
-            <a href="/dashboard/" class="menu-link">
+            <a href="/dashboard/users" class="menu-link">
               <i class="menu-icon tf-icons bx bx-user"></i>
               <div>Utilisateurs</div>
             </a>
