@@ -98,13 +98,15 @@ Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->nam
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
     Route::get('/events/add', [EventController::class, 'create']);
     Route::post('/events/add', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/generatePdf/{id}', [EventController::class,'generatePdf' ])->name('events.generatePdf');
 
     Route::get('/events/{id}', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::get('/events2', [EventController::class, 'affiche'])->name('events.index');
+    Route::get('/stat/events', [EventController::class, 'stat']);
 
-    Route::get('/events', [EventController::class, 'rechercheParDate'])->name('events.rechercheParDate');
+//    Route::get('/events', [EventController::class, 'rechercheParDate'])->name('events.rechercheParDate');
 
 
     Route::get('/participations', [ParticipationController::class, 'participationsForAdmin']);

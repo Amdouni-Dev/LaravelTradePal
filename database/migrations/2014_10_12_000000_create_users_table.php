@@ -28,7 +28,9 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
         });
+
     }
 
     /**
