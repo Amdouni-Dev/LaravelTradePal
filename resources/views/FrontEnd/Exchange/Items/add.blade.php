@@ -215,7 +215,7 @@
         <label for="status">Statut</label>
         <input id="status-disponible" type="radio" name="status" class="troccategorytype" value="disponible">
         <label for="status-disponible">Disponible</label>
-        <input id="status-non-disponible" type="radio" name="status" class="troccategorytype" value="non-disponible">
+        <input id="status-non-disponible" type="radio" name="status" class="troccategorytype" value="nondisponible">
         <label for="status-non-disponible">Non</label>
         
 @error('status')

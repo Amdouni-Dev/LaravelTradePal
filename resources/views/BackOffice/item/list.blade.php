@@ -52,8 +52,14 @@
               <td>{{ $donneesItem['description'] }}</td>
               <td><img src="/echange/items/{{ $donneesItem['picture'] }}" alt="Avatar" width="75" height="75" class="rounded-circle"></td>
            
-              <td><span class="badge bg-label-primary me-1">{{ $donneesItem['status'] }}</span></td>
               <td>
+                                @if ($donneesRequest['status'] == 'disponible')
+                                    <span class="badge bg-success me-1">{{ $donneesRequest['status']}}</span>
+                               
+                                @else
+                                <span class="badge bg-info me-1">{{ $donneesRequest['status']}}</span>
+                                @endif
+                            </td>              <td>
   
    {{ $donneesItem['amount'] }}
    
@@ -115,8 +121,14 @@ $(document).ready(function() {
                             <td>${item.category}</td>
                             <td>${item.description}</td>
                             <td><img src="/echange/items/${item.picture}" alt="Avatar" width="75" height="75" class="rounded-circle"></td>
-                            <td><span class="badge bg-label-primary me-1">${item.status}</span></td>
-                            <td>${item.amount}</td>
+                            <td>
+                                @if (${item.status} == 'disponible')
+                                    <span class="badge bg-success me-1">${item.status}</span>
+                               
+                                @else
+                                <span class="badge bg-info me-1">${item.status}</span>
+                                @endif
+                            </td>                                     <td>${item.amount}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>

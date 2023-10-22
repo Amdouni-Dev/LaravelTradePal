@@ -68,8 +68,15 @@
             <td>{{ $donneesRequest['note'] }}</td>
             
           
-              <td><span class="badge bg-label-primary me-1">{{ $donneesRequest['status'] }}</span></td>
-          
+              <td>
+                                @if ($donneesRequest['status'] == 'confirme')
+                                    <span class="badge bg-success me-1">{{ $donneesRequest['status'] }}</span>
+                                @else if($donneesRequest['status'] == 'en_cours')
+                                    <span class="badge bg-danger me-1">{{ $donneesRequest['status'] }}</span>
+                                @else
+                                <span class="badge bg-info me-1">{{ $donneesRequest['status'] }}</span>
+                                @endif
+                            </td>
 
 <td>
                     <div class="dropdown">
