@@ -56,8 +56,13 @@
               <td>{{ $donneesItem['description'] }}</td>
               <td><img src="/echange/items/{{ $donneesItem['picture'] }}" alt="Avatar" width="75" height="75" class="rounded-circle"></td>
            
-              <td><span class="badge bg-label-primary me-1">{{ $donneesItem['status'] }}</span></td>
               <td>
+    @if ($donneesItem['status'] === 'DISPONIBLE')
+        <span class="badge bg-success me-1">{{ $donneesItem['status'] }}</span>
+    @else
+        <span class="badge bg-danger me-1">{{ $donneesItem['status'] }}</span>
+    @endif
+</td>              <td>
   
    {{ $donneesItem['amount'] }}
    
@@ -109,14 +114,15 @@ $(document).ready(function() {
                 success: function(data) {
                    
                     $('.table-border-bottom-0').html(data.map(function(item) {
+                      var statusBadge = item.status === 'DISPONIBLE' ? '<span class="badge bg-success me-1">disponible</span>' : '<span class="badge bg-danger me-1">' + item.status + '</span>';
+
                         return `<tr>
                             <td>${item.user.name}</td>
                             <td>${item.name}</td>
                             <td>${item.category}</td>
                             <td>${item.description}</td>
                             <td><img src="/echange/items/${item.picture}" alt="Avatar" width="75" height="75" class="rounded-circle"></td>
-                            <td><span class="badge bg-label-primary me-1">${item.status}</span></td>
-                            <td>${item.amount}</td>
+                            <td>${statusBadge}</td>                                   <td>${item.amount}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
