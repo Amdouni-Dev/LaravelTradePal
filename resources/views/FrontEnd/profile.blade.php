@@ -309,27 +309,11 @@
 
 		                        </div>
 		                        <div class="user-infos">
-
-
-
-
 		                            <div id="member-description">
-
-
-
-		                                <h2>{{ auth()->user()->bio }}</h2>
-
-
+		                                <h2>Description</h2>
 		                                <p>{{ auth()->user()->bio }}</p>
-
-
 		                            </div>
-
-
-
 		                            <div>
-
-
 		                                <div id="friendships">
 		                                    <div id="friends">
 		                                        <h2>

@@ -744,7 +744,7 @@
                         @endif
                         <li class="  showMyProfil block-menu div-showMyProfil ">
                             <div class="hvr-grow">
-                                <a href="/profile" class="waves waves-prune " data-wave-scale="20">
+                                <a href="/user/claims" class="waves waves-prune " data-wave-scale="20">
                                     <span>Réclamations</span>
                                 </a>
                             </div>

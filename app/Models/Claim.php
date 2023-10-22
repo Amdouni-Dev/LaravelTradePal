@@ -13,7 +13,9 @@ class Claim extends Model
         'subject',
         'description',
         'claim_date',
-        'status'
+        'status',
+        'claimImage',
+
     ];
 
     public function user(){

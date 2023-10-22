@@ -180,7 +180,7 @@
                     </div>
                     <div>
                         <h2>Mes informations</h2>
-                        <form method="PUT" action="{{route('profile.update')}}" id="update-description" class="update-description"
+                        <form method="PUT" action="{{route('profile.updateProfile')}}" id="update-description" class="update-description"
                             data-form-type="">
                             <table style="width:45rem">
                                 <tr>
@@ -188,7 +188,7 @@
                                         <label for="postal" class="main">Nom </label>
                                     </td>
                                     <td>
-                                        <input id="postal" type="text" name="name" maxlength="5" class="alignInput"
+                                        <input id="postal" type="text" name="name" class="alignInput"
                                             placeholder="nom" value="{{ auth()->user()->name }}"
                                             data-form-type="address,zip">
                                     </td>
@@ -197,7 +197,7 @@
                                     <label for="postal" class="main">Nom d'uitilisateur</label>
                                 </td>
                                 <td>
-                                    <input id="postal" type="text" name="username" maxlength="5" class="alignInput"
+                                    <input id="postal" type="text" disabled name="username"  class="alignInput"
                                         placeholder="Nom d'uitilisateur" value="{{ auth()->user()->username }}"
                                         data-dashlane-rid="7cfdf5831a48389d">
                                 </td>
@@ -206,7 +206,7 @@
                                     <label for="postal" class="main">Adresse électronique</label>
                                 </td>
                                 <td>
-                                    <input id="postal" type="text" name="email" maxlength="5" class="alignInput"
+                                    <input id="postal" type="text" name="email" disabled class="alignInput"
                                         placeholder="Adresse électronique" value="{{ auth()->user()->email }}"
                                         data-dashlane-rid="7cfdf5831a48389d">
                                 </td>
@@ -215,7 +215,7 @@
                                     <label for="postal" class="main">Télephone</label>
                                 </td>
                                 <td>
-                                    <input id="Télephone" type="text" name="phone" maxlength="5" class="alignInput"
+                                    <input id="Télephone" type="text" name="phone"  class="alignInput"
                                         placeholder="Adresse électronique" value="{{ auth()->user()->phone }}"
                                         data-dashlane-rid="7cfdf5831a48389d">
                                 </td>
@@ -241,7 +241,7 @@
                             </table>
                         </form>
                     </div>
-                    
+
                     <div>
                         <h2>Mon mot de passe</h2>
                         <form id="updatepassword" class="input-block" data-dashlane-rid="aa2eded5831184f2"

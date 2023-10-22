@@ -44,8 +44,9 @@ use App\Http\Controllers\UserController;
 
 Route::get('/home',  [IndexController::class, 'index']);
 Route::get('/show2',  [EventController::class, 'show2']);
-
 Route::get('/',  [IndexController::class, 'index']);
+Route::get('/updateProfile', [ProfileUserController::class, 'updateProfile'])->name('profile.updateProfile');
+Route::get('/updatePassword', [ProfileUserController::class, 'updatePassword'])->name('profile.updateProfile');
 
 Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->middleware('guest');
 
@@ -54,6 +55,7 @@ Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionControlle
 Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
 
 
+Route::get('/profile',  [ProfileController::class, 'edit']);
 
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
@@ -77,9 +79,20 @@ Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('even
  Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
   /******************* Items + Requests*/
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user/claims', [\App\Http\Controllers\ClaimController::class, 'claimsForUser'])->name('claimsForUser');
+    Route::get('/add', [\App\Http\Controllers\ClaimController::class, 'create'])->name('claim.create');
+    Route::post('/add', [\App\Http\Controllers\ClaimController::class, 'store'])->name('claim.store');
+    Route::get('/generate-pdf/{claim}', [\App\Http\Controllers\ClaimController::class, 'generatePdf'])->name('generatePdf');
+    Route::get('/user/detail/claim/', [\App\Http\Controllers\ClaimController::class, 'userClaimDetail'])->name('UserClaimDetail');
+
+});
 
 Route::get('/profile', [ProfileUserController::class, 'edit'])->name('profile.edit');
-Route::put('/profile', [ProfileUserController::class, 'update1'])->name('profile.update');
+
 Route::get('/edit-profile', [ProfileUserController::class, 'showForm'])->name('profile.showForm');
 
 
@@ -92,7 +105,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::get('/comments',  [BlogController::class, 'index']);
     Route::post('/user/block/{id}', [UserController::class, 'blockUser'])->name('blockUser');
-Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
+    Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
 
 
     Route::get('/events', [EventController::class, 'eventsForAdmin']);

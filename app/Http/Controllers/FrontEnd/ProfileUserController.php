@@ -19,15 +19,28 @@ class ProfileUserController extends Controller
       * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update1(Request $request)
-    { 
-        dd("fghfgh");
+    public function updateProfile(Request $request)
+    {
+
         $user = Auth::user();
         $user = User::find($user->id);
         $user->update($request->all());
 
-        return redirect()->route('profile')
-                        ->with('success','Article crée avec succées.');
+        return Redirect("/profile");
+    }
+
+    /**
+      * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request)
+    {
+
+        $user = Auth::user();
+        $user = User::find($user->id);
+        $user->update($request->all());
+
+        return Redirect("/profile");
     }
 
     /**
@@ -36,6 +49,7 @@ class ProfileUserController extends Controller
      */
     public function showForm()
     {
+
         return view('FrontEnd.editProfile');
     }
 }
