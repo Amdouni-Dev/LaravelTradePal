@@ -140,7 +140,14 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/responses', [\App\Http\Controllers\ClaimController::class])->name('responses.store');
     Route::post('/claim/sendEmail/{claim}', [\App\Http\Controllers\ClaimController::class, 'sendEmail'])->name('sendEmail');
     Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
-    Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
+    Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
+    Route::post('/reply/store', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
+    Route::delete('/reply/delete/{id}', [\App\Http\Controllers\ResponseController::class, 'destroy'])->name('reply.destroy');
+    Route::get('/response/{id}', [\App\Http\Controllers\ResponseController::class, 'edit'])->name('responses.edit');
+    Route::put('/response/{id}', [\App\Http\Controllers\ResponseController::class, 'update'])->name('responses.update');
+    Route::get('/reclamation/{id}', [\App\Http\Controllers\ResponseController::class, 'showClaim'])->name('claims.show');
+    Route::delete('/claim/deleteClaim/{id}', [\App\Http\Controllers\ClaimController::class, 'destroy'])->name('supprimer');
+    Route::delete('/claim/deleteUserClaim/{id}', [\App\Http\Controllers\ClaimController::class, 'destroyUserClaim'])->name('delete');
 
 
     Route::resource('item',  ItemController::class);

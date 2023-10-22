@@ -60,8 +60,8 @@
                     <div class="buttons quarter">
 
 <!------------------------------------------------------------------ADD CLAIM-->
-                       <div style="margin-bottom: 60px">trier par
-                        <label id="sort-select" for="sort" class="select" data-dashlane-label="true" >
+                       <div style="margin-bottom: 60px">
+                        <label id="sort-select" for="sort" hidden="hidden" class="select" data-dashlane-label="true" >
                             <select id="sort" name="sort" data-dashlane-rid="f784bac106b2bca5" data-form-type="other">
                                 <option value="1">les plus récentes</option>
                                 <option value="2">par distance</option>
@@ -88,7 +88,7 @@
         <div class="main-title">Liste Des Réclamations </div>
 
         <ul id="search-result">
-            @if(!empty($userClaims))
+            @if(!empty($userClaims) && $userClaims->count() > 0)
             @foreach ($userClaims as $claim)
             <li class="troc-resume ">
                 <div class="c1 square">
@@ -98,9 +98,14 @@
                         </a>                    </div>
                 </div>
                 <div class="c2" style="margin-top: 25px; margin-left: 5px;position: relative;">
-                    <a class="delete-button" data-toggle="modal" data-target="#confirmDeleteModal" data-claim-id="{{ $claim->id }}" style="position: absolute; top: -15px; right: -1px; text-decoration: none; color: #ad1328; font-size: 35px;">&times;</a>
+                    <form method="POST"  id="delete-form" action="{{ route('delete', $claim->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <a class="delete-button" style="position: absolute; top: -15px; right: -1px; text-decoration: none; color: #ad1328; font-size: 35px;" onclick="return confirmDelete();">&times;</a>
 
-                    <h2><a class="waves waves-prune"><span>{{$claim->subject}}</span></a></h2>
+                    </form>
+
+                    <h2><a class="waves waves-prune" href="{{ route('claims.show', ['id' => $claim->id]) }}"><span>{{ $claim->subject }}</span></a></h2>
 
                     <div class="fields">
                         <div class="right">
@@ -150,6 +155,9 @@
 
             </li>
             @endforeach
+            {{ $userClaims->links() }}
+            @else
+            <div class="main-title" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);font-size: 30px">Aucune réclamation à afficher !</div>
             @endif
 
 
@@ -164,49 +172,25 @@
 
     </div>
 
+
+
 </article><br><br><br><br><br><br><br>
 
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmer la suppression</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Êtes-vous sûr de vouloir supprimer cette réclamation ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">Supprimer</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 @extends('FrontEnd.Section.footer')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-
 <script>
-    $(document).ready(function() {
-        $('#confirmDelete').on('click', function() {
-            // Vous pouvez placer ici le code pour supprimer la réclamation
-            // Vous pouvez effectuer une demande AJAX pour supprimer la réclamation sur le serveur
-            // Après la suppression réussie, vous pouvez fermer le modal
-            // Pour plus de simplicité, nous fermons simplement le modal ici
-            $('#confirmDeleteModal').modal('hide');
-        });
+    function confirmDelete() {
+        if (confirm("Voulez-vous vraiment supprimer cette réclamation ?")) {
 
-        // Ajoutez un gestionnaire d'événements pour réinitialiser le modal lorsque vous le fermez
-        $('#confirmDeleteModal').on('hidden.bs.modal', function () {
-            $(this).find('form')[0].reset();
-        });
-    });
+            document.getElementById('delete-form').submit();
+        } else {
 
+            return false;
+        }
+    }
 </script>
 
 

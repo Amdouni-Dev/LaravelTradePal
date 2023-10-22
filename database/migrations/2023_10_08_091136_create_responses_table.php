@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('claim_id');
             $table->foreign('claim_id')->references('id')->on('claims');
+
             $table->text('content');
             $table->timestamp('response_date')->default(now());;
             $table->timestamps();

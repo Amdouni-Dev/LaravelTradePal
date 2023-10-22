@@ -19,6 +19,6 @@ class Response extends Model
         return $this->belongsTo(User::class);
     }
     public function claim(){
-        return $this->belongsTo(Claim::class);
+        return $this->belongsTo(Claim::class, 'claim_id');
     }
 }
