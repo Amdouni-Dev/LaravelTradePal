@@ -14,10 +14,10 @@
     <table class="table">
       <thead>
         <tr>
-          <th>ID Utilisateur</th>
+          <th>Utilisateur</th>
           <th>Catégorie</th>
           <th>Timestamp</th>
-          <th>ID Organisation</th>
+          <th>Organisation</th>
           <th>Montant</th>
           <th>Objet</th>
         </tr>
@@ -27,13 +27,18 @@
         @if(!empty($donations))
         @foreach ($donations as $donation)
         <tr>
-          <td>{{ $donation->user_id }}</td>
+          <td>{{ $donation->donor->username }}</td>
           <td>{{ $donation->category }}</td>
           <td>{{ $donation->timestamp }}</td>
-          <td>{{ $donation->organization_id }}</td>
+          <td>{{ $donation->organization->name }}</td>
           <td>{{ $donation->amount }}</td>
-          <td>{{ $donation->object }}</td>
-
+          <td>
+            @if ($donation->item)
+            {{ $donation->item->name }}
+            @else
+            Pas d'objet
+            @endif
+          </td>
           <td>
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
@@ -54,4 +59,7 @@
       </tbody>
     </table>
   </div>
+</div>
+<div class="text-center mt-4">
+  {{ $donations->links() }}
 </div>

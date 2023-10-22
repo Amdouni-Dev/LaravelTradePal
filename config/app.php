@@ -194,7 +194,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
         Barryvdh\DomPDF\ServiceProvider::class,
+=======
+
+
+>>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
     ],
 
     /*

@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "7e91e2f5d7f3edf0d44c628035324c4c",
     "packages": [
         {
@@ -44,15 +45,53 @@
                         "Pdf": "Barryvdh\\DomPDF\\Facade\\Pdf",
                         "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf"
                     }
+=======
+    "content-hash": "e7663e3f36b025c10019c04941de4ac7",
+    "packages": [
+        {
+            "name": "askedio/laravel5-profanity-filter",
+            "version": "1.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Askedio/laravel-profanity-filter.git",
+                "reference": "34bec8cd92e998015e73a90d888ef981b0ed749a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Askedio/laravel-profanity-filter/zipball/34bec8cd92e998015e73a90d888ef981b0ed749a",
+                "reference": "34bec8cd92e998015e73a90d888ef981b0ed749a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "laravel/laravel": "5.*",
+                "phpunit/phpunit": "~5.0",
+                "symfony/css-selector": "3.1.*",
+                "symfony/dom-crawler": "3.1.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Askedio\\Laravel5ProfanityFilter\\Providers\\ProfanityFilterServiceProvider"
+                    ]
+>>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
                 }
             },
             "autoload": {
                 "psr-4": {
+<<<<<<< HEAD
                     "Barryvdh\\DomPDF\\": "src"
+=======
+                    "Askedio\\Laravel5ProfanityFilter\\": "app/"
+>>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
+<<<<<<< HEAD
                 "MIT"
             ],
             "authors": [
@@ -82,6 +121,19 @@
                 }
             ],
             "time": "2023-01-12T15:12:49+00:00"
+=======
+                "AGPL-3.0"
+            ],
+            "description": "A Vendor Package Example",
+            "keywords": [
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/Askedio/laravel-profanity-filter/issues",
+                "source": "https://github.com/Askedio/laravel-profanity-filter/tree/1.10"
+            },
+            "time": "2018-10-19T16:07:02+00:00"
+>>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
         },
         {
             "name": "brick/math",
@@ -8368,16 +8420,16 @@
         },
         {
             "name": "spatie/ignition",
-            "version": "1.11.2",
+            "version": "1.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ignition.git",
-                "reference": "48b23411ca4bfbc75c75dfc638b6b36159c375aa"
+                "reference": "3d886de644ff7a5b42e4d27c1e1f67c8b5f00044"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ignition/zipball/48b23411ca4bfbc75c75dfc638b6b36159c375aa",
-                "reference": "48b23411ca4bfbc75c75dfc638b6b36159c375aa",
+                "url": "https://api.github.com/repos/spatie/ignition/zipball/3d886de644ff7a5b42e4d27c1e1f67c8b5f00044",
+                "reference": "3d886de644ff7a5b42e4d27c1e1f67c8b5f00044",
                 "shasum": ""
             },
             "require": {
@@ -8386,19 +8438,19 @@
                 "php": "^8.0",
                 "spatie/backtrace": "^1.5.3",
                 "spatie/flare-client-php": "^1.4.0",
-                "symfony/console": "^5.4|^6.0",
-                "symfony/var-dumper": "^5.4|^6.0"
+                "symfony/console": "^5.4|^6.0|^7.0",
+                "symfony/var-dumper": "^5.4|^6.0|^7.0"
             },
             "require-dev": {
-                "illuminate/cache": "^9.52",
+                "illuminate/cache": "^9.52|^10.0|^11.0",
                 "mockery/mockery": "^1.4",
-                "pestphp/pest": "^1.20",
+                "pestphp/pest": "^1.20|^2.0",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "psr/simple-cache-implementation": "*",
-                "symfony/cache": "^6.0",
-                "symfony/process": "^5.4|^6.0",
+                "symfony/cache": "^5.4|^6.0|^7.0",
+                "symfony/process": "^5.4|^6.0|^7.0",
                 "vlucas/phpdotenv": "^5.5"
             },
             "suggest": {
@@ -8447,7 +8499,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-09-19T15:29:52+00:00"
+            "time": "2023-10-18T14:09:40+00:00"
         },
         {
             "name": "spatie/laravel-ignition",

@@ -21,7 +21,9 @@ return new class extends Migration
             $table->timestamp('publicationDate');
             $table->string('tags')->nullable();
             $table->string('featuredImage')->nullable();
-            $table->integer('views')->default(0);
+            $table->unsignedInteger('views')->default(0);
+            $table->unsignedInteger('likes')->default(0);
+            $table->unsignedInteger('countomments')->default(0);
             $table->enum('status', ['Publique', 'Privé'])->default('Publique');
             $table->timestamps();
 

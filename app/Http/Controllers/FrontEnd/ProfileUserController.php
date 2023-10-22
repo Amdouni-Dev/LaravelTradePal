@@ -26,7 +26,22 @@ class ProfileUserController extends Controller
         $user = User::find($user->id);
         $user->update($request->all());
 
-        return Redirect("/profile");}
+        return Redirect("/profile");
+    }
+
+    /**
+      * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request)
+    {
+
+        $user = Auth::user();
+        $user = User::find($user->id);
+        $user->update($request->all());
+
+        return Redirect("/profile");
+    }
 
     /**
      * Display the specified user.

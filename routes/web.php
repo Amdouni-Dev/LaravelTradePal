@@ -46,6 +46,7 @@ Route::get('/home',  [IndexController::class, 'index']);
 Route::get('/show2',  [EventController::class, 'show2']);
 Route::get('/',  [IndexController::class, 'index']);
 Route::get('/updateProfile', [ProfileUserController::class, 'updateProfile'])->name('profile.updateProfile');
+Route::get('/updatePassword', [ProfileUserController::class, 'updatePassword'])->name('profile.updateProfile');
 
 Route::get('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->middleware('guest');
 
@@ -54,18 +55,22 @@ Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionControlle
 Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
 
 
+Route::get('/profile',  [ProfileController::class, 'edit']);
 
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
-Route::get('/game',  [gameController::class, 'index']);
+Route::get('/game',  [UserController::class, 'gamePage']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
+Route::get('/read', [BlogController::class, 'listing']);
 Route::get('/new-blog',  [BlogController::class, 'UserBlogForm']);
 Route::post('/storeBlog', [BlogController::class, 'userSaveBlog']);
-Route::post('/storeComment', [CommentController::class, 'store']);
-Route::get('/read', [BlogController::class, 'listing']);
-Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blogs/author/{username}', [BlogController::class, 'filterByAuthor']);
+Route::get('/blog/tag/{tag}', [BlogController::class, 'fetchBlogsByTag']);
+Route::post('/storeComment', [CommentController::class, 'store']);
+Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
+Route::post('/game',  [UserController::class, 'game']);
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class,'participerEvent'])->name('participerEvent');
 Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('events.show');
@@ -77,6 +82,17 @@ Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('even
  Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
   /******************* Items + Requests*/
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user/claims', [\App\Http\Controllers\ClaimController::class, 'claimsForUser'])->name('claimsForUser');
+    Route::get('/add', [\App\Http\Controllers\ClaimController::class, 'create'])->name('claim.create');
+    Route::post('/add', [\App\Http\Controllers\ClaimController::class, 'store'])->name('claim.store');
+    Route::get('/generate-pdf/{claim}', [\App\Http\Controllers\ClaimController::class, 'generatePdf'])->name('generatePdf');
+    Route::get('/user/detail/claim/', [\App\Http\Controllers\ClaimController::class, 'userClaimDetail'])->name('UserClaimDetail');
+
+});
 
 Route::get('/profile', [ProfileUserController::class, 'edit'])->name('profile.edit');
 
@@ -88,11 +104,11 @@ Route::get('/edit-profile', [ProfileUserController::class, 'showForm'])->name('p
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/blog/add', [BlogController::class, 'create']);
-    Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/blogs', [BlogController::class, 'index']);
+    Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/comments',  [BlogController::class, 'index']);
     Route::post('/user/block/{id}', [UserController::class, 'blockUser'])->name('blockUser');
-Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
+    Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
 
 
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
