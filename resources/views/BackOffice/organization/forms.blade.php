@@ -86,6 +86,7 @@
                                 <option value="Education" {{ isset($organization) && $organization->type == "Education"? 'selected' : '' }}>Education</option>
                                 <option value="Environnement" {{ isset($organization) && $organization->type == "Environnement" ? 'selected' : '' }}>Environnement</option>
                                 <option value="Santé" {{ isset($organization) && $organization->type == "Santé" ? 'selected' : '' }}>Santé</option>
+                                <option value="Protection des animaux" {{ isset($organization) && $organization->type == "Protection des animaux" ? 'selected' : '' }}>Protection des animaux</option>
                                 <option value="Droits de l'homme" {{ isset($organization) && $organization->type == "Droits de l'homme" ? 'selected' : '' }}>Droits de l'homme</option>
                             </select>
                         </div>

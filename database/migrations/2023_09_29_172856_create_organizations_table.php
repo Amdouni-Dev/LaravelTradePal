@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('logo')->nullable();;
             $table->text('description');
             $table->date('founding_date');
-            $table->boolean('archived');
+            $table->boolean('archived')->default(0);
             $table->timestamps();
         });
     }

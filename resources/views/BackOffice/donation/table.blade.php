@@ -1,3 +1,24 @@
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+  <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+  <script>
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('f8a9052143a0cc4f6c2d', {
+      cluster: 'eu'
+    });
+
+    var channel = pusher.subscribe('donation-channel');
+    channel.bind('donation-made', function(data) {
+      toastr.success("Un nouveau don a été effectué");
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
 <table class="container-xxl flex-grow-1 container-p-y">
   <tr>
     <td>
@@ -5,7 +26,9 @@
         <span class="text-muted fw-light">Dons /</span> Liste des dons
       </h4>
     </td>
-
+    <td align="right">
+      <a href="{{ route('donations.export') }}" class="btn btn-primary">Exporter</a>
+    </td>
   <tr>
 </table>
 
@@ -63,3 +86,12 @@
 <div class="text-center mt-4">
   {{ $donations->links() }}
 </div>
+
+@auth
+<script>
+  Echo.private('donation-made.{{ auth()->id() }}')
+    .listen('DonationMade', (event) => {
+      // Handle the new donation event and update the dashboard
+    });
+</script>
+@endauth

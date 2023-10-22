@@ -82,6 +82,13 @@
                         <label for="defaultFormControlInput" class="form-label">Couleur</label>
                         <input type="color" class="form-control" id="defaultFormControlInput" name="color" />
 <br/>
+                        <label for="categorie" class="form-label">Catégorie</label>
+                        <select name="categorie" id="categorie" class="form-control">
+                            @foreach($categories as $category)
+                                <option value="{{ $category }}">{{ $category }}</option>
+                            @endforeach
+                        </select>
+                        <br/>
 
 
                         <label class="block mb-4">

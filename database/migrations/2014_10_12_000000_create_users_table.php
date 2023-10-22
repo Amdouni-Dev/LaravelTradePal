@@ -29,7 +29,9 @@ return new class extends Migration
             $table->timestamp('winDate')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
+
         });
+
     }
 
     /**

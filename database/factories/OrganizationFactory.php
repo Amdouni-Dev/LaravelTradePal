@@ -20,7 +20,13 @@ class OrganizationFactory extends Factory
 
         return [
             'name' => $this->faker->company,
-            'type' => $this->faker->word,
+            'type' => $this->faker->randomElement([
+                'Education',
+                'Environnement',
+                'Santé',
+                'Protection des animaux',
+                'Droits de l\'homme',
+            ]),
             'location' => $this->faker->address,
             'phone_number' => $this->faker->phoneNumber,
             'email' => $this->faker->unique()->safeEmail,

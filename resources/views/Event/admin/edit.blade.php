@@ -10,21 +10,51 @@
                         @method('PUT')
                         <label for="defaultFormControlInput" class="form-label">Evenement</label>
                         <input type="text" class="form-control" id="defaultFormControlInput" value="{{$event->nom}}"  name="nameEvent" aria-describedby="defaultFormControlHelp" />
+                        @if ($errors->has('nameEvent'))
+                            <div class="error">
+                                {{ $errors->first('nameEvent') }}
+                            </div>
+                        @endif
                         <br/>
                         <label for="defaultFormControlInput" class="form-label">Lieu</label>
                         <input type="text" class="form-control" id="defaultFormControlInput" value="{{$event->Lieu}}"  name="lieuEvent" aria-describedby="defaultFormControlHelp" />
+                        @if ($errors->has('lieuEvent'))
+                            <div class="error">
+                                {{ $errors->first('lieuEvent') }}
+                            </div>
+                        @endif
                         <br/>
                         <label for="defaultFormControlInput" class="form-label">Description</label>
                         <input type="text" class="form-control" id="defaultFormControlInput" value="{{$event->description}}"  name="descEvent" aria-describedby="defaultFormControlHelp" />
+                        @if ($errors->has('descEvent'))
+                            <div class="error">
+                                {{ $errors->first('descEvent') }}
+                            </div>
+                        @endif
                         <br/>
                         <label for="defaultFormControlInput" class="form-label">Date</label>
                         <input type="date" class="form-control" id="defaultFormControlInput" value="{{$event->date}}"   name="dateEvent" aria-describedby="defaultFormControlHelp" />
+                        @if ($errors->has('dateEvent'))
+                            <div class="error">
+                                {{ $errors->first('dateEvent') }}
+                            </div>
+                        @endif
                         <br/>
                         <label for="defaultFormControlInput" class="form-label">Heure Debut</label>
                         <input type="datetime-local" class="form-control" id="defaultFormControlInput" value="{{$event->start}}"  name="start" aria-describedby="defaultFormControlHelp" />
+                        @if ($errors->has('start'))
+                            <div class="error">
+                                {{ $errors->first('start') }}
+                            </div>
+                        @endif
                         <br/>
                         <label for="defaultFormControlInput" class="form-label">Heure fin</label>
                         <input type="datetime-local" class="form-control" id="defaultFormControlInput" value="{{$event->end}}"  name="end" aria-describedby="defaultFormControlHelp" />
+                        @if ($errors->has('end'))
+                            <div class="error">
+                                {{ $errors->first('end') }}
+                            </div>
+                        @endif
                         <br/>
                         <label for="defaultFormControlInput" class="form-label">Couleur</label>
                         <input type="color" class="form-control" id="defaultFormControlInput" value="{{$event->color}}" name="color" />

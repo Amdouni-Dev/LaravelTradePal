@@ -25,7 +25,7 @@ class ItemFactory extends Factory
             'description' => $this->faker->paragraph,
             'status' => $this->faker->randomElement(['DISPONIBLE', 'NONDISPONIBLE']),
             'amount' => $this->faker->randomFloat(2, 1, 1000),
-            'picture' => $this->faker->image(public_path('echange\items'), 400, 300, null, false)
+            'picture' => $this->faker->image(public_path('echange/items'), 400, 300, null, false)
 
         ];
     }

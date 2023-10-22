@@ -5,9 +5,20 @@
         <span class="text-muted fw-light">Organisation /</span> Liste des organisations
       </h4>
     </td>
+    <td>
+      <form action="{{ route('organizations.import') }}" method="POST" enctype="multipart/form-data">
+        <div class="input-group">
+          @csrf
+          <input type="file" class="form-control" id="inputGroupFile02" name="file">
+          <button type="submit" class="btn btn-primary">Importer</button>
+        </div>
+      </form>
+
+    </td>
     <td align="right">
       <a href="{{ route('organizations.create') }}" class="btn btn-primary">Ajouter</a>
     </td>
+
   <tr>
 </table>
 
@@ -62,6 +73,61 @@
     </table>
   </div>
 </div>
-<div class="text-center mt-4">
+<div class="text-center mt-4 mb-4">
   {{ $organizations->links() }}
 </div>
+<canvas id="organization-chart"></canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
+<script>
+  var url = "{{ route('organizations.chart') }}";
+
+  var OrganizationTypes = new Array();
+  var Counts = new Array();
+  var Colors = [];
+
+  var colorPalette = [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(153, 102, 255, 0.2)'
+  ];
+
+  $(document).ready(function() {
+    $.get(url, function(response) {
+      response.forEach(function(data, index) {
+        OrganizationTypes.push(data.type);
+        Counts.push(data.count);
+
+        var colorIndex = index % colorPalette.length;
+        Colors.push(colorPalette[colorIndex]);
+      });
+
+      var ctx = document.getElementById("organization-chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: OrganizationTypes,
+          datasets: [{
+            label: 'Distribution des Organisations',
+            data: Counts,
+            backgroundColor: Colors,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+    });
+  });
+</script>

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
-use App\Models\Donation;
+use App\Imports\OrganizationsImport;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+use App\Charts\OrganizationChart;
 
 class OrganizationController extends Controller
 {
@@ -21,7 +24,8 @@ class OrganizationController extends Controller
     {
         $viewPath = 'BackOffice.organization.table';
         $organizations = Organization::latest()->simplePaginate(5);
-        return view('BackOffice.template', compact('viewPath', 'organizations'))
+        $chart = new OrganizationChart;
+        return view('BackOffice.template', compact('viewPath', 'organizations', 'chart'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -204,5 +208,28 @@ class OrganizationController extends Controller
             ->get();
 
         return $donatedItems;
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        $file = $request->file('file');
+
+        Excel::import(new OrganizationsImport, $file);
+
+        return redirect()->route('organizations.index')
+            ->with('success', 'Organizations imported successfully.');
+    }
+
+    public function chart()
+    {
+        $data = Organization::select('type', DB::raw('count(*) as count'))
+            ->groupBy('type')
+            ->get();
+
+        return response()->json($data);
     }
 }
