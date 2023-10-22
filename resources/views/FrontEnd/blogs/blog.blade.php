@@ -142,7 +142,7 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="like-button">
-                                                                    <i style="font-size: 2rem; color: red"
+                                                                    <i style="font-size: 2rem; color: #a23b50"
                                                                         class="bx bx-trash me-1"></i>
                                                                 </button>
                                                             </form>
@@ -234,20 +234,16 @@
         var twitter = document.querySelector('.twitter');
 
         facebook.addEventListener('click', function(ev) {
-            console.log("hi");
             var tags = [];
-
+            console.log();
             @foreach (explode(',', $blog->tags) as $tag)
                 @php
                     $tag = trim($tag);
                 @endphp
-
-                // Push each tag to the array
                 tags.push("{{ $tag }}");
             @endforeach
 
-            // Join the tags array into a single string
-            var hashtags = tags.join('_');
+            var hashtags = tags.join('ㅤ');
             let shareUrl =
                 `https://www.facebook.com/sharer.php?u=www.tradepal.tn/blog/{{ $blog->id }}&hashtag=%23${hashtags}&quote=repository%20of%20amiga%20software`;
             window.open(shareUrl, "NewWindow", params);

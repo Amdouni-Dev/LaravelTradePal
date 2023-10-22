@@ -2,7 +2,7 @@
 
 <HEAD>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-
+<link rel="shortcut icon" type="image/png" href="favicon.png" />
     @if (!View::hasSection('calender-style'))
         <link rel="stylesheet" type="text/css" href="/css/style.css">
     @endif

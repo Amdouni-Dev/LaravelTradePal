@@ -94,7 +94,8 @@
         <article class="login-page top-sep">
 
             <div class="illu login-tree web">
-                <img src='static/image/1px.png' data-load='/image/sketch/arbre_optim.svg' alt='tree'
+                <img src='static/image/1px.png' data-load='/image/sketch/arbre_optim.svg' alt='tree'style="position: relative;
+    top: -2.3rem;"
                     class='web svg'>
                 <img src='static/image/1px.png' data-src='/static/image/sketch/arbre_optim.png' alt='tree'
                     class='web img'>
@@ -102,7 +103,7 @@
                     class='web retina'>
             </div>
 
-            <div class="ground top-sep"></div>
+            
 
             <div class="login-block">
                 <div class="illu illu-login web">

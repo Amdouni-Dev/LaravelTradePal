@@ -292,4 +292,13 @@ class BlogController extends Controller
         return view('FrontEnd.blogs.list', compact('blogs'));
     }
 
+    public function delete($blog_id)
+    {
+        $blog = Blog::find($blog_id);
+        if ($blog) {
+            $blog->delete();
+        }
+        return redirect()->back();
+    }
+
 }

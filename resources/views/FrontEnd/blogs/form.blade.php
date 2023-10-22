@@ -87,7 +87,7 @@
 							</div>
 							</div>
 						</div>
-						<input value="1" name="auteur" class="form-control" type="hidden">
+						<input value="{{ auth()->user()->id }}" name="auteur" class="form-control" type="hidden">
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label" for="basic-icon-default-email">Statut</label>
 							<div class="col-sm-10">

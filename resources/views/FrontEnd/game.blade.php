@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 @extends('FrontEnd.section.header')
-@section('pageTitle', 'Noisette')
+@section('pageTitle', 'Machine à noisette')
 <style>
     .slots {
         left: 15.1%;
@@ -174,10 +174,16 @@
                         <img src="/image/jackpot/roll/gen/machine.png" class="machine svg"
                             style="z-index: 99;
     position: relative;">
-                        <div class="sprites jackpot manette" id="manette"> <img
-                                src="/image/jackpot/roll/gen/ff2cd83f3fc6589a33bd40bb96c56ebf.svg" class="svg m1"
-                                alt="jackpot noisette"></div>
-
+                        @if (auth()->check())
+                            <div class="sprites jackpot manette" id="manette"> <img
+                                    src="/image/jackpot/roll/gen/ff2cd83f3fc6589a33bd40bb96c56ebf.svg" class="svg m1"
+                                    alt="jackpot noisette"></div>
+                        @else
+                            <div class="sprites jackpot manette" id="manette1">
+                                <img src="/image/jackpot/roll/gen/ff2cd83f3fc6589a33bd40bb96c56ebf.svg" class="svg m1"
+                                    alt="jackpot noisette">
+                            </div>
+                        @endif
                         <div class="slots">
                             <div class="reel"></div>
                             <div class="reel"></div>
@@ -339,7 +345,7 @@
                 @foreach ($users as $user)
                     <li class="winner">
                         <div class="details">
-                        <br>
+                            <br>
                             <h3>{{ $user->username }}</h3>
                             <div class="sharing">
                             </div>
@@ -410,6 +416,12 @@
     const indexes = [0, 0, 0];
     let tries = 0;
 
+    document.addEventListener('DOMContentLoaded', function() {
+        var manette1 = document.getElementById('manette1');
+        manette1.addEventListener('click', function() {
+            window.location.href = '/login';
+        });
+    });
     const roll = (reel, offset = 0) => {
         const delta = (offset + 2) * num_icons + Math.round(Math.random() * num_icons);
 
@@ -434,6 +446,8 @@
     };
 
     function rollAll() {
+        messageElement = document.getElementById('looser');
+        messageElement.style.transform = '';
         tries++;
         debugEl.textContent = 'rolling...';
         startButton.disabled = true;
@@ -471,7 +485,11 @@
 
                 updateHazelnuts(winMessage);
                 startButton.disabled = false;
+                var imgElement = document.querySelector('#manette img');
+        imgElement.classList.remove('svg', 'm4');
+        imgElement.classList.add('svg', 'm1');
             });
+        
     }
     manette.addEventListener("click", function() {
         image.classList.remove(classNames[currentClassIndex]);
@@ -515,4 +533,5 @@
 </script>
 
 @extends('FrontEnd.section.footer')
+
 </HTML>
