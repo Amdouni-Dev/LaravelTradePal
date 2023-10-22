@@ -65,3 +65,12 @@
 <div class="text-center mt-4">
   {{ $donations->links() }}
 </div>
+
+@auth
+<script>
+  Echo.private('donation-made.{{ auth()->id() }}')
+    .listen('DonationMade', (event) => {
+      // Handle the new donation event and update the dashboard
+    });
+</script>
+@endauth

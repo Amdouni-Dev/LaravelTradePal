@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DonationsExport;
+use App\Events\DonationMade;
 
 
 
@@ -80,7 +81,7 @@ class DonationController extends Controller
     {
 
         $donation = new Donation();
-        $donation->user_id = $request->input('user_id');
+        $donation->user_id = auth()->user()->id;
         $donation->organization_id = $request->input('organization_id');
         $donation->amount = $request->input('amount');
         $donation->category = $request->input('category');
@@ -106,6 +107,8 @@ class DonationController extends Controller
             $user->hazelnuts = $newHazelnuts;
             $user->save();
         }
+        event(new DonationMade($donation));
+
         return redirect()->route('organizations.show', ['id' => $donation->organization_id])
 
             ->with('success', 'Donation created successfully.');
