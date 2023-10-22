@@ -76,11 +76,16 @@ Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class, 'pa
 Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('events.show');
 
 
-/******************* Items+ Requests Front*/
-Route::resource('item', ItemController::class);
-Route::resource('request', RequestController::class);
-Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
-/******************* Items + Requests*/
+ /******************* Items+ Requests Front*/
+ Route::resource('item', ItemController::class);
+ Route::resource('request', RequestController::class);
+ Route::get('/requests/show-offer',  [RequestController::class, 'showOffer']);
+ Route::get('/requests/show-request',  [RequestController::class, 'showRequest']);
+ Route::get('/requests/editAll/{id}',  [RequestController::class, 'editAll'])->name('request.editAll');
+ Route::put('/requests/updateAll/{id}',  [RequestController::class, 'updateAll'])->name('request.updateAll');
+ Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
+ 
+  /******************* Items + Requests*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -149,16 +154,16 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/organizations-import', [OrganizationController::class, 'import'])->name('organizations.import');
     Route::get('organization/chart', [OrganizationController::class, 'chart'])->name('organizations.chart');
 
-    Route::resource('item',  ItemController::class);
-    Route::resource('request',  RequestController::class);
 
 
-    /******************* Items + Requests Back */
-    Route::get('/item/list', [ItemController::class, 'indexDash'])->name('item.indexDash');
-    Route::get('/request/list', [RequestController::class, 'indexDash'])->name('request.indexDash');
-    Route::delete('/item/destroy/{id}', [ItemController::class, 'destroyDash'])->name('item.destroyDash');
-    Route::delete('/request/destroy/{id}', [RequestController::class, 'destroyDash'])->name('request.destroyDash');
-    /*********************************** Items + Requests Back */
+
+     /******************* Items + Requests Back */
+     Route::get('/item/list', [ItemController::class, 'indexDash'])->name('item.indexDash');
+     Route::get('/request/list', [RequestController::class, 'indexDash'])->name('request.indexDash');
+     Route::delete('/item/destroy/{id}', [ItemController::class, 'destroyDash'])->name('item.destroyDash');
+     Route::get('/item/getItemsData', [ItemController::class, 'getItemsData'])->name('items.data');
+     Route::delete('/request/destroy/{id}', [RequestController::class, 'destroyDash'])->name('request.destroyDash');
+     /***********************************/
 })->middleware(['auth', 'verified', 'checkAdmin'])->name('dashboard');
 
 Route::fallback(function () {

@@ -23,6 +23,7 @@ class RequestFactory extends Factory
             'exchangeable_id' => Item::inRandomOrder()->first()->id,
             'note' => $this->faker->sentence,
             'status' => $this->faker->randomElement(['EN_COURS', 'CONFIRME', 'ANNULE']),
+            'amount' => $this->faker->randomFloat(2, 1, 1000), 
         ];
     }
 }

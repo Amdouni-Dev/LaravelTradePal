@@ -1,5 +1,11 @@
 <?php return array (
-<<<<<<< HEAD
+  'askedio/laravel5-profanity-filter' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Askedio\\Laravel5ProfanityFilter\\Providers\\ProfanityFilterServiceProvider',
+    ),
+  ),
   'barryvdh/laravel-dompdf' => 
   array (
     'providers' => 
@@ -10,13 +16,6 @@
     array (
       'Pdf' => 'Barryvdh\\DomPDF\\Facade\\Pdf',
       'PDF' => 'Barryvdh\\DomPDF\\Facade\\Pdf',
-=======
-  'askedio/laravel5-profanity-filter' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Askedio\\Laravel5ProfanityFilter\\Providers\\ProfanityFilterServiceProvider',
->>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
     ),
   ),
   'laravel/breeze' => 
@@ -95,6 +94,17 @@
     'providers' => 
     array (
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    ),
+  ),
+  'simplesoftwareio/simple-qrcode' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'QrCode' => 'SimpleSoftwareIO\\QrCode\\Facades\\QrCode',
     ),
   ),
   'spatie/laravel-ignition' => 

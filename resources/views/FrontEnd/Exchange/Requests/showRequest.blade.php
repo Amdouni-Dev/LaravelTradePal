@@ -6,9 +6,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+@if (app()->environment('production'))
+    <link rel="stylesheet" href="{{ mix('css/style.css') }}">
+@else
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
+@endif
 		<div id="main">
 
 
@@ -68,7 +70,9 @@
 
 		            </div>
 
-					<nav class="profile-menu">
+		          
+		         
+		            <nav class="profile-menu">
 		                <ul>
 		                    <li class="   ">
 		                        <div class="pancarte even ">
@@ -220,31 +224,22 @@
 
                     <article class="profil mine top-sep" style="max-width: 4096px;">
     <div class="container">
-    <div id="quick-access">
-							<ul>
-								<li>
-									<a href="/item/create">
-										<div class="waves waves-prune" data-wave-scale="20">
-										Déposer un nouveau objet !								</div>
-									</a>
-								</li>
-</ul>
-</div>
+   
 
 
    
     <div class="row">
-    @foreach ($items as $donneesItem)
+    @foreach ($requests as $donneesRequest)
     <div class="col-md-4 mb-4">
         <div class="card" style=" max-height: 550px; min-height: 550px;">
         
-        <img class="card-img-top" src="/echange/items/{{ $donneesItem['picture'] }}" alt="Card image cap" style="width: 100%; height: 200px;">
+        <img class="card-img-top" src="/echange/items/{{ $donneesRequest->desired->picture }}" alt="Card image cap" style="width: 100%; height: 200px;">
 
         <div class="card-body">
         <div class="d-flex justify-content-between">
-    <h5 class="card-title">{{ $donneesItem['name'] }}</h5>
+    <h5 class="card-title">{{ $donneesRequest->desired->name }}</h5>
 
-          <h5>  {{ $donneesItem['amount'] }}
+          <h5>  {{ $donneesRequest['amount'] }}
             <div class="sprites icones">
                 <img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette">
             </div>
@@ -252,50 +247,62 @@
       
     </div>
 	<div class="d-flex justify-content-between">
-	<h6 class="card-title">Catégorie:   </h6>
-	<h6>  {{ $donneesItem['category'] }}</h6>
+	
+	@if($donneesRequest->exchangeable && $donneesRequest->exchangeable->name)
+	<h5 class="card-title">Objet proposé:   </h5>
+    <h5>{{ $donneesRequest->exchangeable->name }}</h5>
+@endif
+   
 	</div>
-    <p class="card-text">{{ $donneesItem['description'] }}</p>
+    <p class="card-text">{{ $donneesRequest['note'] }}</p>
     <ul class="list-group list-group-flush">
     <li class="list-group-item"> 
-      
-        <div>
-            @if ($donneesItem['status'] === 'DISPONIBLE')
-                <span style="color: green; font-size: 20px;">✔</span> Disponible
-            @else
-                <span style="color: red; font-size: 20px;">✘</span> Non disponible
-            @endif
-        </div>
+    
+    <div>
+    @if ($donneesRequest['status'] === 'CONFIRME')
+        <span style="color: green; font-size: 20px;">✔</span> Confirmée
+    @elseif ($donneesRequest['status'] === 'ANNULE')
+        <span style="color: red; font-size: 20px;">✘</span> Annulée
+    @else
+        <span style="color: orange; font-size: 20px;">⏳</span> En cours
+    @endif
+
+  
+</div>
+
 
 </div></li>
    
   </ul>
    
   <div class="card-body">
-<div class="d-flex justify-content-between">
-<form action="{{ route('item.destroy', $donneesItem['id']) }}" method="POST">
-        @csrf
-        @method('DELETE')
-    <button type="submit" class="form-button">
-        <div class="button valid-button">
-            <div class="waves waves-prune">
-                Supprimer
+   
+      
+        
+        <form action="{{ route('request.update', $donneesRequest['id']) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="d-flex flex-row justify-content-between align-items-center">
+            <button type="submit" class="form-button">
+                <div class="button valid-button">
+                    <div class="waves waves-prune">
+                        Modifier
+                    </div>
+                </div>
+            </button>
+            <div class="form-group text-center">
+                <label for="status">Modifier le statut :</label>
+                <select name="status" id="status" class="form-control">
+                    <option value="CONFIRME">Confirmée</option>
+                    <option value="ANNULE">Annulée</option>
+                    <option value="EN_COURS">En cours</option>
+                </select>
             </div>
-        </div>
-    </button>
-    </form>
-    <form action="{{ route('item.edit', $donneesItem['id']) }}" method="GET">
-        @csrf
-    <button type="submit" class="form-button">
-        <div class="button valid-button">
-            <div class="waves waves-prune">
-                Modifier
             </div>
-        </div>
-    </button>
-    </form>
+        </form>
+    
 </div>
-</div>
+
 
         </div>
     </div>
@@ -303,18 +310,22 @@
 </div>
 
 
-@if ($items->hasPages())
+
+
+
+
+@if ($requests->hasPages())
     <div class="pagination bottom">
        
-        @if ($items->onFirstPage())
+        @if ($requests->onFirstPage())
             <span>&laquo;</span>
         @else
-            <a href="{{ $items->previousPageUrl() }}" rel="prev" role="prev">&laquo;</a>
+            <a href="{{ $requests->previousPageUrl() }}" rel="prev" role="prev">&laquo;</a>
         @endif
 
        
-        @foreach ($items as $element)
-            {{-- "Three Dots" Separator --}}
+        @foreach ($requests as $element)
+         
             @if (is_string($element))
                 <span>{{ $element }}</span>
             @endif
@@ -322,7 +333,7 @@
         
             @if (is_array($element))
                 @foreach ($element as $page => $url)
-                    @if ($page == $items->currentPage())
+                    @if ($page == $requests->currentPage())
                         <span>{{ $page }}</span>
                     @else
                         <a href="{{ $url }}" role="next">{{ $page }}</a>
@@ -332,13 +343,17 @@
         @endforeach
 
      
-        @if ($items->hasMorePages())
-            <a href="{{ $items->nextPageUrl() }}" rel="next" role="next">&raquo;</a>
+        @if ($requests->hasMorePages())
+            <a href="{{ $requests->nextPageUrl() }}" rel="next" role="next">&raquo;</a>
         @else
             <span>&raquo;</span>
         @endif
     </div>
 @endif
+
+
+
+
 
 
 

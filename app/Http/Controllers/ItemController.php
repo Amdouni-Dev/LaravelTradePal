@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 class ItemController extends Controller
 {
     /**
@@ -52,7 +53,29 @@ class ItemController extends Controller
         $itemsStat = Item::with('user')->get();
         return view('BackOffice.template', compact('items','viewPath','itemsStat'));
     }
-
+  /**
+     * Display a listing of the resource.
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function getItemsData(Request $request)
+    {
+        $searchTerm = $request->input('searchTerm');
+    
+        $query = Item::with('user');
+    
+       
+        if (!empty($searchTerm)) {
+            $query->where(function ($query) use ($searchTerm) {
+                $query->whereHas('user', function ($query) use ($searchTerm) {
+                    $query->where('name', 'LIKE', '%' . $searchTerm . '%');
+                })->orWhere('category', 'LIKE', '%' . $searchTerm . '%');
+            });
+        }
+        $items = $query->get();
+    
+        return response()->json($items);
+    }
     
     
     
@@ -75,7 +98,12 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  $data = $request->validate([
+   
+    {   $userId = Auth::id();
+
+       
+
+        $data = $request->validate([
         'name' => 'required|string|max:255',
         'category' => 'required',
         'description' => 'required|string',
@@ -99,6 +127,9 @@ class ItemController extends Controller
     
 
 
+    	
+    
+   
 
         if ($request->hasFile('image')) {
             $image = $request->file('image'); 
@@ -109,14 +140,31 @@ class ItemController extends Controller
             $imageName = null; 
         }
         
+        //qrCode
+
+        $user = User::find($userId); 
+        $itemData = "Nom de l'item: " . $data['name'] . ", Catégorie: " . $data['category'] . ", Description: " . $data['description'] . ", Statut: " . $data['status'] . ", Montant: " . $data['amount'];
+        $userData = "Nom de l'utilisateur: " . $user->name . ", Email de l'utilisateur: " . $user->email . ", Télephone  de l'utilisateur: " . $user->phone;
+        
+        $combinedData = $itemData . "\n" . $userData;
+    
+        $qrcode =  Qrcode::encoding("UTF-8")
+        ->color(0, 0, 255) // Couleur bleue
+        ->backgroundColor(255, 255, 255) // Couleur blanche
+        ->size(300)->generate($combinedData); 
+
+        $fileName = $data['name'] . '_' . now()->format('YmdHis') . '.svg';
+        $filePath = public_path('qrcodes/') . $fileName;
+        file_put_contents($filePath, $qrcode);
         Item::create([
-            'user_id' => 35,
+            'user_id' => $userId,
             'name' => $data['name'],
             'category' => $data['category'],
             'description' => $data['description'],
             'status' => $data['status'],
             'amount' => $data['amount'],
             'picture' => $imageName,
+            'qrCode' => $fileName,
         ]);
     
       
@@ -131,8 +179,8 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $items = Item::where('user_id', 35)->paginate(5);
+    {    $userId = Auth::id();
+        $items = Item::where('user_id', $userId)->paginate(5);
 
     // Passer les éléments à la vue
     return view('FrontEnd.Exchange.Items.show', compact('items'));
@@ -160,7 +208,7 @@ class ItemController extends Controller
          */
         public function update(Request $request, $id)
         {
-            
+            $userId = Auth::id(); 
             $data = $request->validate([
                 'name' => 'required|string|max:255',
                 'category' => 'required',
@@ -204,7 +252,7 @@ class ItemController extends Controller
             ]);
         
            
-            return redirect()->route('item.show',19)->with('success', 'Item mis à jour avec succès');
+            return redirect()->route('item.show',$userId)->with('success', 'Item mis à jour avec succès');
         }
         
      /**
@@ -214,10 +262,10 @@ class ItemController extends Controller
          * @return \Illuminate\Http\Response
          */
         public function destroy($id)
-        {   
+        {     $userId = Auth::id(); 
             $item = Item::find($id) ;
             $item->delete() ;
-            return redirect()->route('item.show',35)
+            return redirect()->route('item.show',$userId)
                 ->with('success','objet supprimé avec succées') ;
     
         }
@@ -232,12 +280,19 @@ class ItemController extends Controller
         public function destroyDash($id)
         {   
             $item = Item::find($id) ;
+
+            if ($item->requests->count() > 0) {
+                return redirect('/dashboard/item/list')->with('error', 'Cet objet a des demandes associées et ne peut pas être supprimé.');
+            }
+            else{
             $item->delete() ;
+            }
             return redirect('/dashboard/item/list')
                 ->with('success','objet supprimé avec succées') ;
     
         }
-
+     
+        
 
 
       
