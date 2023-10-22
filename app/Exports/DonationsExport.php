@@ -2,26 +2,26 @@
 
 namespace App\Exports;
 
-use App\Models\Donation;
-use Maatwebsite\Excel\Concerns\FromCollection;
 
-class DonationsExport implements FromCollection
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+
+class DonationsExport implements WithMultipleSheets
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    protected $organizations;
+
+    public function __construct($organizations)
     {
-        return Donation::all();
+        $this->organizations = $organizations;
     }
 
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function headings(): array
+    public function sheets(): array
     {
-        return ["ID", "User ID", "Category", "Timestamp", "Organization ID", "Amount", "Item ID", "Created At", "Updated At"];
+        $sheets = [];
+
+        foreach ($this->organizations as $organization) {
+            $sheets[] = new DonationSheet($organization);
+        }
+
+        return $sheets;
     }
 }

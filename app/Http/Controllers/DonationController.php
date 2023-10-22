@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Donation;
+use App\Models\Organization;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -221,6 +222,7 @@ class DonationController extends Controller
      */
     public function export()
     {
-        return Excel::download(new DonationsExport, 'donations.xlsx');
+        $organizations = Organization::all();
+        return Excel::download(new DonationsExport($organizations), 'donations.xlsx');
     }
 }
