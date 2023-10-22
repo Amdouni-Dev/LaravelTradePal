@@ -69,9 +69,9 @@
             
           
               <td>
-                                @if ($donneesRequest['status'] == 'confirme')
+                                @if ($donneesRequest['status'] == 'CONFIRME')
                                     <span class="badge bg-success me-1">{{ $donneesRequest['status'] }}</span>
-                                @else if($donneesRequest['status'] == 'en_cours')
+                                @elseif ($donneesRequest['status'] == 'EN_COURS')
                                     <span class="badge bg-danger me-1">{{ $donneesRequest['status'] }}</span>
                                 @else
                                 <span class="badge bg-info me-1">{{ $donneesRequest['status'] }}</span>
