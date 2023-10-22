@@ -5,7 +5,9 @@
         <span class="text-muted fw-light">Dons /</span> Liste des dons
       </h4>
     </td>
-
+    <td align="right">
+      <a href="{{ route('donations.export') }}" class="btn btn-primary">Export</a>
+    </td>
   <tr>
 </table>
 

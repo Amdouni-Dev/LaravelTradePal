@@ -10,6 +10,8 @@ use App\Models\Donation;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DonationsExport;
 
 
 
@@ -212,5 +214,13 @@ class DonationController extends Controller
         return redirect()->route('donations.index')
 
             ->with('success', 'Donation deleted successfully');
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function export()
+    {
+        return Excel::download(new DonationsExport, 'donations.xlsx');
     }
 }
