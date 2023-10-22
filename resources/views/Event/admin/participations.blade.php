@@ -11,9 +11,6 @@
 </table>
 @if (Session::has('success'))
     <div class="alert alert-success alert-dismissible" role="alert" id="success-alert">
-        {{--        <button type="button" class="close" data-dismiss="alert">--}}
-        {{--            <i class="fa fa-times"></i>--}}
-        {{--        </button>--}}
         <strong>Success !</strong> {{ session('success') }}
     </div>
 @endif
@@ -52,22 +49,20 @@
             </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-            @foreach($listparticipations as $listparticipations)
+            @foreach($listparticipations as $participation)
                 <tr>
-                    <td><strong>  {{ $listparticipations->user->name }} </strong></td>
-                    <td>{{ $listparticipations->created_at }}</td>
-{{--                    <td>{{ $listparticipations->descriptionObject }}</td>--}}
-{{--                    <td>{{ $listparticipations->changedBy }}</td>--}}
-{{--                    <td>{{ $listparticipations->description }}</td>--}}
+                    <td><strong>  {{ $participation->user->name }} </strong></td>
+                    <td>{{ $participation->created_at }}</td>
+
 
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('participations.edit', $listparticipations->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                <a class="dropdown-item" href="{{ route('participations.edit', $participation->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
 
 
-                                <form action="{{ route('participation.destroy', $listparticipations->id) }}" method="POST" id="delete-form">
+                                <form action="{{ route('participation.destroy', $participation->id) }}" method="POST" id="delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="dropdown-item" onclick="confirmDelete()"><i class="bx bx-trash me-1"></i> Delete</button>
@@ -81,6 +76,9 @@
             </tbody>
         </table>
     </div>
+</div>
+<div class="text-center mt-4">
+  {{ $listparticipations->links() }}
 </div>
 <script>
     function confirmDelete() {

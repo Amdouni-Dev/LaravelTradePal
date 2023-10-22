@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('status', ['DISPONIBLE', 'NONDISPONIBLE']);
             $table->decimal('amount', 10, 2);
             $table->string('picture');
-            $table->string('qrCode');
+            $table->string('qrCode')->nullable();
             $table->timestamps();
         });
     }

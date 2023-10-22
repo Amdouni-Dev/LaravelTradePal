@@ -13,10 +13,9 @@
           <button type="submit" class="btn btn-primary">Importer</button>
         </div>
       </form>
-
     </td>
     <td align="right">
-      <a href="{{ route('organizations.create') }}" class="btn btn-primary">Ajouter</a>
+      <a href="{{ route('organizations.create') }}" style="top: -8px;position: relative;" class="btn btn-primary">Ajouter</a>
     </td>
 
   <tr>

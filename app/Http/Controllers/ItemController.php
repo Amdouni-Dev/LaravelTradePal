@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Donation;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use App\Models\Item;
@@ -280,12 +282,15 @@ class ItemController extends Controller
         public function destroyDash($id)
         {   
             $item = Item::find($id) ;
-
+            $donation = Donation::where('item_id', $id)->first();
+                
             if ($item->requests->count() > 0) {
                 return redirect('/dashboard/item/list')->with('error', 'Cet objet a des demandes associées et ne peut pas être supprimé.');
+            }elseif($donation){
+                return redirect('/dashboard/item/list')->with('error', 'Cet objet a des dons associés et ne peut pas être supprimé.');
             }
             else{
-            $item->delete() ;
+                $item->delete() ;
             }
             return redirect('/dashboard/item/list')
                 ->with('success','objet supprimé avec succées') ;

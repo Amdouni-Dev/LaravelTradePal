@@ -153,7 +153,6 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/responses', [\App\Http\Controllers\ClaimController::class])->name('responses.store');
     Route::post('/claim/sendEmail/{claim}', [\App\Http\Controllers\ClaimController::class, 'sendEmail'])->name('sendEmail');
     Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
-    Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
     Route::post('/reply/store', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
     Route::delete('/reply/delete/{id}', [\App\Http\Controllers\ResponseController::class, 'destroy'])->name('reply.destroy');
     Route::get('/response/{id}', [\App\Http\Controllers\ResponseController::class, 'edit'])->name('responses.edit');
@@ -161,7 +160,6 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/reclamation/{id}', [\App\Http\Controllers\ResponseController::class, 'showClaim'])->name('claims.show');
     Route::delete('/claim/deleteClaim/{id}', [\App\Http\Controllers\ClaimController::class, 'destroy'])->name('supprimer');
     Route::delete('/claim/deleteUserClaim/{id}', [\App\Http\Controllers\ClaimController::class, 'destroyUserClaim'])->name('delete');
-    Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
     Route::get('/donations-export', [DonationController::class, 'export'])->name('donations.export');
     Route::post('/organizations-import', [OrganizationController::class, 'import'])->name('organizations.import');
     Route::get('organization/chart', [OrganizationController::class, 'chart'])->name('organizations.chart');

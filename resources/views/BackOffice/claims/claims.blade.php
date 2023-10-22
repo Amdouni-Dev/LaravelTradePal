@@ -56,7 +56,11 @@
                 <i class="bx bx-reset bx-tada"></i> Clear Filters
             </a>
         </form>
-
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
         <table class="table">
             <thead>
             <tr>
@@ -209,6 +213,9 @@
     </div>
 </div>
 <br><br>
+<div class="text-center mt-4 mb-4">
+  {{ $listClaims->links() }}
+</div>
 <table class="container-xxl flex-grow-1 container-p-y">
     <tr>
         <td>

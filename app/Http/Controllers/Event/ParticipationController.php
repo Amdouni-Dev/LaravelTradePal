@@ -22,9 +22,9 @@ class ParticipationController extends Controller
     }
     public function participationsForAdmin(){
 //return "hi Mounaaaa";
-        $viewPath = 'Event.admin.participations'; // Set the view path
+        $viewPath = 'Event.admin.participations';
 
-        $listparticipations = Participation::latest()->paginate(5);
+        $listparticipations = Participation::latest()->simplePaginate(5);
 
         return view('BackOffice.template',compact('viewPath','listparticipations'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

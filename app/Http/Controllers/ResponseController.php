@@ -35,11 +35,10 @@ class ResponseController extends Controller
             'content' => $request->input('content'),
             'response-date' => now(),
         ]);
-//        $claim = Claim::find($request->input('claim_id'));
-//
-//            $claim->status = 'SOLVED';
-//            $claim->save();
         $response->save();
+        $claim = Claim::find($request->input('claim_id'));
+        $claim->status = 'RESOLVED';
+        $claim->save();
 
         return redirect()->back()->with('success', 'Réponse supprimée avec succès');
     }

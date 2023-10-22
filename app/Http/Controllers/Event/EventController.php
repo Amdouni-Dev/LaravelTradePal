@@ -15,26 +15,19 @@ class EventController extends Controller
 {
 
     public function eventsForUser(){
-//return "hi Mounaaaa";
         return view('Event.user.events');
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function eventsForAdmin(Request $request){
-//return "hi Mounaaaa";
-
         $viewPath = 'Event.admin.events';
-
-        $listEvents = Event::where([
-            ['nom', '!=', Null],
-            [function($query) use ($request){
-                if(($term =$request->term)){
-                    $query->orWhere('nom','LIKE','%'.$term.'%')->get();
-                }
-            }  ]
-        ])
-            ->orderBy('id','desc')
-            ->paginate(5);
-
-        return view('BackOffice.template',compact('viewPath','listEvents'))
+        $listEvents = Event::paginate(5);
+        $listEvents2 = Event::simplePaginate(5);
+        return view('BackOffice.template',compact('viewPath','listEvents','listEvents2'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function stat(){

@@ -1,5 +1,9 @@
 
-
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <table class="container-xxl flex-grow-1 container-p-y">
   
   <!-- <tr>
@@ -86,11 +90,7 @@
 
 </div>
 <br></br>
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
+
 <br></br>
 <div class="d-flex justify-content-center">
     {{ $items->links() }}

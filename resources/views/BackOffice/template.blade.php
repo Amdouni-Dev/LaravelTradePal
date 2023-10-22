@@ -110,7 +110,7 @@
             </a>
           </li>
           <li class="menu-item ">
-            <a href="cards/basic.html" class="menu-link">
+            <a href="/dashboard/comments" class="menu-link">
               <i class="menu-icon tf-icons bx bx-message-dots"></i>
               <div>Commentaires</div>
             </a>

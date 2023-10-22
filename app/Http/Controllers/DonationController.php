@@ -1,11 +1,5 @@
 <?php
-
-
-
 namespace App\Http\Controllers;
-
-
-
 use App\Models\Donation;
 use App\Models\Organization;
 use App\Models\Item;
@@ -22,19 +16,14 @@ class DonationController extends Controller
 {
 
     /**
-
      * Display a listing of the resource.
-
      *
-
      * @return \Illuminate\Http\Response
-
      */
 
     public function index()
 
     {
-
         $viewPath = 'BackOffice.donation.table';
         $donations = Donation::with('organization', 'donor', 'item')->simplePaginate(10);
         return view('BackOffice.template', compact('viewPath', 'donations'))

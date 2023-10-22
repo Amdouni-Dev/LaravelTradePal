@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'admin',
             'email' => 'admin@tradepal.tn',
-            'username' => 'adminTradePal',
+            'username' => 'admin',
             'password' => Hash::make('admin'),
             'role' => 'admin',
         ]);

@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
-use App\Charts\OrganizationChart;
 
 class OrganizationController extends Controller
 {
@@ -24,9 +23,7 @@ class OrganizationController extends Controller
     {
         $viewPath = 'BackOffice.organization.table';
         $organizations = Organization::latest()->simplePaginate(5);
-        $chart = new OrganizationChart;
-        return view('BackOffice.template', compact('viewPath', 'organizations', 'chart'))
-
+        return view('BackOffice.template', compact('viewPath', 'organizations'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -147,8 +144,8 @@ class OrganizationController extends Controller
             'website' => 'required|url',
             'location' => 'required',
             'founding_date' => 'required|date',
-            'type' => 'required'
-
+            'type' => 'required',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif'
         ]);
 
         $organization->update($request->all());

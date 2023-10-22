@@ -19,12 +19,13 @@ class ClaimController extends Controller
     {
         $viewPath = 'BackOffice.claims.claims';
 
-        $listClaims = Claim::latest()->paginate(5);
+        $listClaims = Claim::latest()->simplePaginate(5);
         $claimsPerMonth = DB::table('claims')
             ->selectRaw("DATE_FORMAT(claim_date, '%M') as month")
             ->selectRaw('COUNT(*) as count')
             ->groupBy('month')
             ->get();
+        $listClaims1 = Claim::latest()->paginate(5);
 
         return view('BackOffice.template', compact('viewPath', 'claimsPerMonth'))
             ->with(['listClaims' => $listClaims, 'i' => (request()->input('page', 1) - 1) * 5]);

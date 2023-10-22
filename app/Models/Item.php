@@ -19,9 +19,9 @@ class Item extends Model
         
     ];
    public function requests(){
-    return $this->hasMany(Request::class,'desired_id');
-   } 
+        return $this->hasMany(Request::class,'desired_id');
+    } 
    public function user(){
-    return $this->belongsTo(User::class);
-}
+        return $this->belongsTo(User::class); 
+    }
 }

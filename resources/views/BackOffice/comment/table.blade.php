@@ -2,7 +2,7 @@
     <tr>
         <td>
             <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">Article /</span> Liste des articles
+                <span class="text-muted fw-light">Commentaires /</span> Liste des commentaires
             </h4>
         </td>
         <td align="right">
@@ -29,9 +29,10 @@
                     @foreach ($comments as $comment)
                         <tr>
                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                <strong>{{ $i }}</strong></td>
-                            <td>{{ $comment->user_id }}</td>
-                            <td>{{ $comment->blog_id }}</td>
+                                <strong>{{ $i }}</strong>
+                            </td>
+                            <td>{{ $comment->user->username }}</td>
+                            <td>{{ $comment->blog->title }}</td>
                             <td>{{ $comment->content }}</td>
                             <td>{{ $comment->created_at }}</td>
                             <td>
@@ -58,8 +59,7 @@
             </tbody>
         </table>
     </div>
-<div>
+</div>
 <div class="text-center mt-4">
-      {{ $comments->links() }}
-    </div>
+    {{ $comments->links() }}
 </div>
