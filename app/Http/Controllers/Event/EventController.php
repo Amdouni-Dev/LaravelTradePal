@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Event;
 use App\Models\Participation;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class EventController extends Controller
 {
 
@@ -18,6 +20,7 @@ class EventController extends Controller
     }
     public function eventsForAdmin(Request $request){
 //return "hi Mounaaaa";
+
         $viewPath = 'Event.admin.events';
 
         $listEvents = Event::where([
@@ -28,10 +31,27 @@ class EventController extends Controller
                 }
             }  ]
         ])
-            ->orderBy('id','asc')
-            ->paginate(20);
+            ->orderBy('id','desc')
+            ->paginate(5);
 
         return view('BackOffice.template',compact('viewPath','listEvents'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+    public function stat(){
+
+        $viewPath = 'Event.admin.statEvent';
+
+        $events = Event::all();
+        $participations = Participation::all();
+
+        // Vous pouvez extraire les données souhaitées ici, par exemple, le nombre de participations par événement.
+        $participationCountByEvent = $events->map(function ($event) use ($participations) {
+            return $participations->where('event_id', $event->id)->count();
+        });
+        $categories = Event::groupBy('categorie')
+            ->select('categorie', \DB::raw('count(*) as count'))
+            ->get();
+        return view('BackOffice.template',compact('viewPath','events', 'participationCountByEvent','categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function affiche(Request $request){
@@ -95,8 +115,10 @@ class EventController extends Controller
      */
     public function create()
     {
-
-        return view('BackOffice.template', ['viewPath' => 'Event.admin.add']);
+        $categories = ['Vêtements', 'Électronique', 'Nourriture', 'Autre'];
+        return view('BackOffice.template', ['viewPath' => 'Event.admin.add',
+            'categories' => $categories
+            ]);
 
     }
 
@@ -117,9 +139,10 @@ class EventController extends Controller
         $event->date=$request->input('dateEvent');
         $event->start=$request->input('start');
         $event->end=$request->input('end');
-
+        $event->categorie=$request->input('categorie');
                 $event->color=$request->input('color');
         $event->image_path=$this->storeImage($request);
+
         $validator = Validator::make($request->all(), [
             'nameEvent' => 'required',
             'lieuEvent' => 'required',
@@ -336,22 +359,57 @@ public function  show2($id){
      */
     public function update(Request $request, $id)
     {
-
         $event = Event::find($id);
 
+        $validator = Validator::make($request->all(), [
+            'nameEvent' => 'required',
+            'lieuEvent' => 'required',
+            'descEvent' => 'required',
+            'dateEvent' => 'required|date',
+            'start' => [
+                'required',
+                'date_format:Y-m-d\TH:i',
+                function ($attribute, $value, $fail) use ($request) {
+                    $startDateTime = new \DateTime($value);
+                    $eventDate = new \DateTime($request->input('dateEvent'));
+
+                    if ($startDateTime->format('Y-m-d') !== $eventDate->format('Y-m-d')) {
+                        $fail('L\'heure de début doit être le même jour que la date de l\'événement.');
+                    }
+                },
+            ],
+            'end' => [
+                'required',
+                'date_format:Y-m-d\TH:i',
+                function ($attribute, $value, $fail) use ($request) {
+                    $startDateTime = new \DateTime($request->input('start'));
+                    $endDateTime = new \DateTime($value);
+
+                    if ($endDateTime <= $startDateTime) {
+                        $fail('L\'heure de fin doit être après l\'heure de début.');
+                    }
+                },
+            ],
+            'color' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/dashboard/events/' . $id )->withErrors($validator)->withInput();
+        }
+
         $event->nom = $request->input('nameEvent');
-        $event->lieu=$request->input('lieuEvent');
-        $event->description=$request->input('descEvent');
-
-        $event->date=$request->input('dateEvent');
-        $event->start=$request->input('start');
-        $event->end=$request->input('end');
-
-        $event->color=$request->input('color');
+        $event->lieu = $request->input('lieuEvent');
+        $event->description = $request->input('descEvent');
+        $event->date = $request->input('dateEvent');
+        $event->start = $request->input('start');
+        $event->end = $request->input('end');
+        $event->color = $request->input('color');
         $event->save();
 
         return redirect('/dashboard/events')->with('success', 'Événement mis à jour avec succès.');
     }
+
+
 
 
     /**
@@ -426,4 +484,36 @@ public function  show2($id){
 //
 //            return redirect("/login");
 //        }}
+
+
+    public function generatePdf($id)
+    {
+        $event = Event::find($id);
+
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $pdf = new Dompdf($options);
+
+
+        $pdfContent = view('Event.admin.pdf_view', compact('event'))->render();
+        $pdf->loadHtml($pdfContent);
+
+
+        $pdf->setPaper('A4', 'portrait');
+
+        // Rendre le PDF
+        $pdf->render();
+
+
+        $pdfOutput = $pdf->output();
+
+
+        $filename = $event->id.'.pdf';
+        return response($pdfOutput)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', "inline; filename=$filename");
+    }
+
 }

@@ -1,6 +1,12 @@
+<div id="overlay" onclick="closeImagePopup()"></div>
 <HTML lang="fr-FR">
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'Comment ça marche')
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  
+ 
+
 <div id="main">
 	
 
@@ -53,27 +59,34 @@
       <div class="search-fields">
 
 
-       <div class="buttons half">							
-         <input id="request" type="search" placeholder="ENTREZ VOTRE RECHERCHE..." name="search" value="" data-dashlane-rid="9c8522c96583e812" data-form-type="query">			
-         <div class="form-button ">
-          <div class="button valid-button" id="trigger-search">
-           <div class="waves waves-prune">						  
-            <div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg ic-search" alt="recherche"></div>				  				 	<span>valider</span>
-          </div> 
+      <form method="GET" action="{{ route('item.index') }}">
+    <div class="buttons half">
+        <input id="request" type="search" placeholder="ENTREZ UNE CATEGORIE..." name="search" value="{{ request('search') }}">
+        <div class="form-button">
+            <button type="submit" class="button valid-button icon-button" id="trigger-search" style="border: none; background: none; padding: 0;">
+                <div class="waves waves-prune">
+                    <div class="sprites icones">
+                        <img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg ic-search" alt="recherche">
+                    </div>
+                </div>
+            </button>
         </div>
-      </div> 								
     </div>
-   			
-   <div class="buttons quarter">		
-    trier par						<label id="sort-select" for="sort" class="select" data-dashlane-label="true">
-     <select id="sort" name="sort" data-dashlane-rid="f784bac106b2bca5" data-form-type="other">																
-      <option value="1">les plus récentes</option>
-      <option value="2">par distance</option>
-      <!--option value="3"  >pertinence</option-->
-    </select>
-  </label>				
 
-</div>									
+
+
+		
+    <div class="buttons quarter">
+        <label for="sort" class="select" data-dashlane-label="true">
+            <select id="sort" name="sort" data-dashlane-rid="f784bac106b2bca5" data-form-type="other" onchange="this.form.submit()">
+            <option value="">Trier par</option>   
+            <option value="1">les plus récentes</option>
+                <option value="2">par nombre de noisettes</option>
+                <!--option value="3"  >pertinence</option-->
+            </select>
+        </label>
+    </div>
+</form>								
 
 
 </div>
@@ -87,7 +100,6 @@
 
 	
  
-
 
 
 
@@ -109,17 +121,43 @@
 
 
 <ul id="search-result"> 
-@foreach ($items as $donneesItem)	 
+@foreach ($items as $donneesItem)	
+<div id="imagePopup" class="popup">
+  <img src="{{ asset('qrcodes/' . $donneesItem['qrCode']) }}" id="popupImage">
+  <span class="close" onclick="closeImagePopup()">&times;</span>
+</div> 
   <li class="troc-resume ">	
    <div class="c1 square">
     <div class="square-content">
-     <a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune"><img src="/echange/items/{{ $donneesItem['picture'] }}">	</a>
+    
+    <img src="/echange/items/{{ $donneesItem['picture'] }}" width="100" height="130" >	
+    
+<br></br>
+<div id="negociate-offer-popup">
+@if($donneesItem['user_id'] !== Auth::user()->id)
+    <a href="{{ route('request.new', $donneesItem['id']) }}">
+        <div id="negociate-offer" class="button">
+            <div class="title">
+                <div class='sprites icones'>
+                    <img src='https://mytroc.fr/static/image/1px.png' data-src='https://mytroc.fr/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.png' class='img nuts' alt='noisette'>
+                    <img src='https://mytroc.fr/static/image/1px.png' data-src='https://mytroc.fr/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8@2x.png' class='retina nuts' alt='noisette'>
+                    <img src='https://mytroc.fr/static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg' class='svg nuts' alt='noisette'>
+                </div>
+                Echanger
+            </div>
+            <div class="popup-button"></div>
+        </div>
+    </a>
+@endif
+
+</div>	
+
    </div>
    				
  </div>
  
  <div class="c2">
-   <h2><a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune"><span>{{ $donneesItem['name'] }}</span></a></h2> 
+   <h2><a  class="waves waves-prune"><span>{{ $donneesItem['name'] }}</span></a></h2> 
 
    <div class="fields">
     <div class="right">
@@ -167,6 +205,17 @@
   <div class="date">
   Date d'ajout : {{$donneesItem['created_at']}}						</div>
 
+  <div class="dist">
+  <!-- Propriétaire : {{ $donneesItem->user->name }} -->
+  <img src="{{ asset('qrcodes/' . $donneesItem['qrCode']) }}" width="40" height="40" id="qrCodeImage" onclick="showImagePopup(this)">
+</div>
+
+<!-- Le popup caché pour l'image -->
+
+
+ 
+  
+
 			
 
 </div>				
@@ -176,7 +225,9 @@
 
 
 
+
 </li>
+
 @endforeach
 
 
@@ -202,27 +253,117 @@
 	
 </div>					
 
+@if ($items->hasPages())
+    <div class="pagination bottom">
+       
+        @if ($items->onFirstPage())
+            <span>&laquo;</span>
+        @else
+            <a href="{{ $items->previousPageUrl() }}" rel="prev" role="prev">&laquo;</a>
+        @endif
 
-<div class="pagination bottom">
-  <span>1</span>
+       
+        @foreach ($items as $element)
+         
+            @if (is_string($element))
+                <span>{{ $element }}</span>
+            @endif
 
-  <a href="https://mytroc.fr/les-trocs/?n=1" role="next">2</a>					
+        
+            @if (is_array($element))
+                @foreach ($element as $page => $url)
+                    @if ($page == $items->currentPage())
+                        <span>{{ $page }}</span>
+                    @else
+                        <a href="{{ $url }}" role="next">{{ $page }}</a>
+                    @endif
+                @endforeach
+            @endif
+        @endforeach
 
-  <a href="https://mytroc.fr/les-trocs/?n=2" role="next">3</a>					
+     
+        @if ($items->hasMorePages())
+            <a href="{{ $items->nextPageUrl() }}" rel="next" role="next">&raquo;</a>
+        @else
+            <span>&raquo;</span>
+        @endif
+    </div>
+@endif
 
-  <a href="https://mytroc.fr/les-trocs/?n=3" role="next">4</a>					
-
-  <a href="https://mytroc.fr/les-trocs/?n=4" role="next">5</a>					
-
-  <a href="https://mytroc.fr/les-trocs/?n=5" role="next">6</a>					
-
-  <a href="https://mytroc.fr/les-trocs/?n=6" role="next">7</a>					
-
-  <a href="https://mytroc.fr/les-trocs/?n=7" role="next">8</a>					
-
-  <a href="https://mytroc.fr/les-trocs/?n=8" role="next">9</a>					
-
-  <a href="https://mytroc.fr/les-trocs/?n=9" role="next">10</a>					
 </div>
+
+
 </div>
-</div>
+<style>
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 70%;
+  background-color: rgba(173, 216, 230, 0.7); /* Couleur bleu ciel transparente */
+  z-index: 999;
+  text-align: center;
+}
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Couleur de l'arrière-plan semi-transparent */
+  z-index: 1; /* Placez cette superposition au-dessus de tout le reste de la page */
+}
+#popupImage {
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+/* Style pour l'image dans la liste */
+#qrCodeImage {
+  cursor: pointer;
+}
+
+/* Lorsque l'utilisateur passe sa souris sur l'image, changez le curseur en main. */
+#qrCodeImage:hover {
+  cursor: pointer;
+}
+
+
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Inclure jQuery -->
+
+<script>
+   function showImagePopup(image) {
+  var popup = document.getElementById("imagePopup");
+  var popupImage = document.getElementById("popupImage");
+  popupImage.src = image.src;
+  popup.style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+
+}
+
+// Fonction pour fermer le popup
+function closeImagePopup() {
+  var popup = document.getElementById("imagePopup");
+  popup.style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+
+}
+</script>

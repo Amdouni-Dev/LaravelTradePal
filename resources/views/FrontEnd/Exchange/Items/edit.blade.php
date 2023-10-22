@@ -2,6 +2,9 @@
 		@extends('FrontEnd.section.header')
 		@section('pageTitle', 'Profile')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 		<div id="main">
 
@@ -240,7 +243,7 @@
     <div id="im1" class="square im-but">
         <label for="imageInput" class="upload-icon-label">
             <div class="square-content" style="display: flex; justify-content: center; align-items: center;">
-                <img src="/echange/items/{{ $item->picture }}" alt="" id="imagePreview" style="max-width: 300px; max-height: 300px;">
+                <img src="/echange/items/{{ $item->picture }}" alt="" id="imagePreview" style="max-width: 100%; max-height: 100%;">
             </div>
             <div class="upload-icon">
             <i class="fas fa-upload" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px;"></i>
@@ -249,7 +252,13 @@
         </label>
         <div id="upload-img-error-1" class="upload-img-error flash2" style="display:none"></div>
         <input type="file" name="image" id="imageInput" accept="image/*" onchange="afficherImage()" style="display: none;">
+		
     </div>
+	@error('image')
+
+	<div class="w3-panel w3-pale-red w3-border" style="width: 62%;">{{ $message }}</div>
+
+@enderror
 </div>
    
    
@@ -279,8 +288,13 @@
 <div class="troc-add-content">
     <div id="troc-title">
         <label for="name">Nom de l'objet</label>
-        <input type="text" name="name" id="name" class="form-control" required value="{{ $item->name }}">
+        <input type="text" name="name" id="name" class="form-control"  value="{{ $item->name }}">
         <div class="validator"></div>
+		@error('name')
+
+		<div class="w3-panel w3-pale-red w3-border" style="width: 74%;">{{ $message }}</div>
+
+@enderror
     </div>
 
 
@@ -302,7 +316,11 @@
 
                                                 </select>
                                             </label>
+											@error('category')
 
+											<div class="w3-panel w3-pale-red w3-border" style="width: 74%;">{{ $message }}</div>
+
+@enderror
                                         </div>
                                         <div>
 
@@ -318,7 +336,12 @@
     
     <div class="troc-add-content">
     <label for="description">Description</label>
-    <textarea name="description" id="description" class="form-control" required>{{ $item->description }}</textarea>
+    <textarea name="description" id="description" class="form-control" >{{ $item->description }}</textarea>
+	@error('description')
+
+		<div class="w3-panel w3-pale-red w3-border" style="width: 77%;">{{ $message }}</div>
+
+@enderror
 </div>
 <div class="form-row">
         <label for="amount">Nombre de
@@ -328,7 +351,11 @@
         </div>
         </label>
         <input id="amount" type="text" name="amount" maxlength="6" placeholder="noisettes" value="{{ $item->amount }}">
-        <div class="validator"></div>
+        @error('amount')
+
+		<div class="w3-panel w3-pale-red w3-border" style="width: 74%;">{{ $message }}</div>
+
+@enderror
     </div>
 </div>
 <div id="category-selector-1" class="category-selector">
@@ -340,7 +367,11 @@
                                 <option value="NONDISPONIBLE" {{ $item->status === 'NONDISPONIBLE' ? 'selected' : '' }}>NON Disponible</option>
                             </select>
                                             </label>
+											@error('status')
 
+											<div class="w3-panel w3-pale-red w3-border" style="width: 74%;">{{ $message }}</div>
+
+@enderror
                                         </div>
                                         <div>
     <button type="submit" class="form-button">

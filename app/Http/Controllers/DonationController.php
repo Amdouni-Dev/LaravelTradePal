@@ -7,8 +7,13 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Donation;
-
+use App\Models\Organization;
+use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DonationsExport;
+use App\Events\DonationMade;
 
 
 
@@ -31,7 +36,7 @@ class DonationController extends Controller
     {
 
         $viewPath = 'BackOffice.donation.table';
-        $donations = Donation::latest()->paginate(5);
+        $donations = Donation::with('organization', 'donor', 'item')->simplePaginate(10);
         return view('BackOffice.template', compact('viewPath', 'donations'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -76,13 +81,34 @@ class DonationController extends Controller
     {
 
         $donation = new Donation();
-        $donation->user_id = $request->input('user_id');
+        $donation->user_id = auth()->user()->id;
         $donation->organization_id = $request->input('organization_id');
         $donation->amount = $request->input('amount');
         $donation->category = $request->input('category');
-        $donation->object = $request->input('object');
+        if ($request->input('object') == 0) {
+            unset($donation->item_id);
+        } else {
+            $donation->item_id = $request->input('object');
+        }
 
         $donation->save();
+
+        $item = Item::find($request->input('object'));
+        if ($item) {
+            $item->status = 'NONDISPONIBLE';
+            $item->save();
+        }
+
+        $user = User::find(auth()->user()->id);
+        if ($user) {
+            $currentHazelnuts = $user->hazelnuts;
+            $donated = $request->input('amount');
+            $newHazelnuts = $currentHazelnuts - $donated;
+            $user->hazelnuts = $newHazelnuts;
+            $user->save();
+        }
+        event(new DonationMade($donation));
+
         return redirect()->route('organizations.show', ['id' => $donation->organization_id])
 
             ->with('success', 'Donation created successfully.');
@@ -192,5 +218,14 @@ class DonationController extends Controller
         return redirect()->route('donations.index')
 
             ->with('success', 'Donation deleted successfully');
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function export()
+    {
+        $organizations = Organization::all();
+        return Excel::download(new DonationsExport($organizations), 'donations.xlsx');
     }
 }

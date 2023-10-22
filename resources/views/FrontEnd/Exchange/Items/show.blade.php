@@ -6,6 +6,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 		<div id="main">
 
 
@@ -65,7 +68,7 @@
 
 		            </div>
 
-		            <nav class="profile-menu">
+					<nav class="profile-menu">
 		                <ul>
 		                    <li class="   ">
 		                        <div class="pancarte even ">
@@ -88,13 +91,49 @@
 		                        <div class="rope right">&nbsp;</div>
 		                        <div class="rope left">&nbsp;</div>
 		                    </li>
-		                    <li class="   ">
+							<li class="   ">
 		                        <div class="pancarte even ">
 		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
 									<a href="/item/show">
 		                                <div class="pancarte-content">
 
+		                                    <div class="link waves">Mes objets</div>
+		                                    <div class="dot tl"></div>
+		                                    <div class="dot tr"></div>
+		                                    <div class="dot bl"></div>
+		                                    <div class="dot br"></div>
+
+		                                </div>
+		                            </a>
+		                        </div>
+		                        <div class="rope right">&nbsp;</div>
+		                        <div class="rope left">&nbsp;</div>
+		                    </li>
+		                    <li class="   ">
+							<div class="pancarte odd ">
+		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
+									<a href="/requests/show-offer">
+		                                <div class="pancarte-content">
+
 		                                    <div class="link waves">Mes offres</div>
+		                                    <div class="dot tl"></div>
+		                                    <div class="dot tr"></div>
+		                                    <div class="dot bl"></div>
+		                                    <div class="dot br"></div>
+
+		                                </div>
+		                            </a>
+		                        </div>
+		                        <div class="rope right">&nbsp;</div>
+		                        <div class="rope left">&nbsp;</div>
+		                    </li>
+							<li class="   ">
+		                        <div class="pancarte even ">
+		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
+									<a href="/requests/show-request">
+		                                <div class="pancarte-content">
+
+		                                    <div class="link waves">Mes Demandes</div>
 		                                    <div class="dot tl"></div>
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
@@ -124,7 +163,7 @@
 		                        <div class="rope left">&nbsp;</div>
 		                    </li>
 		                    <li class="   ">
-		                        <div class="pancarte odd ">
+							<div class="pancarte even ">
 		                            <a href="https://mytroc.fr/agrandir-la-communaute-mytroc">
 		                                <div class="pancarte-content">
 
@@ -140,23 +179,7 @@
 		                        <div class="rope right">&nbsp;</div>
 		                        <div class="rope left">&nbsp;</div>
 		                    </li>
-		                    <li class="   ">
-		                        <div class="pancarte even ">
-		                            <a href="https://mytroc.fr/parrainages">
-		                                <div class="pancarte-content">
-
-		                                    <div class="link waves">Parrainage</div>
-		                                    <div class="dot tl"></div>
-		                                    <div class="dot tr"></div>
-		                                    <div class="dot bl"></div>
-		                                    <div class="dot br"></div>
-
-		                                </div>
-		                            </a>
-		                        </div>
-		                        <div class="rope right">&nbsp;</div>
-		                        <div class="rope left">&nbsp;</div>
-		                    </li>
+		                  
 		                    <li class="   ">
 		                        <div class="pancarte odd ">
 		                            <a href="https://mytroc.fr/dons-aux-associations">
@@ -202,7 +225,7 @@
 								<li>
 									<a href="/item/create">
 										<div class="waves waves-prune" data-wave-scale="20">
-										Déposer un nouveau offre de troc !								</div>
+										Déposer un nouveau objet !								</div>
 									</a>
 								</li>
 </ul>
@@ -228,6 +251,10 @@
 </h5>
       
     </div>
+	<div class="d-flex justify-content-between">
+	<h6 class="card-title">Catégorie:   </h6>
+	<h6>  {{ $donneesItem['category'] }}</h6>
+	</div>
     <p class="card-text">{{ $donneesItem['description'] }}</p>
     <ul class="list-group list-group-flush">
     <li class="list-group-item"> 
@@ -274,6 +301,46 @@
     </div>
     @endforeach
 </div>
+
+
+@if ($items->hasPages())
+    <div class="pagination bottom">
+       
+        @if ($items->onFirstPage())
+            <span>&laquo;</span>
+        @else
+            <a href="{{ $items->previousPageUrl() }}" rel="prev" role="prev">&laquo;</a>
+        @endif
+
+       
+        @foreach ($items as $element)
+            {{-- "Three Dots" Separator --}}
+            @if (is_string($element))
+                <span>{{ $element }}</span>
+            @endif
+
+        
+            @if (is_array($element))
+                @foreach ($element as $page => $url)
+                    @if ($page == $items->currentPage())
+                        <span>{{ $page }}</span>
+                    @else
+                        <a href="{{ $url }}" role="next">{{ $page }}</a>
+                    @endif
+                @endforeach
+            @endif
+        @endforeach
+
+     
+        @if ($items->hasMorePages())
+            <a href="{{ $items->nextPageUrl() }}" rel="next" role="next">&raquo;</a>
+        @else
+            <span>&raquo;</span>
+        @endif
+    </div>
+@endif
+
+
 
     </div>
 </article>

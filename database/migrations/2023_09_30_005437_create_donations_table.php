@@ -19,16 +19,15 @@ return new class extends Migration
             $table->string('category');
             $table->timestamp('timestamp');
             $table->unsignedBigInteger('organization_id');
-            
+
             $table->decimal('amount', 10, 2);
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('organization_id')->references('id')->on('organizations');
 
-            $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('items');
+            $table->unsignedBigInteger('item_id')->nullable();
+            $table->foreign('item_id')->nullable()->references('id')->on('items');
 
             $table->timestamps();
-         
         });
     }
 

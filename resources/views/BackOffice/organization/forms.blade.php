@@ -83,10 +83,11 @@
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-select-multiple"></i></span>
                             <select name="type" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-                                <option value="1" {{ isset($organization) && $organization->type == 1 ? 'selected' : '' }}>Education</option>
-                                <option value="2" {{ isset($organization) && $organization->type == 2 ? 'selected' : '' }}>Environnement</option>
-                                <option value="3" {{ isset($organization) && $organization->type == 3 ? 'selected' : '' }}>Santé</option>
-                                <option value="4" {{ isset($organization) && $organization->type == 4 ? 'selected' : '' }}>Droits de l'homme</option>
+                                <option value="Education" {{ isset($organization) && $organization->type == "Education"? 'selected' : '' }}>Education</option>
+                                <option value="Environnement" {{ isset($organization) && $organization->type == "Environnement" ? 'selected' : '' }}>Environnement</option>
+                                <option value="Santé" {{ isset($organization) && $organization->type == "Santé" ? 'selected' : '' }}>Santé</option>
+                                <option value="Protection des animaux" {{ isset($organization) && $organization->type == "Protection des animaux" ? 'selected' : '' }}>Protection des animaux</option>
+                                <option value="Droits de l'homme" {{ isset($organization) && $organization->type == "Droits de l'homme" ? 'selected' : '' }}>Droits de l'homme</option>
                             </select>
                         </div>
                     </div>

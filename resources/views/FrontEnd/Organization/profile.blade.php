@@ -1,5 +1,6 @@
 <head>
     <link rel="stylesheet" href="/back/assets/vendor/fonts/boxicons076f.css?id=b821a646ad0904f9218f56d8be8f070c" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 @section('pageTitle', $organization->name)
 
@@ -40,7 +41,11 @@
                         <div class="profil-pix out class_box_shadow">
                             <div class="square default">
                                 <div class="square-content">
-                                    <img src="/organization_logos/{{ $organization->logo }}" alt="troqueur cats city, sur mytroc">
+                                    @if(filter_var($organization->logo, FILTER_VALIDATE_URL))
+                                    <img src="{{ $organization->logo }}" alt="organization logo">
+                                    @else
+                                    <img src="/organization_logos/{{ $organization->logo }}" alt="organization logo">
+                                    @endif
                                 </div>
                             </div>
                             <div class="stamp-asso"> {{$organization->name}}</div>
@@ -74,7 +79,7 @@
                                 <div class="sprites icones"> <img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div>collectées
                             </div>
                         </div>
-
+                        @auth
                         <div class="profil-space">
                             <div class="smart-half">
                                 <div>
@@ -88,6 +93,15 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <form class="donation-form">
+                            <div class="form-button">
+                                <a href="{{ route('login') }}" class="button valid-button">
+                                    <span>Faire Un Don</span>
+                                </a>
+                            </div>
+                        </form>
+                        @endauth
                         <div class="modal" id="donation-popup">
                             <div class="modal-content">
                                 <span class="modal-close" id="close-popup-button">&times;</span>
@@ -101,15 +115,18 @@
                                     <div id="don_objet_section" style="display: none;">
                                         <p>Liste de vos objets publiés :</p>
                                         <select name="object">
-                                            <option value="none">Sélectionnez votre objet</option>
-                                            <option value="item1">Item 1</option>
-                                            <option value="item2">Item 2</option>
-                                            <option value="item3">Item 3</option>
+                                            <option value="0">Sélectionnez votre objet</option>
+                                            @foreach($items as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+
                                     <div id="don_noisettes_section" style="display: none;">
                                         <label for="amount">Entrer le montant que vous souhaitez donner :</label>
-                                        <input type="number" name="amount">
+                                        @if (auth()->check())
+                                        <input type="number" name="amount" max="{{ auth()->user()->hazelnuts }}">
+                                        @endif
                                     </div>
                                     <input type="hidden" name="user_id" value="1">
                                     <input type="hidden" name="organization_id" value="{{ $organization->id }}">
@@ -130,12 +147,54 @@
                                 <ul class="asso-requirement">
                                     <li>le {{ \Carbon\Carbon::parse($organization->founding_date)->format('d-m-Y') }}</li>
                                 </ul>
+                                @if(!($donations->isEmpty()))
+                                <h2>Objets collectés:</h2>
+                                @endif
+
                             </div>
+
                         </div>
                     </div>
+                    <div>
+                        <table>
+                            @foreach ($donations as $donation)
+                            @if ($loop->index % 4 === 0)
+                            @if (!$loop->first)
+                            </tr>
+                            @endif
+                            <tr>
+                                @endif
+                                <td style="padding: 15px; min-width: 25rem; max-width: 25rem;">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card" style="max-height: 550px; min-height: 550px;">
+
+                                                <img class="card-img-top" src="/echange/items/{{ $donation['picture'] }}" alt="Card image cap" style="width: 100%; height: 200px;">
+
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h5 class="card-title">{{ $donation['name'] }}</h5>
+                                                    </div>
+                                                    <p class="card-text">{{ $donation['description'] }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                @if ($loop->last || ($loop->index % 4 === 3))
+                            </tr>
+                            @endif
+                            @endforeach
+                        </table>
+                    </div>
+
                 </div>
-            </article>
+
         </div>
+    </div>
+    </article>
+    </div>
     </div>
 </body>
 @extends('FrontEnd.section.footer')
@@ -181,7 +240,7 @@
 
     .modal-content {
         position: absolute;
-        top: 50%;
+        top: 15%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: #fff;
@@ -202,6 +261,7 @@
     }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@auth
 <script>
     $(document).ready(function() {
         var form = $('#donation-form');
@@ -218,7 +278,6 @@
             modal.show();
             $('body').addClass('modal-open');
         });
-
         $('#close-popup-button').click(function() {
             modal.hide();
             $('body').removeClass('modal-open');
@@ -237,11 +296,11 @@
                 $('#don_objet_section').hide();
                 $('#don_noisettes_section').show();
                 amountInput.val('');
-                categoryInput.val('object');
-                objectInput.val('none');
+                categoryInput.val('hazelnuts');
+                objectInput.val(0);
             }
             if (objectInput === "Sélectionnez votre objet") {
-                objectInput.val('none');
+                objectInput.val(0);
             }
             checkFormValidity();
         });
@@ -266,3 +325,4 @@
         });
     });
 </script>
+@endauth

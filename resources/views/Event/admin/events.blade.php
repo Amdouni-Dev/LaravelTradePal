@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 <script>
@@ -67,6 +68,8 @@
         </td>
         <td align="right">
             <a href="/dashboard/events/add"  class="btn btn-primary">Ajouter</a>
+
+            <a href="/dashboard/stat/events"  class="btn btn-primary"> <i class="bx bx-chart"  ></i> Voir les statistiques</a>
         </td>
     <tr>
 </table>
@@ -316,6 +319,7 @@
                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ route('events.edit', $listEvents->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                            <a class="dropdown-item" href="{{ route('events.generatePdf', ['id' => $listEvents->id]) }}" ><i class="bx bxs-file-pdf me-1"></i> PDF</a>
 
 
                             <form action="{{ route('events.destroy', $listEvents->id) }}" method="POST" id="delete-form">
@@ -325,7 +329,12 @@
                                     <i class="bx bx-trash me-1"></i> Delete
                                 </button>
                             </form>
-                        </div>
+
+
+
+
+
+    </div>
                     </div>
                 </td>
             </tr>

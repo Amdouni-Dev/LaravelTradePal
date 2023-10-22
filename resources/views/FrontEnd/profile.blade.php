@@ -52,16 +52,54 @@
 		                        <div class="rope right">&nbsp;</div>
 		                        <div class="rope left">&nbsp;</div>
 		                    </li>
-		                    <li class="   ">
+							<li class="   ">
 		                        <div class="pancarte even ">
 		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
 									<a href="/item/show">
 		                                <div class="pancarte-content">
+
+		                                    <div class="link waves">Mes objets</div>
+		                                    <div class="dot tl"></div>
+		                                    <div class="dot tr"></div>
+		                                    <div class="dot bl"></div>
+		                                    <div class="dot br"></div>
+
+		                                </div>
+		                            </a>
+		                        </div>
+		                        <div class="rope right">&nbsp;</div>
+		                        <div class="rope left">&nbsp;</div>
+		                    </li>
+		                    <li class="   ">
+							<div class="pancarte odd ">
+		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
+									<a href="/requests/show-offer">
+		                                <div class="pancarte-content">
+
 		                                    <div class="link waves">Mes offres</div>
 		                                    <div class="dot tl"></div>
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
 		                                    <div class="dot br"></div>
+
+		                                </div>
+		                            </a>
+		                        </div>
+		                        <div class="rope right">&nbsp;</div>
+		                        <div class="rope left">&nbsp;</div>
+		                    </li>
+							<li class="   ">
+		                        <div class="pancarte even ">
+		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
+									<a href="/requests/show-request">
+		                                <div class="pancarte-content">
+
+		                                    <div class="link waves">Mes Demandes</div>
+		                                    <div class="dot tl"></div>
+		                                    <div class="dot tr"></div>
+		                                    <div class="dot bl"></div>
+		                                    <div class="dot br"></div>
+
 		                                </div>
 		                            </a>
 		                        </div>

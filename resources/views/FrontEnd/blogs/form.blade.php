@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'TradePal - Nouveau Article')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/back/assets/vendor/css/coredcac.css?id=7a74a9d0cfeabd283069bfaa3de33eaa" />
 <link rel="stylesheet" href="/back/assets/vendor/css/theme-default6271.css?id=3d127db9612959fd1b1297d4adb3d55e" />

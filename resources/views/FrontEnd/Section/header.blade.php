@@ -1,6 +1,8 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <HEAD>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+
     @if (!View::hasSection('calender-style'))
         <link rel="stylesheet" type="text/css" href="/css/style.css">
     @endif
@@ -668,7 +670,7 @@
     <div id="modal" class="modal" style="display:none"></div>
     <div id="modal-transparent" class="modal" style="display:none"></div>
 
-    <header class="notlogged mytroc">
+    <header class="notlogged mytroc" style="z-index:99999">
         <div class="head-with-margin ">
             <div class="decoration-left web"></div>
 
@@ -744,8 +746,16 @@
                         @endif
                         <li class="  showMyProfil block-menu div-showMyProfil ">
                             <div class="hvr-grow">
-                                <a href="/user/claims" class="waves waves-prune " data-wave-scale="20">
-                                    <span>Réclamations</span>
+                                <a href="/read" class="waves waves-prune " data-wave-scale="20">
+                                    <span>Articles</span>
+                                </a>
+                                
+                            </div>
+                        </li>
+                        <li class=" active  showMyProfil block-menu div-showMyProfil ">
+                            <div class="hvr-grow">
+                                <a href="/profile" class="waves waves-prune " data-wave-scale="20">
+                                    <span>Mon Profil</span>
                                 </a>
                             </div>
                         </li>
