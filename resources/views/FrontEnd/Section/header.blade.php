@@ -749,6 +749,14 @@
                                 <a href="/read" class="waves waves-prune " data-wave-scale="20">
                                     <span>Articles</span>
                                 </a>
+                                
+                            </div>
+                        </li>
+                        <li class=" active  showMyProfil block-menu div-showMyProfil ">
+                            <div class="hvr-grow">
+                                <a href="/profile" class="waves waves-prune " data-wave-scale="20">
+                                    <span>Mon Profil</span>
+                                </a>
                             </div>
                         </li>
 

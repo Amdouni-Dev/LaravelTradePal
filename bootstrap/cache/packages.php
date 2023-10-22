@@ -1,4 +1,11 @@
 <?php return array (
+  'askedio/laravel5-profanity-filter' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Askedio\\Laravel5ProfanityFilter\\Providers\\ProfanityFilterServiceProvider',
+    ),
+  ),
   'laravel/breeze' => 
   array (
     'providers' => 

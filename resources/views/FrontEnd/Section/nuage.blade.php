@@ -1,44 +1,44 @@
-		
+
 		<!DOCTYPE html>
-		
+
 		<!--[if  (IE) ]><HTML class="ie" lang="fr-FR"><![endif]-->
 		<!--[if !(IE) ]><!--> <HTML lang="fr-FR"><!--<![endif]-->
-		
-			
-		
+
+
+
 <!-- Mirrored from mytroc.fr/logout by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Sep 2023 15:18:20 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <HEAD>
-				 	
+
 			<title>@yield('pageTitle') </title>
-<link  rel="canonical"  href="logout.html" /> 
-<link  rel="author"  href="https://plus.google.com/u/0/101907471159985991169/" /> 
-<meta  http-equiv="Content-Type"  content="text/html; charset=UTF-8" /> 
-<meta  http-equiv="X-UA-Compatible"  content="IE=edge,chrome=1" /> 
-<meta  name="keywords"  content="troc,troquer,troqueur,meilleur troc,troc de biens,troc de services,troquer des biens,troquer des services,échange de services,échange de biens,consommation responsable,consommer responsable,bon plan écolo,MyTroc,échange" /> 
-<meta  name="description"  content=" Sur MyTroc tout peut se prêter, tout peut s'échanger! Troc de biens et de services. Consommer autrement, responsable. Vivre plus écolo, plus économe, plus solidaire, plus libre... " /> 
-<meta  name="viewport"  content="width=device-width, initial-scale=1.0" /> 
-<meta  itemprop="name"  content="Troc et consommation responsable sur MyTroc.fr" /> 
-<meta  itemprop="description"  content=" Sur MyTroc tout peut se prêter, tout peut s'échanger! Troc de biens et de services. Consommer autrement, responsable. Vivre plus écolo, plus économe, plus solidaire, plus libre... " /> 
-<meta  itemprop="image"  content="static/image/social/logo_social.png" /> 
-<meta  name="twitter:card"  content="summary" /> 
-<meta  name="twitter:site"  content="@MyTrocOfficiel" /> 
-<meta  name="twitter:title"  content="Troc et consommation responsable sur MyTroc.fr" /> 
-<meta  name="twitter:description"  content=" Sur MyTroc tout peut se prêter, tout peut s'échanger! Troc de biens et de services. Consommer autrement, responsable. Vivre plus écolo, plus économe, plus solidaire, plus libre... " /> 
-<meta  name="twitter:image"  content="static/image/social/logo_social.png" /> 
-<meta  name="og:title"  content="Troc et consommation responsable sur MyTroc.fr" /> 
-<meta  name="og:type"  content="website" /> 
-<meta  name="og:image"  content="static/image/social/logo_social.png" /> 
-<meta  name="og:url"  content="logout.html" /> 
-<meta  name="og:site_name"  content="MyTroc" /> 
-<meta  name="og:description"  content=" Sur MyTroc tout peut se prêter, tout peut s'échanger! Troc de biens et de services. Consommer autrement, responsable. Vivre plus écolo, plus économe, plus solidaire, plus libre... " /> 
-<meta  name="fb:page_id"  content="1556250484625786" /> 
+<link  rel="canonical"  href="logout.html" />
+<link  rel="author"  href="https://plus.google.com/u/0/101907471159985991169/" />
+<meta  http-equiv="Content-Type"  content="text/html; charset=UTF-8" />
+<meta  http-equiv="X-UA-Compatible"  content="IE=edge,chrome=1" />
+<meta  name="keywords"  content="troc,troquer,troqueur,meilleur troc,troc de biens,troc de services,troquer des biens,troquer des services,échange de services,échange de biens,consommation responsable,consommer responsable,bon plan écolo,MyTroc,échange" />
+<meta  name="description"  content=" Sur MyTroc tout peut se prêter, tout peut s'échanger! Troc de biens et de services. Consommer autrement, responsable. Vivre plus écolo, plus économe, plus solidaire, plus libre... " />
+<meta  name="viewport"  content="width=device-width, initial-scale=1.0" />
+<meta  itemprop="name"  content="Troc et consommation responsable sur MyTroc.fr" />
+<meta  itemprop="description"  content=" Sur MyTroc tout peut se prêter, tout peut s'échanger! Troc de biens et de services. Consommer autrement, responsable. Vivre plus écolo, plus économe, plus solidaire, plus libre... " />
+<meta  itemprop="image"  content="static/image/social/logo_social.png" />
+<meta  name="twitter:card"  content="summary" />
+<meta  name="twitter:site"  content="@MyTrocOfficiel" />
+<meta  name="twitter:title"  content="Troc et consommation responsable sur MyTroc.fr" />
+<meta  name="twitter:description"  content=" Sur MyTroc tout peut se prêter, tout peut s'échanger! Troc de biens et de services. Consommer autrement, responsable. Vivre plus écolo, plus économe, plus solidaire, plus libre... " />
+<meta  name="twitter:image"  content="static/image/social/logo_social.png" />
+<meta  name="og:title"  content="Troc et consommation responsable sur MyTroc.fr" />
+<meta  name="og:type"  content="website" />
+<meta  name="og:image"  content="static/image/social/logo_social.png" />
+<meta  name="og:url"  content="logout.html" />
+<meta  name="og:site_name"  content="MyTroc" />
+<meta  name="og:description"  content=" Sur MyTroc tout peut se prêter, tout peut s'échanger! Troc de biens et de services. Consommer autrement, responsable. Vivre plus écolo, plus économe, plus solidaire, plus libre... " />
+<meta  name="fb:page_id"  content="1556250484625786" />
 			<style>a,a:visited{color:inherit;text-decoration:none;outline:0}.relative{position:relative}.dnone{display:none}.svgSupport img.img,.svgSupport img.retina,.noSvgSupport.retina img.img,.noSvgSupport.noRetina img.retina{display:none}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}#logo{color:#000;height:100%;display:inline-block;white-space:nowrap;vertical-align:middle}#logo img{height:100%;width:auto;vertical-align:top}#logo .smaller img{height:1.5em}#logo.boulonnais .title{margin-top:.25em}.haf-caps{font-size:.5em}#logo .title{display:inline-block;font-family:stampeteregular;text-transform:capitalize;font-size:3.5em}.loggedin,.notlogged{color:transparent}header.notlogged .loggedin,header.loggedin .notlogged{display:none}.svgSupport img.img,.svgSupport img.retina,.noSvgSupport.retina img.img,.noSvgSupport.noRetina img.retina{display:none}.noSvgSupport.noRetina img.img{display:inline-block}.noSvgSupport.retina img.retina{display:inline-block}
 @media only screen and (max-device-pixel-ratio:1.),only screen and (max-resolution:127dpi){.noSvgSupport img.retina{display:none}}
-@media only screen and (min-device-pixel-ratio:1.),only screen and (min-resolution:128dpi){.noSvgSupport img.img{display:none}}.noSvgSupport img.svg{display:none}.title strong{color:#a23b50}#main{position:relative}#welcome{background-color:#a0d5dd}.log-button{float:right;position:relative;top:-75px;font-family:'Gloria Hallelujah',cursive,serif;border:1px solid #CCC;padding:.3em .75em;margin:auto 2em 0 0;max-width:9em;font-size:.8em;box-shadow:2px 2px 0 -1px #CCC;width:10em;background-color:#FFF;text-transform:uppercase;text-align:center;white-space:nowrap}.log-button:hover{border:1px solid #a23b50}.log-button .decoration-smile{position:absolute;top:12px;right:0;width:30px}.log-button .decoration-leafs{height:4em;top:-28px;right:-17px;position:absolute}.no-overflow{overflow:hidden}.hidden{width:0;height:0;display:none}
+@media only screen and (min-device-pixel-ratio:1.),only screen and (min-resolution:128dpi){.noSvgSupport img.img{display:none}}.noSvgSupport img.svg{display:none}.title strong{color:#a23b50}#main{position:relative}#welcome{background-color:#a0d5dd}.log-button{float:right;position:relative;font-family:'Gloria Hallelujah',cursive,serif;border:1px solid #CCC;padding:.3em .75em;margin:auto 2em 0 0;max-width:9em;font-size:.8em;box-shadow:2px 2px 0 -1px #CCC;width:10em;background-color:#FFF;text-transform:uppercase;text-align:center;white-space:nowrap}.log-button:hover{border:1px solid #a23b50}.log-button .decoration-smile{position:absolute;top:12px;right:0;width:30px}.log-button .decoration-leafs{height:4em;top:-28px;right:-17px;position:absolute}.no-overflow{overflow:hidden}.hidden{width:0;height:0;display:none}
 @media screen and (min-width:840px){header.mytroc{position:fixed;top:0;left:0;right:0;height:120px;vertical-align:top;z-index:3;background-color:#EEE}.head-with-margin{height:100px;vertical-align:bottom;position:relative}.head-with-margin .decoration-left{display:inline-block;width:1em;margin:0 1em 0 0;background-color:#FFF;height:2.2em;vertical-align:bottom;position:relative;font-size:1.2em}.head-with-margin .decoration-left::after{content:"";display:block;position:absolute;width:0;height:0;border:17px solid transparent;border-left:17px solid #FFF;top:0;right:-33px}.headerBorder{border-bottom:5px solid #a0d5dd}#logo .title{vertical-align:bottom;line-height:.4em;margin-bottom:.25em}#logo .frame2{display:none}#logo:hover .frame1{display:none}.svgSupport #logo:hover .frame2.svg,.noSvgSupport #logo:hover .frame2.retina{display:inline-block;-webkit-animation:fadein 2s;-moz-animation:fadein 2s;-ms-animation:fadein 2s;-o-animation:fadein 2s;animation:fadein 2s}#main{padding-top:120px}.main-container{position:absolute;bottom:0;left:300px;right:0;vertical-align:bottom}header .main-container li.first{border-left:0 solid transparent}.main-menu ul{margin:auto;display:table;background-color:#FFF;text-align:left;white-space:nowrap;padding:.5em 0;margin:0 0 0 1em;width:100%;position:relative}.block-menu{display:table-cell;text-transform:uppercase;text-align:center;height:100%;vertical-align:middle;font-size:1.2em;font-weight:bold;margin:0;white-space:nowrap}.block-menu a{text-decoration:none;color:#263238;position:relative;padding:0;display:inline-block;vertical-align:middle}.block-menu.spacer{width:5%;min-width:2em}.upper-right-position{position:absolute;top:0;right:0}#could-banner{height:6em;background-color:#bddde3;position:relative}.cloud{position:absolute;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);bottom:-1px;padding:0}#birdheader H2{text-transform:uppercase;font-size:2em;font-weight:normal;text-align:center;padding:0 6%;display:inline-block}#birdheader>img{margin-left:18%;z-index:1;width:50px}#birdheader{position:absolute;bottom:-1em;left:0;right:0;z-index:1}#welcome{background-color:#a0d5dd;min-height:34em;position:relative}#tree{position:absolute;bottom:0;left:0}#tree img{vertical-align:bottom;width:390px}body.body-loading .sprites{display:none}.right-advertise img,.profil-advertise img{width:100%;max-width:350px}}</style><script type="text/javascript" >var jQueryReadyCB = function(){$( document ).ready(function() { $("body").mytroc({"screen":"login","__master":"https:\/\/mytroc.fr\/","__cdn":"https:\/\/cf.mytroc.fr\/","__cdn2":"https:\/\/mytroc.fr\/static\/"}); }); };</script>			<script type="text/javascript" charset="UTF-8" src="/js/script.js" async  defer  onload="jQueryReadyCB()" ></script>			<script type="text/javascript" charset="UTF-8" src="../www.google.com/recaptcha/api9673.js?nocookie=true" async  defer  ></script>
 			<link rel="stylesheet" type="text/css" href="static/css/0.2/main.fonts.min.css">			<link rel="stylesheet" type="text/css" href="/css/style.css">			<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans+Caption">			<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah">
-		
+
 	   <meta name="p:domain_verify" content="ea3bd768d03a42e390a721f6187cccf0">
 <!-- Global site tag (gtag.js) - Google Ads: 972619769 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-972619769"></script>
@@ -56,14 +56,14 @@
 			<link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
 					<style>
 			.svgSupport .noSvgSupport, .noSvgSupport .svgSupport,.smart .web, .web .smart, .resizing .upper-right-buttons{display:none !important;width:0px;height:0px}
-		</style>	
-				
+		</style>
+
 	</HEAD>
-	
+
 	<BODY id="" class=" web svgSupport  body-loading">
 		<div id="cookie-bandeau">
 			<div id="cookie-image" class="show-popup-cookie">
-				<svg version="1.1"  xmlns="http://www.w3.org/2000/svg"  
+				<svg version="1.1"  xmlns="http://www.w3.org/2000/svg"
 				 	  	    viewBox="0 0 511.999 511.999" >
 				<path style="fill:#FEA832;" d="M501.783,235.237c-29.7-10.499-49.799-38.699-49.799-70.199c0.601-5.101-1.8-9.3-5.7-12.9
 					c-3.3-2.701-8.399-3.9-12.599-3.301c-25.201,3.6-49.2-3.6-67.5-18.3s-31.201-36.899-33.3-62.699c-0.3-4.501-3.001-8.701-6.901-11.4
@@ -99,22 +99,22 @@
 						<div class="hpad rflex fc ">
 							<div class="f1">
 								<div class="refuse button-allcookies">Interdire tous les cookies</div>
-							</div> 
+							</div>
 							<div class="f1">
 								<div class="accept button-allcookies blue">Autoriser tous les cookies</div>
-							</div> 
+							</div>
 							<div class="f1">
 								<div class="show-popup-cookie button-allcookies">Préférences des cookies</div>
-							</div> 
+							</div>
 						</div>
-					</div>					
+					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div id="popup-rgpd" class="hidden">
 				<div class="cflex expand-popup fc">
-					
+
 					<div class="f0 bwhite">
 						<div class="rgpd-popup-content">
 							<div class="rflex fc">
@@ -122,11 +122,11 @@
 									<h1>Données à caractère personnel</h1>
 								</div>
 								<div class="f0 rgpd-close">
-									<a href="#">&times;</a> 
+									<a href="#">&times;</a>
 								</div>
 							</div>
 							<div class="rgpd-content">
-							
+
 								<p>Les données à caractère personnel collectées font l'objet d'un traitement dont MyTroc est le responsable. Les destinataires sont les services de MyTroc et les sous-traitants éventuels.</p>
 
 								<p>Ces données sont collectées pour gérer votre compte et vos échanges/achats. Vous pouvez consulter notre <a href="gestion-des-donnees-personelles.html" target="_blank" class="rgpd-link">charte de protection données personnelles et leur traitements</a></p>
@@ -138,11 +138,11 @@
  							</div>
 						</div>
 					</div>
-				</div>			
+				</div>
 		</div>
 		<div id="popup-cookie" class="hidden">
 				<div class="cflex expand-popup">
-					
+
 					<div class="f0 bwhite">
 						<div class="rgpd-popup-content">
 							<div class="rflex ">
@@ -150,26 +150,26 @@
 									<h1>Gestions des cookies</h1>
 								</div>
 								<div class="f0 cookie-close">
-									<a href="#">&times;</a> 
+									<a href="#">&times;</a>
 								</div>
 							</div>
 							<div class="rgpd-content">
 								<p>Lorsque vous naviguez sur MyTroc.fr ou consultez les emails que nous vous envoyons, des informations sont susceptibles d'être enregistrées ou lues dans votre
 								terminal ou navigateur avec votre accord.</p>
 								<div class="hpad tcenter"><a href="gestion-des-cookies.html" class="rgpd-link">Politique de gestion des cookies</a></div>
-								<div class="selector">								  
+								<div class="selector">
 									<div class="hpad rflex fc ">
 										<div class="f1">
 											<p>Préférence pour tous les services</p>
-										</div> 
+										</div>
 										<div class="f1">
 											<div class="refuse button-allcookies ">Interdire tous les cookies</div>
-										</div> 
+										</div>
 
 										<div class="f1">
 											<div class="accept button-allcookies">Autoriser tous les cookies</div>
-										</div> 
-										
+										</div>
+
 									</div>
 								</div>
  							</div>
@@ -177,57 +177,57 @@
  								<div class="scrollable">
 		 							<div>
 										<div class="rflex fc">
-											<div class="f1">		 							
+											<div class="f1">
 												<H2>Cookies Techniques</H2>
 											</div>
 											<div class="f0">
 												<input id="cookie-technical" class="hidden cookie-selector  cookie-technical" type="checkbox" checked>
 												<label for="yes-cookie-technical">
-													
+
 												</label>
 											</div>
 										</div>
 
-										Ce sont les cookies qui collectent des informations et qui s’assurent que le site et l’application mobile sont chargés correctement lorsque vous y accédez via votre navigateur. 
+										Ce sont les cookies qui collectent des informations et qui s’assurent que le site et l’application mobile sont chargés correctement lorsque vous y accédez via votre navigateur.
 										Les cookies de session sont automatiquement détruits lorsque l’utilisateur ferme son navigateur.
 		 							</div>
-		 							
+
 		 							<div>
 										<div class="rflex fc">
-											<div class="f1">		 							
+											<div class="f1">
 												<H2>Cookies Publicitaires</H2>
 											</div>
 											<div class="f0">
 												<input id="cookie-publicitaire" class="hidden cookie-selector" type="checkbox" >
 												<label for="no-cookie-technical">
-													
+
 												</label>
 											</div>
 										</div>
 
 										<p>MyTroc n'utilise pas de cookie publicitaires.</P>
 		 							</div>
-		
+
 		 							<div>
 										<div class="rflex fc">
 											<div class="f1">
-												<label for="cookie-analytics">		 							
+												<label for="cookie-analytics">
 												<H2>Cookies de Mesure d'audience</H2>
 												</label>
 											</div>
 											<div class="f0">
 												<input id="cookie-analytics" class="hidden cookie-selector  cookie-analytics" type="checkbox" checked>
 												<label for="cookie-analytics">
-													
+
 												</label>
 											</div>
 										</div>
-		 							
-										
-										<p>Nous utilisons matomo comme système de mesure d'audience. Nous avons configuré matomo selon 
+
+
+										<p>Nous utilisons matomo comme système de mesure d'audience. Nous avons configuré matomo selon
 											<a href="https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience" target="_blank"  class="rgpd-link">les recommandations de la CNIL</a>
-											c'est pourquoi les cookies de notre solution de mesure d'audience sont installés par défaut.   
-										</p> 								
+											c'est pourquoi les cookies de notre solution de mesure d'audience sont installés par défaut.
+										</p>
 										<p class="hpad">Pour ce faire les données de mesures d'audience:</p>
 										<ul>
 											<li>&bull; Ont une finalité strictement limitée à la seule mesure de l’audience du site ou de l’application (mesure des performances, détection de problèmes de navigation, optimisation des performances techniques ou de son ergonomie, estimation de la puissance des serveurs nécessaires, analyse des contenus consulté), pour le compte exclusif de MyTroc</li>
@@ -236,23 +236,23 @@
 											<li>&bull; Les données de mesure d'audience ne sont pas recoupées d'autres traitements ni transmises à des tiers.</li>
 										</ul>
 										<p class="hpad"><b>Vous avez cependant la possibilité de <label for="cookie-analytics" class="rgpd-link">désactiver le suivi de mesure d'audience</label> </b></p>
-																				
-			
+
+
 		 							</div>
 	 							</div>
 							</div>
 						</div>
 					</div>
-				</div>			
+				</div>
 		</div>
-	
+
 	<div id="modal" class="modal" style="display:none"></div>
-	<div id="modal-transparent" class="modal"  style="display:none"></div>		
-		
+	<div id="modal-transparent" class="modal"  style="display:none"></div>
+
 	<header class="notlogged mytroc" >
 			<div class="head-with-margin ">
 				<div class="decoration-left web"></div>
-				
+
 						<div id="logo" class="waves waves-prune" data-wave-scale="20">
 				<a href="index.html">
 
@@ -263,56 +263,56 @@
 					<img src='/image/logo/mytroc_oeil.svg'  alt='mytroc' class='frame2 svg'>
 <img src='static/image/1px.png' data-src='/image/logo/mytroc_oeil.png'  alt='mytroc' class='frame2 img' >
 <img src='static/image/1px.png' data-src='/image/logo/mytroc_oeil@2x.png'  alt='mytroc' class='frame2 retina' >
-						
+
 					<div class="title" data-fscale="1">My<strong>Troc</strong><span class="haf-caps">.fr</span></div>
-				</a>						
-		</div>		
-				 																													
+				</a>
+		</div>
+
 						<div class="main-container">
-						
+
 
 			<nav class="main-menu">
-		
+
 				<ul>
 					<div id="main-menu-decoration-1"></div>
-					<div id="main-menu-decoration-2"></div>		
+					<div id="main-menu-decoration-2"></div>
 
 										<li class="   showConcept block-menu div-showConcept ">
-						<div class="hvr-grow"> 
-							<a href="comment-ca-marche.html" 	class="waves waves-prune " data-wave-scale="20">								
+						<div class="hvr-grow">
+							<a href="comment-ca-marche.html" 	class="waves waves-prune " data-wave-scale="20">
 								<span>Comment &ccedil;a marche ?</span>
 							</a>
 						</div>
-											</li>						
+											</li>
 					<li class="   showAddTroc block-menu div-showAddTroc ">
-						<div class="hvr-grow"> 
-							<a href="ajouter-un-troc.html" 	class="waves waves-prune " data-wave-scale="20">								
+						<div class="hvr-grow">
+							<a href="ajouter-un-troc.html" 	class="waves waves-prune " data-wave-scale="20">
 								<span>Je propose</span>
 							</a>
 						</div>
-											</li>						
+											</li>
 					<li class="   showSearch block-menu div-showSearch ">
-						<div class="hvr-grow"> 
-							<a href="les-trocs.html" 	class="waves waves-prune " data-wave-scale="20">								
+						<div class="hvr-grow">
+							<a href="les-trocs.html" 	class="waves waves-prune " data-wave-scale="20">
 								<span>Je recherche</span>
 							</a>
 						</div>
-											</li>						
+											</li>
 					<li class="   showCommunaute block-menu div-showCommunaute ">
-						<div class="hvr-grow"> 
-							<a href="groups/index.html" 	class="waves waves-prune " data-wave-scale="20">								
+						<div class="hvr-grow">
+							<a href="groups/index.html" 	class="waves waves-prune " data-wave-scale="20">
 								<span>Communautés</span>
 							</a>
 						</div>
-											</li>						
+											</li>
 					<li class=" active  showMyProfil block-menu div-showMyProfil ">
-						<div class="hvr-grow"> 
-							<a href="mon-profil.html" 	class="waves waves-prune " data-wave-scale="20">								
+						<div class="hvr-grow">
+							<a href="mon-profil.html" 	class="waves waves-prune " data-wave-scale="20">
 								<span>Mon Profil</span>
 							</a>
 						</div>
-											</li>						
-					
+											</li>
+
 					<li class=" block-menu spacer web">
 						&nbsp;
 					</li>
@@ -325,77 +325,77 @@
 
 						<a href="mon-profil5fd0.html?_s=fe6fafd34de93e10c706c3f8ed6b0a4c" class="notlogged">
 							<span id="loginbutton" class="">
-									Se connecter						
-							</span>	
+									Se connecter
+							</span>
 						</a>
-					</li>					
-					
+					</li>
+
 				</ul>
-			</nav> 
+			</nav>
 		</div>
-		
+
 		<div class=" web waves  waves-prune" data-wave-scale="30">
-				
+
 				<a href="mon-profil5fd0.html?_s=fe6fafd34de93e10c706c3f8ed6b0a4c" class="notlogged">
 					<div id="loginbutton" class="log-button">
-						Se connecter						<div class="decoration ">	
+						Se connecter						<div class="decoration ">
 							<img src='/image/menu/smile.svg'  class='decoration-smile svg'>
 <img src='static/image/1px.png' data-src='/image/menu/smile.png'  class='decoration-smile img' >
 <img src='static/image/1px.png' data-src='/image/menu/smile@2x.png'  class='decoration-smile retina' >
 							<img src='/image/menu/leaf.svg'  class='decoration-leafs svg'>
 <img src='static/image/1px.png' data-src='/image/menu/leaf.png'  class='decoration-leafs img' >
 <img src='static/image/1px.png' data-src='/image/menu/leaf@2x.png'  class='decoration-leafs retina' >
-																			
-							
+
+
 						</div>
 					</div>
-				</a>											
+				</a>
 				<a href="logout151f.html?_s=66e73b0a8f5fa463d1a4a5714b3e5dca" class="loggedin">
 					<div id="logoutbutton" class="log-button">
-						Se Déconnecter					
-						<div class="decoration ">	
+						Se Déconnecter
+						<div class="decoration ">
 							<img src='/image/menu/smile.svg'  class='decoration-smile svg'>
 <img src='static/image/1px.png' data-src='/image/menu/smile.png'  class='decoration-smile img' >
 <img src='static/image/1px.png' data-src='/image/menu/smile@2x.png'  class='decoration-smile retina' >
 							<img src='/image/menu/leaf.svg'  class='decoration-leafs svg'>
 <img src='static/image/1px.png' data-src='/image/menu/leaf.png'  class='decoration-leafs img' >
 <img src='static/image/1px.png' data-src='/image/menu/leaf@2x.png'  class='decoration-leafs retina' >
-																			
-							
+
+
 						</div>
 					</div>
-				</a>				
+				</a>
 		</div>
-				
+
 		<div id="message-right-position" class=" web loggedin hidden">
-				<a href="inbox.html">										
+				<a href="inbox.html">
 					<img src='/image/menu/mail.png'  class='bigmail '>
 					<span id="nUnreadMessage"></span>
 				</a>
-				
-		</div>
-								
- 
-				
-			</div>
-				
-			<div class="upper-right-position smart">
-				
-				<div id="hamburger">
-					<label for="hamburger" >MENU</label>	
-					<div class='sprites icones' >	<img src='static/image/1px.png' data-src='/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.png' class='img menu-smart smart' alt='menu'>	<img src='static/image/1px.png' data-src='/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8@2x.png' class='retina menu-smart smart' alt='menu'>	<img src='static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg'    class='svg menu-smart smart' alt='menu'></div>					
-				</div>			
-			</div>			
-	</header>
-	
-		
-		<div id="main">
-	
-		 
 
-		<div id="animation-banner" class="web">		
+		</div>
+
+
+
+			</div>
+
+			<div class="upper-right-position smart">
+
+				<div id="hamburger">
+					<label for="hamburger" >MENU</label>
+					<div class='sprites icones' >	<img src='static/image/1px.png' data-src='/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.png' class='img menu-smart smart' alt='menu'>	<img src='static/image/1px.png' data-src='/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8@2x.png' class='retina menu-smart smart' alt='menu'>	<img src='static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg'    class='svg menu-smart smart' alt='menu'></div>
+				</div>
+			</div>
+	</header>
+
+
+		<div id="main">
+
+
+
+		<div id="animation-banner" class="web">
 				<div id="could-banner" class="no-overflow">
-					<div id="cloud1" class="cloud">	
+					<div id="cloud1" class="cloud">
 						<img  src='static/image/1px.png' data-load='/image/sketch/nuage1.svg'  alt='nuage' class='svg'>
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage1.png'  alt='nuage' class='img' >
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage1@2x.png'  alt='nuage' class='retina' >
@@ -404,27 +404,27 @@
 						<img  src='static/image/1px.png' data-load='/image/sketch/nuage2.svg'  alt='nuage' class='svg'>
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage2.png'  alt='nuage' class='img' >
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage2@2x.png'  alt='nuage' class='retina' >
-	
+
 					</div>
 					<div id="cloud3" class="cloud">
 						<img  src='static/image/1px.png' data-load='/image/sketch/nuage3.svg'  alt='nuage' class='svg'>
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage3.png'  alt='nuage' class='img' >
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage3@2x.png'  alt='nuage' class='retina' >
-	
+
 					</div>
 					<div id="cloud4" class="cloud">
 						<img  src='static/image/1px.png' data-load='/image/sketch/nuage1.svg'  alt='nuage' class='svg'>
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage1.png'  alt='nuage' class='img' >
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage1@2x.png'  alt='nuage' class='retina' >
-	
+
 					</div>
 					<div id="cloud5" class="cloud">
 						<img  src='static/image/1px.png' data-load='/image/sketch/nuage2.svg'  alt='nuage' class='svg'>
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage2.png'  alt='nuage' class='img' >
 <img  src='static/image/1px.png' data-src='/image/sketch/nuage2@2x.png'  alt='nuage' class='retina' >
-	
+
 					</div>
 				</div>
                 <H1 class="title">@yield('pageTitle')</H1>
-							 			
+
 	</div>

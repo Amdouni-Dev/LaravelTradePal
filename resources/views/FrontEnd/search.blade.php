@@ -2,12 +2,12 @@
 @extends('FrontEnd.section.header')
 @section('pageTitle', 'Comment ça marche')
 <div id="main">
-	
 
 
-  <div id="animation-banner" class="web">		
+
+  <div id="animation-banner" class="web">
     <div id="could-banner" class="no-overflow">
-     <div id="cloud1" class="cloud">	
+     <div id="cloud1" class="cloud">
       <img src="/image/univers/300x200/nuage1.svg" data-load="/image/sketch/nuage1.svg" alt="nuage" class="svg">
 
 
@@ -53,35 +53,35 @@
       <div class="search-fields">
 
 
-       <div class="buttons half">							
-         <input id="request" type="search" placeholder="ENTREZ VOTRE RECHERCHE..." name="search" value="" data-dashlane-rid="9c8522c96583e812" data-form-type="query">			
+       <div class="buttons half">
+         <input id="request" type="search" placeholder="ENTREZ VOTRE RECHERCHE..." name="search" value="" data-dashlane-rid="9c8522c96583e812" data-form-type="query">
          <div class="form-button ">
           <div class="button valid-button" id="trigger-search">
-           <div class="waves waves-prune">						  
+           <div class="waves waves-prune">
             <div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg ic-search" alt="recherche"></div>				  				 	<span>valider</span>
-          </div> 
+          </div>
         </div>
-      </div> 								
+      </div>
     </div>
     <div id="filtering-partner">
       <input type="checkbox" id="filter-partner" name="filter-partner" value="">
-      <label for="filter-partner">				
+      <label for="filter-partner">
        <img src="/image/univers/300x200/partenaire2.svg" class="svg">
 
 
      </label>
 
-   </div>					
-   <div class="buttons quarter">		
+   </div>
+   <div class="buttons quarter">
     trier par						<label id="sort-select" for="sort" class="select" data-dashlane-label="true">
-     <select id="sort" name="sort" data-dashlane-rid="f784bac106b2bca5" data-form-type="other">																
+     <select id="sort" name="sort" data-dashlane-rid="f784bac106b2bca5" data-form-type="other">
       <option value="1">les plus récentes</option>
       <option value="2">par distance</option>
       <!--option value="3"  >pertinence</option-->
     </select>
-  </label>				
+  </label>
 
-</div>									
+</div>
 
 
 </div>
@@ -90,50 +90,50 @@
  <div class="clear">×</div>
  <div>
   <div>
-   <label for="search-type-troc" class="select" data-dashlane-label="true">	
-     <select id="select-type-troc" name="typeTroc" data-dashlane-rid="288097ceca913e04" data-form-type="other">	
+   <label for="search-type-troc" class="select" data-dashlane-label="true">
+     <select id="select-type-troc" name="typeTroc" data-dashlane-rid="288097ceca913e04" data-form-type="other">
 
-      <option value="3" selected=""> 
+      <option value="3" selected="">
       Offres et Recherches				</option>
 
       <option value="1">
       Ils offrent				</option>
       <option value="2">
-       Ils recherchent 
-     </option>								
+       Ils recherchent
+     </option>
    </select>
  </label>
- 
-</div>
-<div>			
- <label for="search-category-type" class="select" data-dashlane-label="true">	
-  <select id="select-categorytype" name="categorytype" data-dashlane-rid="f3c5093d42f80c22" data-form-type="other">	
 
-   <option value="5" selected=""> 
+</div>
+<div>
+ <label for="search-category-type" class="select" data-dashlane-label="true">
+  <select id="select-categorytype" name="categorytype" data-dashlane-rid="f3c5093d42f80c22" data-form-type="other">
+
+   <option value="5" selected="">
    Biens/Services/Prêts/Dons					</option>
 
-   <option value="1"> 
-   Biens					</option>	
-   <option value="2"> 
-   Services				</option>	
-   <option value="3"> 
-   Prêts				</option>																				
-   <option value="4"> 
-   Dons				</option>																				
+   <option value="1">
+   Biens					</option>
+   <option value="2">
+   Services				</option>
+   <option value="3">
+   Prêts				</option>
+   <option value="4">
+   Dons				</option>
  </select>
-</label>	
-</div>					
+</label>
+</div>
 </div>
 <div>
 
 
-	
-  <div id="category-selector-1" class="category-selector">							
+
+  <div id="category-selector-1" class="category-selector">
    <div>
     <label class="select" style="" data-dashlane-label="true">
-     <select id="CategoryLvl1" name="cat1-1" class="category level1" data-dashlane-rid="d0da3d428941869d" data-form-type="other">			
+     <select id="CategoryLvl1" name="cat1-1" class="category level1" data-dashlane-rid="d0da3d428941869d" data-form-type="other">
 
-      <option value="toute">Toutes les catégories</option> 
+      <option value="toute">Toutes les catégories</option>
       <option disabled="">------------------</option>
 
       <option value="alimentation">Alimentation</option>
@@ -173,33 +173,33 @@
       <option value="autre">Autre</option>
 
     </select>
-  </label>		
+  </label>
 
-</div>	
-<div>
-  <label class="select disabled" style="display:none">
-   <select id="CategoryLvl2" name="cat2-1" class="category level2">			
-
-   </select>
- </label>		
 </div>
 <div>
   <label class="select disabled" style="display:none">
-   <select id="CategoryLvl3" name="cat3-1" class="category level3">			
+   <select id="CategoryLvl2" name="cat2-1" class="category level2">
 
    </select>
- </label>		
+ </label>
 </div>
-</div>				
+<div>
+  <label class="select disabled" style="display:none">
+   <select id="CategoryLvl3" name="cat3-1" class="category level3">
+
+   </select>
+ </label>
+</div>
+</div>
 </div>
 <input id="community-cid" type="hidden" value="-1">
 
-<div class="geo-filters">	
-  <div>							
+<div class="geo-filters">
+  <div>
 
     <label for="region" class="select" data-dashlane-label="true">
       <select id="region" name="region" data-dashlane-rid="fcc8668deef09025" data-form-type="address,country" data-kwimpalastatus="dead">
-       
+
 	  <option value="0">Toute la Tunisie</option>
     <option disabled="">------------------</option>
       <optgroup label="Province 1">
@@ -243,7 +243,7 @@
    <label for="departement" class="select" data-dashlane-label="true">
     <select id="departement" name="departement" data-dashlane-rid="7b6a2206a7afbda7" data-form-type="date,day" data-kwimpalastatus="dead">
      <option value="0"> Tous les departements</option>
-     <option disabled="">------------------</option>				
+     <option disabled="">------------------</option>
      <option value="1"> 01 - Ain</option>
      <option value="2"> 02 - Aisne</option>
      <option value="3"> 03 - Allier</option>
@@ -353,36 +353,36 @@
 </div>
 </div>
 
-</div>					
-					<!--div>				
-												
-				
-						
-					</div-->													
+</div>
+					<!--div>
+
+
+
+					</div-->
 				</div>
-				<div id="flash" class="flash" style="display:none"></div>			
+				<div id="flash" class="flash" style="display:none"></div>
 
         <div id="geo-shortcut">
           <input type="hidden" id="my-current-reg" value="0">
           <input type="hidden" id="my-current-dep" value="0">
-          <input type="hidden" id="my-current-postal" value="0">				
-          <input type="hidden" id="my-current-id" value="0">			
-        </div>			
+          <input type="hidden" id="my-current-postal" value="0">
+          <input type="hidden" id="my-current-id" value="0">
+        </div>
 
       </form>
-    </div>			
+    </div>
   </div>
   <div id="universe-bar" class="web ">
    <div id="table-universe">
-    <div class="previous">	
+    <div class="previous">
      <div class="sprites s-arrows">			<img src="/image/univers/300x200/17b030fbd59a8d2faabfeef314a30b40.svg" class="svg sarrow-left-white" alt="arrow left white"></div>				</div>
-     <ul>			
+     <ul>
 
       <li>
 
         <div class="two-third waves">
           <a href="https://mytroc.fr/les-trocs/troc-alimentation">
-            <div class="two-third-content">							
+            <div class="two-third-content">
              <img src="/image/univers/300x200/360ea47699ca2b980c2e5c51bd297215.jpg" alt="troc alimentation">
              <h3 class="first">Alimentation</h3>
              <div class="caption">
@@ -399,7 +399,7 @@
 
       <div class="two-third waves">
         <a href="https://mytroc.fr/les-trocs/troc-animaux">
-          <div class="two-third-content">							
+          <div class="two-third-content">
            <img src="/image/univers/300x200/1659e1009e584f8430bc4c2671851347.jpg" alt="troc animaux">
            <h3 class="first">Animaux</h3>
            <div class="caption">
@@ -416,7 +416,7 @@
 
     <div class="two-third waves">
       <a href="https://mytroc.fr/les-trocs/troc-art-et-spectacles">
-        <div class="two-third-content">							
+        <div class="two-third-content">
          <img src="/image/univers/300x200/aa5c5606449104032c2d825664f24ea5.jpg" alt="troc arts et spectacles">
          <h3 class="first">Arts et spectacles</h3>
          <div class="caption">
@@ -433,7 +433,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-collections">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/95b6cc169441f2d718860377ab651bbc.jpg" alt="troc collectionneurs">
        <h3 class="first">Collectionneurs</h3>
        <div class="caption">
@@ -450,7 +450,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-service-et-coup-de-main">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/25a6cfdcae376caec8805dc4c749f121.jpg" alt="troc coup de main">
        <h3 class="first">Coup de main</h3>
        <div class="caption">
@@ -467,7 +467,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-bricolage">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/c56ff3c0aa8753b32951ab9d2141511e.jpg" alt="troc bricolage">
        <h3 class="first">Bricolage</h3>
        <div class="caption">
@@ -484,7 +484,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-beaute-et-bien-etre">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/f231738306f9a3f840cd0186a2f58c0e.jpg" alt="troc beauté / bien être">
        <h3 class="first">Beauté / Bien être</h3>
        <div class="caption">
@@ -501,7 +501,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-enfance">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/eecebdfe51311941615662a9ad658537.jpg" alt="troc enfance">
        <h3 class="first">Enfance</h3>
        <div class="caption">
@@ -518,7 +518,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-informatique-mutlimedia">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/a07c30d73217c57e75cb9e7f6906985a.jpg" alt="troc informatique / multimédia">
        <h3 class="first">Informatique / Multimédia</h3>
        <div class="caption">
@@ -535,7 +535,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-jardins-et-plantes">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/2666cdd4b902ec31703ce1005c6a424e.jpg" alt="troc jardin et plantes">
        <h3 class="first">Jardin et Plantes</h3>
        <div class="caption">
@@ -552,7 +552,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-maison">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/1bdf41520b083d7947159affab021b6f.jpg" alt="troc maison">
        <h3 class="first">Maison</h3>
        <div class="caption">
@@ -569,7 +569,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-vacances">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/039b5a49971a1162d6bdef4379ae78c9.jpg" alt="troc vacances / week-end">
        <h3 class="first">Vacances / Week-end</h3>
        <div class="caption">
@@ -586,7 +586,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-livre-cd-dvd">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/fccfc5dfc8bba7e69b93b5d8dbe40cd3.jpg" alt="troc livre / cd / dvd">
        <h3 class="first">Livre / CD / DVD</h3>
        <div class="caption">
@@ -603,7 +603,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-vetements-et-accessoires">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/de8189cfec8dabd74c0788e93e18513d.jpg" alt="troc vêtements et accessoires">
        <h3 class="first">Vêtements et accessoires</h3>
        <div class="caption">
@@ -620,7 +620,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-sport-et-loisir">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/dcf5da4b7e501390f5fb0b08bddc7393.jpg" alt="troc sports et loisirs">
        <h3 class="first">Sports et Loisirs</h3>
        <div class="caption">
@@ -637,7 +637,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-transport-et-vehicule">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/ea78dc17adc769bad4c6ff5eb3ddfbe2.jpg" alt="troc transport / véhicules">
        <h3 class="first">Transport / Véhicules</h3>
        <div class="caption">
@@ -654,7 +654,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-vide-grenier">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/fd0395fa5d7e2c4359152f1d0c2b1b6f.jpg" alt="troc tout à une noisette !">
        <h3 class="first">Tout à une noisette&nbsp;!</h3>
        <div class="caption">
@@ -671,7 +671,7 @@
 
   <div class="two-third waves">
     <a href="https://mytroc.fr/les-trocs/troc-autre">
-      <div class="two-third-content">							
+      <div class="two-third-content">
        <img src="/image/univers/300x200/3d3728ed53d1bc0fd5c8c1185af52331.jpg" alt="troc autre">
        <h3 class="first">Autre</h3>
        <div class="caption">
@@ -692,7 +692,7 @@
 
 </li>
 
-</ul>	
+</ul>
 <div class="next">
  <div class="sprites s-arrows">			<img src="/image/univers/300x200/17b030fbd59a8d2faabfeef314a30b40.svg" class="svg sarrow-right-white" alt="arrow right white"></div>				</div>
 </div>
@@ -704,13 +704,13 @@
   <div class="tabs-display">
    <div class="tab waves waves-prune">
     <a id="showList" href="https://mytroc.fr/les-trocs#troc-list-result-search">
-     Voir les annonces				
+     Voir les annonces
    </a>
  </div>
  <div class="tab waves waves-prune">
   <a id="showMap" href="https://mytroc.fr/les-trocs#map-container">
     Voir la carte
-  </a>					
+  </a>
 </div>
 </div>
 <div id="troc-list-result-search" class="troc-list">
@@ -722,34 +722,34 @@
  <div class="pagination ">
   <span>1</span>
 
-  <a href="https://mytroc.fr/les-trocs/?n=1" role="next">2</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=1" role="next">2</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=2" role="next">3</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=2" role="next">3</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=3" role="next">4</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=3" role="next">4</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=4" role="next">5</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=4" role="next">5</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=5" role="next">6</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=5" role="next">6</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=6" role="next">7</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=6" role="next">7</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=7" role="next">8</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=7" role="next">8</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=8" role="next">9</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=8" role="next">9</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=9" role="next">10</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=9" role="next">10</a>
 </div>
 
-<ul id="search-result"> 	 
-  <li class="troc-resume ">	
+<ul id="search-result">
+  <li class="troc-resume ">
    <div class="c1 square">
     <div class="square-content">
      <a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune"><img src="/image/univers/300x200/5537409e141e5c2ce2832dd02f277e0f.jpg">	</a>
-   </div>					
+   </div>
  </div>
  <div class="c2">
-   <h2><a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune"><span>3 grands livres de cuisine</span></a></h2> 
+   <h2><a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune"><span>3 grands livres de cuisine</span></a></h2>
 
    <div class="fields">
     <div class="right">
@@ -757,13 +757,13 @@
       <div class="right relative ">
        <div class="price right    price-nuts">
         <div class="corner top">
-        </div>					
-        <div class="inner">123<div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div></div>			
+        </div>
+        <div class="inner">123<div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div></div>
         <div class="corner bottom">
         </div>
         <div class="tail">
          <div class="tail-body">
-         </div>				
+         </div>
        </div>
      </div>
 
@@ -772,41 +772,41 @@
  </div>
 
  <div class="left">
-   <div> 
+   <div>
     <div class="catType">
     Biens									</div>
     <div class="catBread">
-     Livre / CD / DVD &gt;&nbsp;Livre									
-   </div>							
+     Livre / CD / DVD &gt;&nbsp;Livre
+   </div>
  </div>
 
- <div class="author"> 
+ <div class="author">
   <a href="https://mytroc.fr/troqueurs/annouk1" class="waves waves-prune"><span>Trokanik</span></a>
 </div>
 </div>
 
-</div>				
+</div>
 
 
 <div class="troc-content">
   <a href="https://mytroc.fr/trocs/3-livres-de-cuisine-650ec2c66797d094223" class="waves waves-prune">
    <p>Les 3 premiers tomes de la collection. Faire offre mais envoi à vos frais ou remise en main propre à Dinan ou Paris</p>
- </a> 									
+ </a>
 </div>
-<div class="resume-footer">						
+<div class="resume-footer">
   <div class="date">
   Mis en ligne le 23/09/2023						</div>
 
   <div class="dist">
-  Dinan							 5390 km													</div>				
-
-</div>				
+  Dinan							 5390 km													</div>
 
 </div>
 
-<div class="c1 favorite-button notFavorite" data-tid="342236">			
+</div>
+
+<div class="c1 favorite-button notFavorite" data-tid="342236">
  <div class="icone-fav notFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-white" alt="ajouter aux favoris"></div> J'aime <span></span>	</div>
- <div class="icone-fav  isFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-yellow" alt="dans les favoris"></div>	J'aime  <span></span> </div>								
+ <div class="icone-fav  isFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-yellow" alt="dans les favoris"></div>	J'aime  <span></span> </div>
 </div>
 
 
@@ -814,14 +814,14 @@
 
 
 
-<li class="troc-resume ">	
+<li class="troc-resume ">
  <div class="c1 square">
   <div class="square-content">
    <a href="https://mytroc.fr/trocs/50-vignettes-pyrex-super-u-650ec08b1d8d3091123" class="waves waves-prune"><img src="/image/univers/300x200/83ed2dbdc4c722298de797e8a6f7f420.jpg">	</a>
- </div>					
+ </div>
 </div>
 <div class="c2">
- <h2><a href="https://mytroc.fr/trocs/50-vignettes-pyrex-super-u-650ec08b1d8d3091123" class="waves waves-prune"><span>50 vignettes Pyrex Super U</span></a></h2> 
+ <h2><a href="https://mytroc.fr/trocs/50-vignettes-pyrex-super-u-650ec08b1d8d3091123" class="waves waves-prune"><span>50 vignettes Pyrex Super U</span></a></h2>
 
  <div class="fields">
   <div class="right">
@@ -829,13 +829,13 @@
     <div class="right relative ">
      <div class="price right    price-nuts">
       <div class="corner top">
-      </div>					
-      <div class="inner">123<div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div></div>			
+      </div>
+      <div class="inner">123<div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div></div>
       <div class="corner bottom">
       </div>
       <div class="tail">
        <div class="tail-body">
-       </div>				
+       </div>
      </div>
    </div>
 
@@ -844,41 +844,41 @@
 </div>
 
 <div class="left">
- <div> 
+ <div>
   <div class="catType">
   Biens									</div>
   <div class="catBread">
-   Maison &gt;&nbsp;Vaisselle									
- </div>							
+   Maison &gt;&nbsp;Vaisselle
+ </div>
 </div>
 
-<div class="author"> 
+<div class="author">
   <a href="https://mytroc.fr/troqueurs/annouk1" class="waves waves-prune"><span>Trokanik</span></a>
 </div>
 </div>
 
-</div>				
+</div>
 
 
 <div class="troc-content">
   <a href="https://mytroc.fr/trocs/50-vignettes-pyrex-super-u-650ec08b1d8d3091123" class="waves waves-prune">
    <p>Faire offre</p>
- </a> 									
+ </a>
 </div>
-<div class="resume-footer">						
+<div class="resume-footer">
   <div class="date">
   Mis en ligne le 23/09/2023						</div>
 
   <div class="dist">
-  Dinan							 5390 km													</div>				
-
-</div>				
+  Dinan							 5390 km													</div>
 
 </div>
 
-<div class="c1 favorite-button notFavorite" data-tid="342235">			
+</div>
+
+<div class="c1 favorite-button notFavorite" data-tid="342235">
  <div class="icone-fav notFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-white" alt="ajouter aux favoris"></div> J'aime <span></span>	</div>
- <div class="icone-fav  isFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-yellow" alt="dans les favoris"></div>	J'aime  <span></span> </div>								
+ <div class="icone-fav  isFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-yellow" alt="dans les favoris"></div>	J'aime  <span></span> </div>
 </div>
 
 
@@ -886,14 +886,14 @@
 
 
 
-<li class="troc-resume ">	
+<li class="troc-resume ">
  <div class="c1 square">
   <div class="square-content">
    <a href="https://mytroc.fr/trocs/jeu-labyrinthe-complet-bon-etat-650eb8ab74094093523" class="waves waves-prune"><img src="/image/univers/300x200/a15506df8ac9424f6fb8fbbb33746cad.jpg">	</a>
- </div>					
+ </div>
 </div>
 <div class="c2">
- <h2><a href="https://mytroc.fr/trocs/jeu-labyrinthe-complet-bon-etat-650eb8ab74094093523" class="waves waves-prune"><span>Jeu labyrinthe complet bon etat</span></a></h2> 
+ <h2><a href="https://mytroc.fr/trocs/jeu-labyrinthe-complet-bon-etat-650eb8ab74094093523" class="waves waves-prune"><span>Jeu labyrinthe complet bon etat</span></a></h2>
 
  <div class="fields">
   <div class="right">
@@ -901,13 +901,13 @@
     <div class="right relative ">
      <div class="price right    price-nuts">
       <div class="corner top">
-      </div>					
-      <div class="inner">20<div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div></div>			
+      </div>
+      <div class="inner">20<div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg nuts" alt="noisette"></div></div>
       <div class="corner bottom">
       </div>
       <div class="tail">
        <div class="tail-body">
-       </div>				
+       </div>
      </div>
    </div>
 
@@ -916,42 +916,42 @@
 </div>
 
 <div class="left">
- <div> 
+ <div>
   <div class="catType">
   Biens									</div>
   <div class="catBread">
-   Enfance &gt;&nbsp;Jeux / Jouets									
- </div>							
+   Enfance &gt;&nbsp;Jeux / Jouets
+ </div>
 </div>
 
-<div class="author"> 
+<div class="author">
   <a href="https://mytroc.fr/troqueurs/sophie-delhaye" class="waves waves-prune"><span>sophie decamps</span></a>
 </div>
 </div>
 
-</div>				
+</div>
 
 
 <div class="troc-content">
   <a href="https://mytroc.fr/trocs/jeu-labyrinthe-complet-bon-etat-650eb8ab74094093523" class="waves waves-prune">
    <p>Jeu labyrinthe complet
    Envoi mondial relay</p>
- </a> 									
+ </a>
 </div>
-<div class="resume-footer">						
+<div class="resume-footer">
   <div class="date">
   Mis en ligne le 23/09/2023						</div>
 
   <div class="dist">
-  Colleret							 5600 km													</div>				
-
-</div>				
+  Colleret							 5600 km													</div>
 
 </div>
 
-<div class="c1 favorite-button notFavorite" data-tid="342234">			
+</div>
+
+<div class="c1 favorite-button notFavorite" data-tid="342234">
  <div class="icone-fav notFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-white" alt="ajouter aux favoris"></div> J'aime <span></span>	</div>
- <div class="icone-fav  isFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-yellow" alt="dans les favoris"></div>	J'aime  <span></span> </div>								
+ <div class="icone-fav  isFavorite"><div class="sprites icones">			<img src="/image/sprites/icons/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg" class="svg icone-fav-yellow" alt="dans les favoris"></div>	J'aime  <span></span> </div>
 </div>
 
 
@@ -964,37 +964,37 @@
 
 
 
-</ul> 
+</ul>
 
 <div id="suggester-head">
   A voir aussi&nbsp;:
 </div>
 
 <div id="suggester" class="suggester">
-	
-</div>					
+
+</div>
 
 
 <div class="pagination bottom">
   <span>1</span>
 
-  <a href="https://mytroc.fr/les-trocs/?n=1" role="next">2</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=1" role="next">2</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=2" role="next">3</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=2" role="next">3</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=3" role="next">4</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=3" role="next">4</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=4" role="next">5</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=4" role="next">5</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=5" role="next">6</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=5" role="next">6</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=6" role="next">7</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=6" role="next">7</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=7" role="next">8</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=7" role="next">8</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=8" role="next">9</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=8" role="next">9</a>
 
-  <a href="https://mytroc.fr/les-trocs/?n=9" role="next">10</a>					
+  <a href="https://mytroc.fr/les-trocs/?n=9" role="next">10</a>
 </div>
 </div>
 </div>

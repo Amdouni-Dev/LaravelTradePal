@@ -55,6 +55,7 @@ Route::post('/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionControlle
 Route::post('/register',  [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->name('register');
 
 
+Route::get('/profile',  [ProfileController::class, 'edit']);
 
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
@@ -81,6 +82,17 @@ Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('even
  Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
   /******************* Items + Requests*/
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user/claims', [\App\Http\Controllers\ClaimController::class, 'claimsForUser'])->name('claimsForUser');
+    Route::get('/add', [\App\Http\Controllers\ClaimController::class, 'create'])->name('claim.create');
+    Route::post('/add', [\App\Http\Controllers\ClaimController::class, 'store'])->name('claim.store');
+    Route::get('/generate-pdf/{claim}', [\App\Http\Controllers\ClaimController::class, 'generatePdf'])->name('generatePdf');
+    Route::get('/user/detail/claim/', [\App\Http\Controllers\ClaimController::class, 'userClaimDetail'])->name('UserClaimDetail');
+
+});
 
 Route::get('/profile', [ProfileUserController::class, 'edit'])->name('profile.edit');
 

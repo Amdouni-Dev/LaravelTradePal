@@ -15,7 +15,8 @@ class UserController extends Controller
     public function index()
     {
         $viewPath = 'BackOffice.user.table';
-        $users = User::all();
+        $users = User::latest()
+                    ->simplePaginate(5);
         return view('BackOffice.template',compact('viewPath','users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }

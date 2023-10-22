@@ -455,7 +455,7 @@
                 } else if (indexes[0] === 3 && indexes[1] === 3 && indexes[2] === 3) {
                     winMessage = '3';
                 } else if (indexes[0] === 4 && indexes[1] === 4 && indexes[2] === 4) {
-                    winMessage = '50';
+                    winMessage = '5';
                 } else if (indexes[0] === 5 && indexes[1] === 5 && indexes[2] === 5) {
                     winMessage = '1';
                 } else if (tries === 3) {
@@ -505,7 +505,7 @@
                 })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data.message); // You can display this in your UI
+                    console.log(data.message);
                 })
                 .catch((error) => {
                     console.error('Error:', error);

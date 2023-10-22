@@ -16,7 +16,7 @@ class CommentController extends Controller
     {
         $viewPath = 'BackOffice.comment.table';
 
-        $comments = Comment::latest()->paginate(5);
+        $comments = Comment::latest()->simplePaginate(5);;
       
         return view('BackOffice.template',compact('viewPath','comments'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
