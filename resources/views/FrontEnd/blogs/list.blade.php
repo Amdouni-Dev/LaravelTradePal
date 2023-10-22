@@ -63,11 +63,11 @@
                         <tbody>
                           <tr>
                             <td class="bright">
-                              <i style="font-size:2rem;color:#bf9471" class="bx bxs-user me-1"></i>
+                              <i style="font-size:2rem;color:#e8155a66" class="bx bxs-user me-1"></i>
                               <div class="value">{{$blog->views}} Visiteurs</div>
                             </td>
                             <td class="bright">
-                              <i style="font-size:2rem;color:#bf9471" class="bx bxs-heart me-1"></i>
+                              <i style="font-size:2rem;color:#e8155a66" class="bx bxs-heart me-1"></i>
                               <div class="value">
                                 @if ($blog->likes == 0)
                                     {{$blog->likes}} J'aime
@@ -77,7 +77,7 @@
                               </div>
                             </td>
                             <td class="bright">
-                              <i style="font-size:2rem;color:#bf9471" class="bx bxs-comment me-1"></i>
+                              <i style="font-size:2rem;color:#e8155a66" class="bx bxs-comment me-1"></i>
                               <div class="value">
                                 @if ($blog->likes == 0)
                                     0 commentaire

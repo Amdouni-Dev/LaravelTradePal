@@ -69,6 +69,7 @@ Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/blogs/author/{username}', [BlogController::class, 'filterByAuthor']);
 Route::get('/blog/tag/{tag}', [BlogController::class, 'fetchBlogsByTag']);
 Route::post('/storeComment', [CommentController::class, 'store']);
+Route::delete('/deleteComment/{comment_id}', [CommentController::class, 'delete'])->name('comments.delete');
 Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
 Route::post('/game',  [UserController::class, 'game']);
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);

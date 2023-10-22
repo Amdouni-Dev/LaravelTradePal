@@ -131,4 +131,13 @@ class CommentController extends Controller
         return redirect()->back();
     }
 
+    public function delete($comment_id)
+    {
+        $comment = Comment::find($comment_id);
+        if ($comment) {
+            $comment->delete();
+        }
+        return redirect()->back();
+    }
+
 }
