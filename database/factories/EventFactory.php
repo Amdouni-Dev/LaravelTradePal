@@ -17,8 +17,8 @@ class EventFactory extends Factory
     public function definition()
     {
         $color = $this->faker->hexColor;
-        $start = $this->faker->dateTimeBetween('-30 days', '+30 days')->format('Y-m-d H:i:s');
-        $end = $this->faker->dateTimeBetween($start, '+30 days')->format('Y-m-d H:i:s');
+        $start = $this->faker->dateTimeBetween('-30 days', '+30 days')->format('Y-m-d H:i');
+        $end = $this->faker->dateTimeBetween($start, '+30 days')->format('Y-m-d H:i');
         return [
 
 'nom'=>$this->faker->sentence,

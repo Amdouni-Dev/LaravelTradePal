@@ -74,3 +74,6 @@
     </table>
   </div>
 </div>
+<div class="text-center mt-4">
+  {{ $blogs->links() }}
+</div>

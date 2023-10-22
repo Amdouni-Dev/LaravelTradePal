@@ -97,8 +97,19 @@ class BlogController extends Controller
             ->where('blog_id', $blogId)
             ->where('user_id', $userId)
             ->get();
+
+        $commentCount = Comment::where('blog_id', $blogId)
+            ->whereNotNull('content')
+            ->count();
+
+        $likedCommentCount = Comment::where('blog_id', $blogId)
+            ->where('likes', 1)
+            ->count();
+
+        $blog->views = $blog->views + 1;
+        $blog->save();
         
-        return view('FrontEnd.blogs.blog', compact('blog', 'likedComments'));
+        return view('FrontEnd.blogs.blog', compact('blog', 'likedComments','commentCount','likedCommentCount'));
     }
 
     /**
@@ -164,8 +175,20 @@ class BlogController extends Controller
     public function listing()
     {
         $blogs = Blog::join('users', 'blogs.user_id', '=', 'users.id')
-                        ->select('blogs.*', 'users.name as username')
-                        ->get();
+                    ->select('blogs.*', 'users.username as username', 'users.name as nameuser')
+                    ->get();
+
+        $blogs = $blogs->map(function ($blog) {
+            $blog->likes = Comment::where('blog_id', $blog->id)
+                ->where('likes', 1)
+                ->count();
+        
+        $blog->countomments = Comment::where('blog_id', $blog->id)
+                ->whereNotNull('content')
+                ->count();
+            return $blog;
+        });
+
         return view('FrontEnd.blogs.list', compact('blogs'));
     }
 
@@ -214,6 +237,59 @@ class BlogController extends Controller
         $blog->save();
         return redirect()->route('blogs.listing')
                         ->with('success','Article crée avec succées.');
+    }
+
+    public function filterByAuthor($username){
+        $user = User::where('username', $username)->first();
+        if (!$user) {
+            abort(404);
+        }
+        
+        $blogs = Blog::join('users', 'blogs.user_id', '=', 'users.id')
+            ->select('blogs.*', 'users.username as username','users.name as nameuser')
+            ->where('blogs.user_id', $user->id)
+            ->get();
+        
+        $blogs = $blogs->map(function ($blog) {
+            $blog->likes = Comment::where('blog_id', $blog->id)
+                ->where('likes', 1)
+                ->count();
+            return $blog;
+        });
+
+        $blogs = $blogs->map(function ($blog) {
+            $blog->likes = Comment::where('blog_id', $blog->id)
+                ->where('likes', 1)
+                ->count();
+        
+        $blog->countomments = Comment::where('blog_id', $blog->id)
+                ->whereNotNull('content')
+                ->count();
+            return $blog;
+    });
+        
+        return view('FrontEnd.blogs.list', compact('blogs'));
+    }
+
+    public function fetchBlogsByTag($tag)
+    {
+        $blogs = Blog::where('tags', 'like', '%' . $tag . '%')
+            ->join('users', 'blogs.user_id', '=', 'users.id')
+            ->select('blogs.*', 'users.username as username', 'users.name as nameuser')
+            ->get();
+
+        $blogs = $blogs->map(function ($blog) {
+            $blog->likes = Comment::where('blog_id', $blog->id)
+                ->where('likes', 1)
+                ->count();
+
+            $blog->countComments = Comment::where('blog_id', $blog->id)
+                ->whereNotNull('content')
+                ->count();
+
+            return $blog;
+        });
+        return view('FrontEnd.blogs.list', compact('blogs'));
     }
 
 }

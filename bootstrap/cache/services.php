@@ -23,7 +23,11 @@
     19 => 'Illuminate\\Translation\\TranslationServiceProvider',
     20 => 'Illuminate\\Validation\\ValidationServiceProvider',
     21 => 'Illuminate\\View\\ViewServiceProvider',
+<<<<<<< HEAD
+    22 => 'Barryvdh\\DomPDF\\ServiceProvider',
+=======
     22 => 'Askedio\\Laravel5ProfanityFilter\\Providers\\ProfanityFilterServiceProvider',
+>>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
     23 => 'Laravel\\Breeze\\BreezeServiceProvider',
     24 => 'Laravel\\Sail\\SailServiceProvider',
     25 => 'Laravel\\Sanctum\\SanctumServiceProvider',
@@ -41,6 +45,10 @@
     37 => 'App\\Providers\\BroadcastServiceProvider',
     38 => 'App\\Providers\\EventServiceProvider',
     39 => 'App\\Providers\\RouteServiceProvider',
+<<<<<<< HEAD
+    37 => 'Barryvdh\\DomPDF\\ServiceProvider',
+=======
+>>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
   ),
   'eager' => 
   array (
@@ -54,7 +62,11 @@
     7 => 'Illuminate\\Pagination\\PaginationServiceProvider',
     8 => 'Illuminate\\Session\\SessionServiceProvider',
     9 => 'Illuminate\\View\\ViewServiceProvider',
+<<<<<<< HEAD
+    10 => 'Barryvdh\\DomPDF\\ServiceProvider',
+=======
     10 => 'Askedio\\Laravel5ProfanityFilter\\Providers\\ProfanityFilterServiceProvider',
+>>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
     11 => 'Laravel\\Sanctum\\SanctumServiceProvider',
     12 => 'Laravel\\Ui\\UiServiceProvider',
     13 => 'Livewire\\LivewireServiceProvider',
@@ -69,6 +81,10 @@
     22 => 'App\\Providers\\BroadcastServiceProvider',
     23 => 'App\\Providers\\EventServiceProvider',
     24 => 'App\\Providers\\RouteServiceProvider',
+<<<<<<< HEAD
+    22 => 'Barryvdh\\DomPDF\\ServiceProvider',
+=======
+>>>>>>> 7b4ad37b223ea79b996fa3ad48d9f8148a77350e
   ),
   'deferred' => 
   array (

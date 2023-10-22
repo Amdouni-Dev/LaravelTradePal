@@ -15,7 +15,8 @@ class UserController extends Controller
     public function index()
     {
         $viewPath = 'BackOffice.user.table';
-        $users = User::all();
+        $users = User::latest()
+                    ->simplePaginate(5);
         return view('BackOffice.template',compact('viewPath','users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -116,6 +117,31 @@ public function activateUser($id)
     $user->save();
 
     return back()->with('success', 'L\'utilisateur a été activé avec succès');
+}
+
+public function game(Request $request) {
+    if (auth()->check()) {
+        $user = User::find(auth()->user()->id);
+        $currentHazelnuts = $user->hazelnuts;
+        $winMessage = $request->input('winMessage');
+
+        $newHazelnuts = $currentHazelnuts + $winMessage;
+
+        $user->update([
+            'hazelnuts' => $newHazelnuts,
+            'winDate' => now(),
+        ]);
+
+        return redirect()->route('profile', ['id' => auth()->user()->id]);
+    } else {
+        return response()->json(['message' => 'Please log in to update hazelnuts and winMessage.'], 401);
+    }
+}
+
+public function GamePage(){
+    $today = now()->format('Y-m-d');
+    $users = User::whereDate('winDate', $today)->get();
+    return view('FrontEnd.game',compact('users'));
 }
 
 }

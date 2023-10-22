@@ -59,15 +59,18 @@ Route::get('/profile',  [ProfileController::class, 'edit']);
 
 Route::get('/bareme',  [BaremeController::class, 'index']);
 Route::get('/work',  [WorkController::class, 'index']);
-Route::get('/game',  [gameController::class, 'index']);
+Route::get('/game',  [UserController::class, 'gamePage']);
 Route::get('/add-troc',  [trocController::class, 'index']);
 Route::get('/search',  [searchController::class, 'index']);
+Route::get('/read', [BlogController::class, 'listing']);
 Route::get('/new-blog',  [BlogController::class, 'UserBlogForm']);
 Route::post('/storeBlog', [BlogController::class, 'userSaveBlog']);
-Route::post('/storeComment', [CommentController::class, 'store']);
-Route::get('/read', [BlogController::class, 'listing']);
-Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blogs/author/{username}', [BlogController::class, 'filterByAuthor']);
+Route::get('/blog/tag/{tag}', [BlogController::class, 'fetchBlogsByTag']);
+Route::post('/storeComment', [CommentController::class, 'store']);
+Route::post('/like/{user_id}/{blog_id}', [CommentController::class, 'likeBlog'])->name('like.toggle');
+Route::post('/game',  [UserController::class, 'game']);
 Route::get('/JeParticipe', [EventController::class, "eventsForUser"]);
 Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class, 'participerEvent'])->name('participerEvent');
 Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('events.show');
@@ -100,8 +103,8 @@ Route::get('/edit-profile', [ProfileUserController::class, 'showForm'])->name('p
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/blog/add', [BlogController::class, 'create']);
-    Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/blogs', [BlogController::class, 'index']);
+    Route::get('/comments/add',  [BlogController::class, 'create']);
     Route::get('/comments',  [BlogController::class, 'index']);
     Route::post('/user/block/{id}', [UserController::class, 'blockUser'])->name('blockUser');
     Route::post('/user/activate/{id}', [UserController::class, 'activateUser'])->name('activateUser');
@@ -110,13 +113,15 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/events', [EventController::class, 'eventsForAdmin']);
     Route::get('/events/add', [EventController::class, 'create']);
     Route::post('/events/add', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/generatePdf/{id}', [EventController::class,'generatePdf' ])->name('events.generatePdf');
 
     Route::get('/events/{id}', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::get('/events2', [EventController::class, 'affiche'])->name('events.index');
+    Route::get('/stat/events', [EventController::class, 'stat']);
 
-    Route::get('/events', [EventController::class, 'rechercheParDate'])->name('events.rechercheParDate');
+//    Route::get('/events', [EventController::class, 'rechercheParDate'])->name('events.rechercheParDate');
 
 
     Route::get('/participations', [ParticipationController::class, 'participationsForAdmin']);
