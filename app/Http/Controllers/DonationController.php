@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Donation;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -80,7 +81,11 @@ class DonationController extends Controller
         $donation->organization_id = $request->input('organization_id');
         $donation->amount = $request->input('amount');
         $donation->category = $request->input('category');
-        $donation->item_id = $request->input('object');
+        if ($request->input('object') == 0) {
+            unset($donation->item_id);
+        } else {
+            $donation->item_id = $request->input('object');
+        }
 
         $donation->save();
 
@@ -88,6 +93,15 @@ class DonationController extends Controller
         if ($item) {
             $item->status = 'NONDISPONIBLE';
             $item->save();
+        }
+
+        $user = User::find(auth()->user()->id);
+        if ($user) {
+            $currentHazelnuts = $user->hazelnuts;
+            $donated = $request->input('amount');
+            $newHazelnuts = $currentHazelnuts - $donated;
+            $user->hazelnuts = $newHazelnuts;
+            $user->save();
         }
         return redirect()->route('organizations.show', ['id' => $donation->organization_id])
 

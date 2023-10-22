@@ -32,8 +32,13 @@
           <td>{{ $donation->timestamp }}</td>
           <td>{{ $donation->organization->name }}</td>
           <td>{{ $donation->amount }}</td>
-          <td>{{ $donation->item->name }}</td>
-
+          <td>
+            @if ($donation->item)
+            {{ $donation->item->name }}
+            @else
+            Pas d'objet
+            @endif
+          </td>
           <td>
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
