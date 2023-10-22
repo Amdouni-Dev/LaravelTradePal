@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
-use App\Models\Donation;
+use App\Imports\OrganizationsImport;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class OrganizationController extends Controller
 {
@@ -204,5 +206,19 @@ class OrganizationController extends Controller
             ->get();
 
         return $donatedItems;
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        $file = $request->file('file');
+
+        Excel::import(new OrganizationsImport, $file);
+
+        return redirect()->route('organizations.index')
+            ->with('success', 'Organizations imported successfully.');
     }
 }

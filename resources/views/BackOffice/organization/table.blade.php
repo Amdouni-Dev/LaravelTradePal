@@ -5,9 +5,20 @@
         <span class="text-muted fw-light">Organisation /</span> Liste des organisations
       </h4>
     </td>
+    <td>
+      <form action="{{ route('organizations.import') }}" method="POST" enctype="multipart/form-data">
+        <div class="input-group">
+          @csrf
+          <input type="file" class="form-control" id="inputGroupFile02" name="file">
+          <button type="submit" class="btn btn-primary">Importer</button>
+        </div>
+      </form>
+
+    </td>
     <td align="right">
       <a href="{{ route('organizations.create') }}" class="btn btn-primary">Ajouter</a>
     </td>
+
   <tr>
 </table>
 

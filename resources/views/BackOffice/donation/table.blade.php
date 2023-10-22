@@ -6,7 +6,7 @@
       </h4>
     </td>
     <td align="right">
-      <a href="{{ route('donations.export') }}" class="btn btn-primary">Export</a>
+      <a href="{{ route('donations.export') }}" class="btn btn-primary">Exporter</a>
     </td>
   <tr>
 </table>

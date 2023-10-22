@@ -120,7 +120,9 @@
 
                                     <div id="don_noisettes_section" style="display: none;">
                                         <label for="amount">Entrer le montant que vous souhaitez donner :</label>
+                                        @if (auth()->check())
                                         <input type="number" name="amount" max="{{ auth()->user()->hazelnuts }}">
+                                        @endif
                                     </div>
                                     <input type="hidden" name="user_id" value="1">
                                     <input type="hidden" name="organization_id" value="{{ $organization->id }}">
