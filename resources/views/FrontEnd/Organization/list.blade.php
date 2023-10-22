@@ -83,8 +83,11 @@
                         <div class="two-third waves">
                             <a href="{{ route('organizations.show', $organization) }}">
                                 <div class="two-third-content">
-                                    <img src="/organization_logos/{{$organization->logo}}" alt="{{$organization->name}}">
-                                    <h3 class="first">{{$organization->name}}</h3>
+                                    @if(filter_var($organization->logo, FILTER_VALIDATE_URL))
+                                    <img src="{{ $organization->logo }}" alt="organization logo">
+                                    @else
+                                    <img src="/organization_logos/{{ $organization->logo }}" alt="organization logo">
+                                    @endif <h3 class="first">{{$organization->name}}</h3>
                                     <div class="caption">
                                         <h3>{{$organization->name}}</h3>
                                         <div>
