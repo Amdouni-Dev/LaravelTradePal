@@ -142,6 +142,7 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
     Route::get('/donations-export', [DonationController::class, 'export'])->name('donations.export');
     Route::post('/organizations-import', [OrganizationController::class, 'import'])->name('organizations.import');
+    Route::get('organization/chart', [OrganizationController::class, 'chart'])->name('organizations.chart');
 
     Route::resource('item',  ItemController::class);
     Route::resource('request',  RequestController::class);
