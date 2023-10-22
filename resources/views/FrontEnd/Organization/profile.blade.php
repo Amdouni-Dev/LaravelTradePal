@@ -41,7 +41,11 @@
                         <div class="profil-pix out class_box_shadow">
                             <div class="square default">
                                 <div class="square-content">
-                                    <img src="/organization_logos/{{ $organization->logo }}" alt="troqueur cats city, sur mytroc">
+                                    @if(filter_var($organization->logo, FILTER_VALIDATE_URL))
+                                    <img src="{{ $organization->logo }}" alt="organization logo">
+                                    @else
+                                    <img src="/organization_logos/{{ $organization->logo }}" alt="organization logo">
+                                    @endif
                                 </div>
                             </div>
                             <div class="stamp-asso"> {{$organization->name}}</div>
