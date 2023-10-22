@@ -1,5 +1,13 @@
 
+<style>
+   /* styles.css */
+.couleur-1 { background-color: rgba(255, 99, 132, 1); }
+.couleur-2 { background-color: rgba(54, 162, 235, 1); }
+.couleur-3 { background-color: rgba(255, 206, 86, 1); }
+.couleur-4 { background-color: rgba(75, 192, 192, 1); }
+.couleur-5 { background-color: rgba(153, 102, 255, 1); }
 
+</style>
 <table class="container-xxl flex-grow-1 container-p-y">
   
   <!-- <tr>
@@ -163,19 +171,38 @@ var data = google.visualization.arrayToDataTable([
         ["{{ $category }}", {{ $requestCount }}],
     @endforeach
 ]);
+function convertRGBAtoHex(rgbaColor) {
+    var parts = rgbaColor.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+\.\d+)\)$/);
+    if (parts) {
+        var r = parseInt(parts[1]);
+        var g = parseInt(parts[2]);
+        var b = parseInt(parts[3]);
+        return '#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
+    }
+    return rgbaColor;
+}
+
+var customColors = [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(153, 102, 255, 0.2)'
+];
+var convertedColors = customColors.map(convertRGBAtoHex);
+
+var options = {
+    title: 'Statistiques des demandes par catégorie objet',
+    is3D: true,
+    backgroundColor: 'transparent',
+    colors:  convertedColors
+};
 
 
-
-
-
-    var options = {
-      title: 'Statistiques des demandes par catégorie objet ', 
-      is3D : true ,
-      backgroundColor: 'transparent'
-    };
 
     var chart = new google.visualization.PieChart(document.getElementById('mon-chart'));
 
     chart.draw(data, options);
   }
 </script>
+
