@@ -131,10 +131,18 @@ class ClaimController extends Controller
 
     public function destroy($id)
     {
-        $claim = Claim::findOrFail($id);
+        $claim = Claim::find($id);
         $claim->delete();
 
         return redirect()->route('claimsForAdmin')->with('success', 'Claim deleted successfully');
+    }
+
+    public function destroyUserClaim($id)
+    {
+        $claim = Claim::find($id);
+        $claim->delete();
+
+        return redirect()->route('claimsForUser')->with('success', 'Claim deleted successfully');
     }
 
     public function sendEmail($claimId)

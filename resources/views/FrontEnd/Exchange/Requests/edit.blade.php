@@ -88,13 +88,49 @@
 		                        <div class="rope right">&nbsp;</div>
 		                        <div class="rope left">&nbsp;</div>
 		                    </li>
-		                    <li class="   ">
+							<li class="   ">
 		                        <div class="pancarte even ">
 		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
 									<a href="/item/show">
 		                                <div class="pancarte-content">
 
+		                                    <div class="link waves">Mes objets</div>
+		                                    <div class="dot tl"></div>
+		                                    <div class="dot tr"></div>
+		                                    <div class="dot bl"></div>
+		                                    <div class="dot br"></div>
+
+		                                </div>
+		                            </a>
+		                        </div>
+		                        <div class="rope right">&nbsp;</div>
+		                        <div class="rope left">&nbsp;</div>
+		                    </li>
+		                    <li class="   ">
+							<div class="pancarte odd ">
+		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
+									<a href="/requests/show-offer">
+		                                <div class="pancarte-content">
+
 		                                    <div class="link waves">Mes offres</div>
+		                                    <div class="dot tl"></div>
+		                                    <div class="dot tr"></div>
+		                                    <div class="dot bl"></div>
+		                                    <div class="dot br"></div>
+
+		                                </div>
+		                            </a>
+		                        </div>
+		                        <div class="rope right">&nbsp;</div>
+		                        <div class="rope left">&nbsp;</div>
+		                    </li>
+							<li class="   ">
+		                        <div class="pancarte even ">
+		                            <!-- <a href="https://mytroc.fr/mes-trocs"> -->
+									<a href="/requests/show-request">
+		                                <div class="pancarte-content">
+
+		                                    <div class="link waves">Mes Demandes</div>
 		                                    <div class="dot tl"></div>
 		                                    <div class="dot tr"></div>
 		                                    <div class="dot bl"></div>
@@ -124,7 +160,7 @@
 		                        <div class="rope left">&nbsp;</div>
 		                    </li>
 		                    <li class="   ">
-		                        <div class="pancarte odd ">
+							<div class="pancarte even ">
 		                            <a href="https://mytroc.fr/agrandir-la-communaute-mytroc">
 		                                <div class="pancarte-content">
 
@@ -140,23 +176,7 @@
 		                        <div class="rope right">&nbsp;</div>
 		                        <div class="rope left">&nbsp;</div>
 		                    </li>
-		                    <li class="   ">
-		                        <div class="pancarte even ">
-		                            <a href="https://mytroc.fr/parrainages">
-		                                <div class="pancarte-content">
-
-		                                    <div class="link waves">Parrainage</div>
-		                                    <div class="dot tl"></div>
-		                                    <div class="dot tr"></div>
-		                                    <div class="dot bl"></div>
-		                                    <div class="dot br"></div>
-
-		                                </div>
-		                            </a>
-		                        </div>
-		                        <div class="rope right">&nbsp;</div>
-		                        <div class="rope left">&nbsp;</div>
-		                    </li>
+		                  
 		                    <li class="   ">
 		                        <div class="pancarte odd ">
 		                            <a href="https://mytroc.fr/dons-aux-associations">
@@ -216,7 +236,7 @@
         </div>					
       
            
-              <form  id="add-troc" action="{{ route('item.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+              <form  id="add-troc" action="{{ route('request.updateAll', $request->id) }}" method="POST" >
                         @csrf
                         @method('PUT')     
 
@@ -224,10 +244,10 @@
                     <div id="container-add-content">
                         <div class="cols2 left">
         <div>
-                                    <H2>Détails de l'objet</h2>
+                                    <H2>Détails de la demande</h2>
                                 </div>
 
-                          
+                   <br></br>   <br></br>   <br></br>        
 
 
 
@@ -239,47 +259,7 @@
 
 
 
-<div class="upload-images-block">
-    <div id="im1" class="square im-but">
-        <label for="imageInput" class="upload-icon-label">
-            <div class="square-content" style="display: flex; justify-content: center; align-items: center;">
-                <img src="/echange/items/{{ $item->picture }}" alt="" id="imagePreview" style="max-width: 100%; max-height: 100%;">
-            </div>
-            <div class="upload-icon">
-            <i class="fas fa-upload" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px;"></i>
 
-            </div>
-        </label>
-        <div id="upload-img-error-1" class="upload-img-error flash2" style="display:none"></div>
-        <input type="file" name="image" id="imageInput" accept="image/*" onchange="afficherImage()" style="display: none;">
-		
-    </div>
-	@error('image')
-
-	<div class="w3-panel w3-pale-red w3-border" style="width: 62%;">{{ $message }}</div>
-
-@enderror
-</div>
-   
-   
-    <script>
-        function afficherImage() {
-            const input = document.getElementById('imageInput');
-            const preview = document.getElementById('imagePreview');
-
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                preview.src = "";
-            }
-        }
-    </script>
 
 
 
@@ -287,92 +267,40 @@
 
 <div class="troc-add-content">
     <div id="troc-title">
-        <label for="name">Nom de l'objet</label>
-        <input type="text" name="name" id="name" class="form-control"  value="{{ $item->name }}">
+        <label for="name">Note</label>
+        <input type="text" name="note" id="note" class="form-control"  value="{{ $request->note }}">
         <div class="validator"></div>
-		@error('name')
-
-		<div class="w3-panel w3-pale-red w3-border" style="width: 74%;">{{ $message }}</div>
-
-@enderror
+		
     </div>
 
 
 
- 
-
-
-
-    <div id="category-selector-1" class="category-selector">
-                                        <div>
-                                        <label for="category">Catégorie</label>
-                                            <label class="select" style="">
-                                                <select name="category" id="category" class="category level1">
-                                                <option value="ELECTRONIQUE" {{ $item->category === 'ELECTRONIQUE' ? 'selected' : '' }}>Électronique</option>
-                                <option value="VETEMENTS" {{ $item->categort === 'VETEMENTS' ? 'selected' : '' }}>Vêtements</option>
-                                <option value="MEUBLES" {{ $item->category === 'MEUBLES' ? 'selected' : '' }}>Meubles</option>
-                                <option value="LIVRES" {{ $item->category === 'LIVRES' ? 'selected' : '' }}>Livres</option>
-                                <option value="AUTRES" {{ $item->category === 'AUTRES' ? 'selected' : '' }}>Autres</option>
-
-                                                </select>
-                                            </label>
-											@error('category')
-
-											<div class="w3-panel w3-pale-red w3-border" style="width: 74%;">{{ $message }}</div>
-
-@enderror
-                                        </div>
-                                        <div>
-
-
-
-                                      
-
-
-
-   
-       
-   
-    
-    <div class="troc-add-content">
-    <label for="description">Description</label>
-    <textarea name="description" id="description" class="form-control" >{{ $item->description }}</textarea>
-	@error('description')
-
-		<div class="w3-panel w3-pale-red w3-border" style="width: 77%;">{{ $message }}</div>
-
-@enderror
+  
+    <div id="troc-title">
+    <label for="name">Objet proposé</label>
+    <label class="select" style="">
+        <select id="exchangeable_id" name="exchangeable_id">
+            <option value="">Sélectionnez un objet</option>
+            @foreach ($items as $item)
+                <option value="{{ $item->id }}" @if ($item->id == old('exchangeable_id', $request->exchangeable_id)) selected @endif>{{ $item->name }}</option>
+            @endforeach
+        </select>
+    </label>
 </div>
+
+
 <div class="form-row">
-        <label for="amount">Nombre de
+    <label for="amount">Nombre de
         <div class='sprites icones'>
-          
             <img src='../../static/image/sprites/icones/gen/21e0151d35abd56f1a6a8a5a712ec8b8.svg' class='svg nuts' alt='noisette'>
         </div>
-        </label>
-        <input id="amount" type="text" name="amount" maxlength="6" placeholder="noisettes" value="{{ $item->amount }}">
-        @error('amount')
-
-		<div class="w3-panel w3-pale-red w3-border" style="width: 74%;">{{ $message }}</div>
-
-@enderror
-    </div>
+    </label>
+    <input id="amount" type="text" name="amount" maxlength="6" placeholder="échange par objet" 
+           value="{{ $request->amount }}" @if(is_null($request->amount)) disabled @endif>
 </div>
-<div id="category-selector-1" class="category-selector">
-                                        <div>
-                                        <label for="category">Status</label>
-                                            <label class="select" style="">
-                                                <select name="status" id="status" class="category level1">
-                                                <option value="DISPONIBLE" {{ $item->status === 'DISPONIBLE' ? 'selected' : '' }}>Disponible</option>
-                                <option value="NONDISPONIBLE" {{ $item->status === 'NONDISPONIBLE' ? 'selected' : '' }}>NON Disponible</option>
-                            </select>
-                                            </label>
-											@error('status')
 
-											<div class="w3-panel w3-pale-red w3-border" style="width: 74%;">{{ $message }}</div>
+<br></br>   <br></br>   
 
-@enderror
-                                        </div>
                                         <div>
     <button type="submit" class="form-button">
     <div class="button valid-button">

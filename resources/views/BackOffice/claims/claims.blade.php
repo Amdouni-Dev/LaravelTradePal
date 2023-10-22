@@ -5,6 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claims Dashboard</title>
+    <script>
+        function confirmDelete() {
+            if (confirm("Voulez-vous vraiment supprimer cette réclamation ?")) {
+
+                document.getElementById('delete-form').submit();
+            } else {
+
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -65,9 +76,9 @@
             <tr>
 
                 <td>{{ $claim->subject }}</td>
-                <td></td>
+                <td>{{$claim->user_id}}</td>
                 <td>{{ $claim->description }}</td>
-                <td></td>
+                <td><img src="/claims/{{$claim->claimImage}}" width="150" height="150"></td>
                 <td>{{ $claim->claim_date }}</td>
                 <td>
     <span class="badge @if($claim->status == 'PENDING') bg-label-danger
@@ -98,43 +109,48 @@
                         @endif
 
                         @endif
-
-                        <a href="{{ route('reply.create',['claim_id'=> $claim->id])}}" class="btn btn-icon me-2 btn-outline-info">
+                        @if($claim->status == 'IN PROGRESS')
+                        <a href="{{ route('reply.create', ['claim_id' => $claim->id]) }}" class="btn btn-icon me-2 btn-outline-info">
                             <span class="bx bx-reply me-1 bx-tada"></span>
                         </a>
                         @endif
-                        <form method="POST" action="{{ route('claims.destroy', $claim) }}">
+
+                        @endif
+                        <form method="POST" id="delete-form" action="{{ route('supprimer',  $claim->id) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-icon me-2 btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal">
+                            <button type="submit" class="btn btn-icon me-2 btn-outline-danger" onclick="return confirmDelete();" >
                                 <span class="bx bx-trash me-1 bx-tada"></span>
                             </button>
                         </form>
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="claimModalLabel">Confirm Deletion</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to delete this claim?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
-                                        </button>
-                                        <form method="POST" action="{{ route('claims.destroy', $claim) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+
+
+
+<!--                        <div class="modal fade" id="deleteModal" aria-labelledby="deleteModalLabel"-->
+<!--                             aria-hidden="true">-->
+<!--                            <div class="modal-dialog modal-dialog-centered">-->
+<!--                                <div class="modal-content">-->
+<!--                                    <div class="modal-header">-->
+<!--                                        <h5 class="modal-title" id="claimModalLabel">Confirm Deletion</h5>-->
+<!--                                        <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+<!--                                                aria-label="Close"></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">-->
+<!--                                        Are you sure you want to delete this claim?-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-footer">-->
+<!--                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel-->
+<!--                                        </button>-->
+<!--                                        <form method="POST" action="{{ route('supprimer',  $claim->id) }}">-->
+<!--                                            @csrf-->
+<!--                                            @method('DELETE')-->
+<!--                                            <button type="submit" class="btn btn-danger">Delete</button>-->
+<!--                                        </form>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                     </div>
                 </td>
@@ -149,6 +165,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
+                            <img src="/claims/{{$claim->claimImage}}">
                             <p><b>Description:</b><span id="shortDescription">{{ substr($claim->description, 0, 80) }} <span id="dots">...</span></span>
                                 <span id="fullDescription" style="display: none;">{{ $claim->description }}</span>
                                 <a href="#" id="showMore" onclick="toggleDescription()">Read More</a></p>
@@ -279,6 +296,7 @@
         }
     });
 </script>
+
 
 </body>
 </html>

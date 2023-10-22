@@ -109,36 +109,6 @@
                             </div></span>
 
 </div>
-            <script>
-                const Filter = require('bad-words');
-                const filter = new Filter();
-
-                function filterBadWords() {
-                    console.log('Filtering bad words...');
-
-                    const subjectInput = document.getElementById('subject');
-                    const descriptionInput = document.getElementById('description');
-
-                    console.log('Original Subject: ' + subjectInput.value);
-                    console.log('Original Description: ' + descriptionInput.value);
-
-                    subjectInput.value = filter.clean(subjectInput.value);
-                    descriptionInput.value = filter.clean(descriptionInput.value);
-
-                    console.log('Filtered Subject: ' + subjectInput.value);
-                    console.log('Filtered Description: ' + descriptionInput.value);
-                }
-
-                document.getElementById('add-troc').addEventListener('submit', function (e) {
-                    filterBadWords(); // Call the function to filter bad words before form submission
-                });
-
-
-                document.getElementById('add-troc').addEventListener('submit', function (e) {
-                    filterBadWords(); // Call the function to filter bad words before form submission
-                });
-            </script>
-
 
             <script>
                 function afficherImage() {
@@ -166,6 +136,93 @@
 
 
     @extends('FrontEnd.Section.footer')
+    <script>
+        function filterBadWords() {
+            const badWords = ['anal',
+                'anus',
+                'arse',
+                'ass',
+                'ballsack',
+                'balls',
+                'bastard',
+                'bitch',
+                'biatch',
+                'bloody',
+                'blowjob',
+                'bollock',
+                'bollok',
+                'boner',
+                'boob',
+                'bugger',
+                'bum',
+                'butt',
+                'buttplug',
+                'clitoris',
+                'cock',
+                'coon',
+                'crap',
+                'cunt',
+                'damn',
+                'dick',
+                'dildo',
+                'dyke',
+                'fag',
+                'feck',
+                'fellate',
+                'fellatio',
+                'felching',
+                'fuck',
+                'fudgepacker',
+                'flange',
+                'goddamn',
+                'hell',
+                'homo',
+                'jizz',
+                'knobend',
+                'labia',
+                'muff',
+                'nigger',
+                'nigga',
+                'penis',
+                'piss',
+                'poop',
+                'prick',
+                'pube',
+                'pussy',
+                'queer',
+                'scrotum',
+                'sex',
+                'shit',
+                'sh1t',
+                'slut',
+                'smegma',
+                'spunk',
+                'suck',
+                'tit',
+                'tosser',
+                'turd',
+                'twat',
+                'vagina',
+                'wank',
+                'whore',
+                'wtf',
+            ];
+
+            const inputElement = event.target;
+
+            badWords.forEach((badWord) => {
+                const regex = new RegExp(badWord, 'gi');
+                inputElement.value = inputElement.value.replace(regex, '***');
+            });
+        }
+
+        const subjectInput = document.getElementById('subject');
+        const descriptionInput = document.getElementById('description');
+
+        subjectInput.addEventListener('input', filterBadWords);
+        descriptionInput.addEventListener('input', filterBadWords);
+    </script>
+
 
 </div>
 

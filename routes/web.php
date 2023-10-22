@@ -78,11 +78,16 @@ Route::get('/participerEvent/{event_id}/{user_id}', [EventController::class, 'pa
 Route::get('/eventsDetails/{id}', [EventController::class, 'show2'])->name('events.show');
 
 
-/******************* Items+ Requests Front*/
-Route::resource('item', ItemController::class);
-Route::resource('request', RequestController::class);
-Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
-/******************* Items + Requests*/
+ /******************* Items+ Requests Front*/
+ Route::resource('item', ItemController::class);
+ Route::resource('request', RequestController::class);
+ Route::get('/requests/show-offer',  [RequestController::class, 'showOffer']);
+ Route::get('/requests/show-request',  [RequestController::class, 'showRequest']);
+ Route::get('/requests/editAll/{id}',  [RequestController::class, 'editAll'])->name('request.editAll');
+ Route::put('/requests/updateAll/{id}',  [RequestController::class, 'updateAll'])->name('request.updateAll');
+ Route::get('/requests/new/{id}',  [RequestController::class, 'create'])->name('request.new');
+
+  /******************* Items + Requests*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -148,21 +153,29 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/responses', [\App\Http\Controllers\ClaimController::class])->name('responses.store');
     Route::post('/claim/sendEmail/{claim}', [\App\Http\Controllers\ClaimController::class, 'sendEmail'])->name('sendEmail');
     Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
+    Route::get('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'create'])->name('reply.create');
+    Route::post('/reply/store', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
+    Route::delete('/reply/delete/{id}', [\App\Http\Controllers\ResponseController::class, 'destroy'])->name('reply.destroy');
+    Route::get('/response/{id}', [\App\Http\Controllers\ResponseController::class, 'edit'])->name('responses.edit');
+    Route::put('/response/{id}', [\App\Http\Controllers\ResponseController::class, 'update'])->name('responses.update');
+    Route::get('/reclamation/{id}', [\App\Http\Controllers\ResponseController::class, 'showClaim'])->name('claims.show');
+    Route::delete('/claim/deleteClaim/{id}', [\App\Http\Controllers\ClaimController::class, 'destroy'])->name('supprimer');
+    Route::delete('/claim/deleteUserClaim/{id}', [\App\Http\Controllers\ClaimController::class, 'destroyUserClaim'])->name('delete');
     Route::post('/claims/reply/{claim_id}', [\App\Http\Controllers\ResponseController::class, 'store'])->name('reply.store');
     Route::get('/donations-export', [DonationController::class, 'export'])->name('donations.export');
     Route::post('/organizations-import', [OrganizationController::class, 'import'])->name('organizations.import');
     Route::get('organization/chart', [OrganizationController::class, 'chart'])->name('organizations.chart');
 
-    Route::resource('item',  ItemController::class);
-    Route::resource('request',  RequestController::class);
 
 
-    /******************* Items + Requests Back */
-    Route::get('/item/list', [ItemController::class, 'indexDash'])->name('item.indexDash');
-    Route::get('/request/list', [RequestController::class, 'indexDash'])->name('request.indexDash');
-    Route::delete('/item/destroy/{id}', [ItemController::class, 'destroyDash'])->name('item.destroyDash');
-    Route::delete('/request/destroy/{id}', [RequestController::class, 'destroyDash'])->name('request.destroyDash');
-    /*********************************** Items + Requests Back */
+
+     /******************* Items + Requests Back */
+     Route::get('/item/list', [ItemController::class, 'indexDash'])->name('item.indexDash');
+     Route::get('/request/list', [RequestController::class, 'indexDash'])->name('request.indexDash');
+     Route::delete('/item/destroy/{id}', [ItemController::class, 'destroyDash'])->name('item.destroyDash');
+     Route::get('/item/getItemsData', [ItemController::class, 'getItemsData'])->name('items.data');
+     Route::delete('/request/destroy/{id}', [RequestController::class, 'destroyDash'])->name('request.destroyDash');
+     /***********************************/
 })->middleware(['auth', 'verified', 'checkAdmin'])->name('dashboard');
 
 Route::fallback(function () {
