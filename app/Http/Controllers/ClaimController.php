@@ -185,13 +185,9 @@ class ClaimController extends Controller
         $options->set('isPhpEnabled', true);
         $options->set('isRemoteEnabled', true);
         $pdf->setOptions($options);
-
         $html = view('BackOffice.claims.claimPdf', compact('claim'))->render();
-
         $pdf->loadHtml($html);
-
         $pdf->render();
-
         $pdf->stream("reclamation.pdf");
     }
 

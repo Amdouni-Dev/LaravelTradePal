@@ -69,8 +69,6 @@
         <td align="right">
             <a href="/dashboard/events/add" class="btn btn-primary">Ajouter</a>
 
-            <a href="/dashboard/stat/events" class="btn btn-primary"> <i class="bx bx-chart"></i> Voir les
-                statistiques</a>
         </td>
     <tr>
 </table>

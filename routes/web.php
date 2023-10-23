@@ -106,10 +106,8 @@ Route::get('/edit-profile', [ProfileUserController::class, 'showForm'])->name('p
 
 
 
-Route::get('blog-views-by-month', [UserController::class, 'chart']);
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, 'dashboard']);
-    
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/blog/add', [BlogController::class, 'create']);
     Route::get('/blogs', [BlogController::class, 'index']);

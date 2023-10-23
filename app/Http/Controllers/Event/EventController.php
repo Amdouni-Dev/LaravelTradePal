@@ -11,6 +11,8 @@ use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
 class EventController extends Controller
 {
 
@@ -42,7 +44,7 @@ class EventController extends Controller
             return $participations->where('event_id', $event->id)->count();
         });
         $categories = Event::groupBy('categorie')
-            ->select('categorie', \DB::raw('count(*) as count'))
+            ->select('categorie', DB::raw('count(*) as count'))
             ->get();
         return view('BackOffice.template',compact('viewPath','events', 'participationCountByEvent','categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -449,35 +451,6 @@ public function  show2($id){
 
             return redirect("/login");
         }}
-//    public function annulerParticipationEvent
-//    ($event_id, $user_id)
-//    {
-//
-//        if (auth()->check()) {
-//
-//            $event = Event::find($event_id);
-//
-//
-//            if ($event) {
-//
-//                $participation =null;
-//           foreach($event->participations as $participationE){
-//
-//           }
-//
-//                $participation->delete();
-//
-//
-//                return redirect("/JeParticipe");
-//            } else {
-//
-//                return view('backOffice.404');
-//            }
-//        } else {
-//
-//            return redirect("/login");
-//        }}
-
 
     public function generatePdf($id)
     {

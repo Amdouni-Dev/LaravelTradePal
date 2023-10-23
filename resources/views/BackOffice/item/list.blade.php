@@ -6,20 +6,15 @@
 @endif
 <table class="container-xxl flex-grow-1 container-p-y">
   
-  <!-- <tr>
     <td>
       <h4 class="fw-bold py-3 mb-4">
       <span class="text-muted fw-light">Echange /</span> Liste des objets</h4>
       
     </td>
   
-  <tr> -->
   
 
-        <div class="d-flex justify-content-center">
-
-<div id="mon-chart" style="height: 500px; width: 800px;"  ></div>
-</div>
+      
 
 
 
@@ -142,40 +137,5 @@ $(document).ready(function() {
         }
     });
 });
-</script>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-
-  function drawChart() {
-
-    @php
-  $categoryData = $itemsStat->groupBy('category')->map->sum(function ($item) {
-      return $item->requests->count();
-  });
-@endphp
-
-var data = google.visualization.arrayToDataTable([
-    ['Catégorie', 'Demande'],
-    @foreach ($categoryData as $category => $requestCount)
-        ["{{ $category }}", {{ $requestCount }}],
-    @endforeach
-]);
 
 
-
-
-
-    var options = {
-      title: 'Statistiques des demandes par catégorie objet ', 
-      is3D : true ,
-      backgroundColor: 'transparent'
-    };
-
-    var chart = new google.visualization.PieChart(document.getElementById('mon-chart'));
-
-    chart.draw(data, options);
-  }
-</script>

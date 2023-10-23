@@ -19,15 +19,6 @@
 </head>
 <body>
 
-<table class="container-xxl flex-grow-1 container-p-y">
-    <tr>
-        <td>
-            <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">RECLAMATION /</span> Liste Des Réclamations
-            </h4>
-        </td>
-    <tr>
-</table>
 
 <div class="card">
     <div class="table-responsive text-nowrap">
@@ -268,42 +259,3 @@
     }
 </script>
 
-
-<div class="chart-container">
-    <canvas id="claimsChart"></canvas>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    var claimData = @json($claimsPerMonth);
-
-    var months = claimData.map(entry => entry.month);
-    var counts = claimData.map(entry => entry.count);
-
-    var ctx = document.getElementById('claimsChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: months,
-            datasets: [{
-                label: 'CLAIMS PER MONTH',
-                data: counts,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
-
-
-</body>
-</html>

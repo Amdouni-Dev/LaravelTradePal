@@ -52,8 +52,8 @@ class ItemController extends Controller
 
         $items = Item::with('user')->simplePaginate(5);
       
-        $itemsStat = Item::with('user')->get();
-        return view('BackOffice.template', compact('items','viewPath','itemsStat'));
+        
+        return view('BackOffice.template', compact('items','viewPath'));
     }
   /**
      * Display a listing of the resource.

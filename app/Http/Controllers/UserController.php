@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Charts\BlogChart;
 use App\Charts\UserChart;
 use App\Models\Blog;
+use App\Models\Claim;
 use App\Models\Comment;
 use App\Models\Donation;
+use App\Models\Event;
+use App\Models\Item;
 use App\Models\Organization;
+use App\Models\Participation;
+use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -153,16 +158,42 @@ public function GamePage(){
 
 public function dashboard(){
     $viewPath = 'BackOffice.dashboard';
-    
-    return view('BackOffice.template',compact('viewPath'));
-}
-public function chart(){
-    $blogViewsData = Blog::select(
-        DB::raw("DAY(created_at) as month"),
-        DB::raw("SUM(views) as total_views")
-    )
-    ->groupBy('month')
-    ->get();
 
- return response()->json($blogViewsData);}
+    $events = Event::all();
+    $participations = Participation::all();
+
+    $participationCountByEvent = $events->map(function ($event) use ($participations) {
+        return $participations->where('event_id', $event->id)->count();
+    });
+    $categories = Event::groupBy('categorie')
+        ->select('categorie', DB::raw('count(*) as count'))
+        ->get();
+        
+    $itemsStat = Item::with('user')->get();
+    $listClaims = Claim::latest()->simplePaginate(5);
+    $claimsPerMonth = DB::table('claims')
+        ->selectRaw("DATE_FORMAT(claim_date, '%M') as month")
+        ->selectRaw('COUNT(*) as count')
+        ->groupBy('month')
+        ->get();
+        
+        
+    $blogs = Blog::latest()->simplePaginate(5);
+    $views = DB::table('blogs')
+        ->selectRaw("DATE_FORMAT(publicationDate, '%D') as month")
+        ->selectRaw('COUNT(*) as count')
+        ->groupBy('month')
+        ->get();
+    
+    $countUsers = User::count();
+    $countOrganizations = Organization::count();
+    $countBlogs = Blog::count();
+    $countClaims = Claim::count();
+    $countEvents = Event::count();
+    $countItems = Item::count();
+    $countRequests = ModelsRequest::count();
+    $countDonations = Donation::count();
+            
+    return view('BackOffice.template',compact('viewPath','events', 'participationCountByEvent','categories','itemsStat','claimsPerMonth','blogs','views','countUsers','countBlogs','countClaims','countOrganizations','countEvents','countItems','countRequests','countDonations'));
+}
 }
