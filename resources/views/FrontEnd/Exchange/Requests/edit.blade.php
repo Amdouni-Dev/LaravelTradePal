@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 		@extends('FrontEnd.section.header')
-		@section('pageTitle', 'Profile')
+		@section('pageTitle', 'Demandes')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
