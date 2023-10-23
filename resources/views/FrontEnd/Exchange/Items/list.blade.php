@@ -134,7 +134,7 @@
     
 <br></br>
 <div id="negociate-offer-popup">
-@if($donneesItem['user_id'] !== Auth::user()->id)
+@if (auth()->check() &&  $donneesItem['user_id'] !== auth()->user()->id)
     <a href="{{ route('request.new', $donneesItem['id']) }}">
         <div id="negociate-offer" class="button">
             <div class="title">
@@ -206,11 +206,13 @@
   Date d'ajout : {{$donneesItem['created_at']}}						</div>
 
   <div class="dist">
-  <!-- Propriétaire : {{ $donneesItem->user->name }} -->
-  <img src="{{ asset('qrcodes/' . $donneesItem['qrCode']) }}" width="40" height="40" id="qrCodeImage" onclick="showImagePopup(this)">
+    @if($donneesItem['qrCode'])
+        <img src="{{ asset('qrcodes/' . $donneesItem['qrCode']) }}" width="40" height="40" id="qrCodeImage" onclick="showImagePopup(this)">
+    @endif
 </div>
 
-<!-- Le popup caché pour l'image -->
+
+
 
 
  

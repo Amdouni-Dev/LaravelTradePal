@@ -83,11 +83,16 @@ class RequestController extends Controller
                 'numeric',
                 function ($attribute, $value, $fail) use ($request) {
                     $desiredId = $request->input('desired_id');
-                    $amount = $value; // La valeur de 'amount_nuts'
+                    $amount = $value; 
                     $desired = Item::find($desiredId);
+                    $userId2 = Auth::id();
+                    $user = User::find($userId2);
     
                     if ($desired && $amount < $desired->amount) {
                         $fail('La somme des noisettes pour la première methode  doit être au minimum égal à la somme de l\'objet  volu');
+                    }
+                    if ($desired && $amount > $user->hazelnuts) {
+                        $fail('Vous n\'avez pas assez de noisettes');
                     }
                 },
             ],
@@ -211,11 +216,11 @@ class RequestController extends Controller
         if($data['status']==="CONFIRME"){
             $phone = "216" . $requestmodel->user->phone;
 
-        // $message =  $client->sms()->send(
-        //     new \Vonage\SMS\Message\SMS($phone, "TradePal", "Votre demande d'échange a été confirmée .Merci de me contacter :)")
+        $message =  $client->sms()->send(
+            new \Vonage\SMS\Message\SMS($phone, "TradePal", "Votre demande d'échange a été confirmée .Merci de me contacter :)")
 
-        // );
-        $requestmodel->delete();
+        );
+        
         $desired=Item::find($requestmodel->desired_id);
         //$desired->delete();
         $desired->status="NONDISPONIBLE";
@@ -226,14 +231,18 @@ class RequestController extends Controller
         $exchangeable->save();
         }
         $amount=$requestmodel->amount;
-        if($amount){
-        $userOwnerRequest=User::find($requestmodel->user_id);
-        $userOwnerRequest->hazelnuts=-$amount;
-        $userOwnerObject=User::find($desired->user_id);
-        $userOwnerObject->hazelnuts=+$amount;
+        
+        if ($amount) {
+            $userOwnerRequest = User::find($requestmodel->user_id);
+            $userOwnerRequest->hazelnuts-=$amount;
+            $userOwnerRequest->save();
+            
+            $userOwnerObject = User::find($desired->user_id);
+            $userOwnerObject->hazelnuts+=$amount;
+            $userOwnerObject->save();
 
         }
-
+        $requestmodel->delete();
         
 
 
