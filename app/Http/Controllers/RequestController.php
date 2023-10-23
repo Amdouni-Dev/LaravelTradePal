@@ -218,7 +218,6 @@ class RequestController extends Controller
 
         $message =  $client->sms()->send(
             new \Vonage\SMS\Message\SMS($phone, "TradePal", "Votre demande d'échange a été confirmée .Merci de me contacter :)")
-
         );
         
         $desired=Item::find($requestmodel->desired_id);

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 
 @extends('FrontEnd.section.header')
-@section('pageTitle', 'Profile')
+@section('pageTitle', 'Ajouter une réclamation')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+
 <div id="main">
     <div id="animation-banner" class="web">
         <div id="could-banner" class="no-overflow">

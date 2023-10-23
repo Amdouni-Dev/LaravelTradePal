@@ -61,13 +61,6 @@ class EventController extends Controller
         ])
             ->orderBy('id','asc')
             ->paginate(10);
-
-        // tri
-//        $listEvents =Event::orderBy('nom')->get();
-//        $listEvents =Event::where('id',1 )->orderBy('nom')->get();
-
-//        return view('events',compact('listEvents'))->with('i',(request()->input('page',1)-1)*5);
-
         return view('BackOffice.template',compact('viewPath','listEvents'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -86,9 +79,6 @@ class EventController extends Controller
             ->orderBy('id','asc')
             ->paginate(50);
 
-        // tri
-//        $listEvents =Event::orderBy('nom')->get();
-//        $listEvents =Event::where('id',1 )->orderBy('nom')->get();
         return view('BackOffice.template',compact('viewPath','listEvents'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -175,20 +165,6 @@ class EventController extends Controller
         if($validator->fails()){
             return redirect('/dashboard/events/add')->withErrors($validator)->withInput();
         }
-//        $uploadedFile = $request->file('image');
-
-//
-//        if ($uploadedFile) {
-//            $imagePath = $uploadedFile->store('public/assets/imagesForEvents');
-
-//            $event->image_path = $imagePath;
-//        }
-
-//        dd($request->file('image')->getClientOriginalName());
-
-//
-//        $event->image=$request->file('image')->getClientOriginalName();
-
         $event->save();
         session()->flash('success', 'Image Upload successfully');
         return redirect('/dashboard/events')->with('success', 'Evenement Ajouté avec Succes ');;
@@ -207,60 +183,12 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-//    public function show($id)
-//    {
-//        $event = Event::find($id);
-//
-//        $eventDate = $event->date;
-//
-//
-//        $similarEventIds = Event::where('date', $eventDate)
-//            ->where('id', '!=', $id)
-//            ->pluck('id');
-//
-//        $participationsSimilar = Participation::whereIn('event_id', $similarEventIds)->get();
-//
-//
-//        $latestParticipationsSimilar = $participationsSimilar->sortByDesc('created_at');
-////        dd($latestParticipationsSimilar->first()->user->name);
-////        $lastUserParticip=$latestParticipationsSimilar->first()->user->name ;
-////        $latestSimilarParticipation = null;
-////        foreach ($latestParticipationsSimilar as $participation) {
-////            if ($participation->event_id == $id) {
-////                $latestSimilarParticipation = $participation;
-////                break;
-////            }
-////        }
-//
-//
-////        $latestParticipantName = $lastUserParticip ? $latestParticipation->user->name : 'Aucun participant';
-//
-//        $similarEvents = Event::where('date', $eventDate)
-//            ->where('id', '!=', $id)
-//            ->get();
-//        $user = auth()->user();
-//        $isParticipated = Participation::where('event_id', $id)
-//            ->where('user_id', $user->id)
-//            ->exists();
-//        return view('BackOffice.template', [
-//            'viewPath' => 'Event.admin.show',
-//            'event' => $event,
-////            'latestParticipantName' => $latestParticipantName,
-//            'similarEvents' => $similarEvents,
-////            'latestParticipation' => $latestParticipation,
-//            'latestParticipationsSimilar' => $latestParticipationsSimilar,
-//            'isParticipated' => $isParticipated,
-////            'lastUserParticip'=>$lastUserParticip,
-//        ]);
-//    }
 
     public function show($id)
     {
         $event = Event::find($id);
-//        dd($event);
 
         if (!$event) {
-            // Gérer le cas où l'événement n'a pas été trouvé, par exemple, rediriger vers une page d'erreur.
             return view('backOffice.404');
         }
 
@@ -295,10 +223,8 @@ class EventController extends Controller
 
 public function  show2($id){
     $event = Event::find($id);
-//        dd($event);
 
     if (!$event) {
-        // Gérer le cas où l'événement n'a pas été trouvé, par exemple, rediriger vers une page d'erreur.
         return view('backOffice.404');
     }
 
@@ -337,9 +263,8 @@ public function  show2($id){
      */
     public function edit(Request $request)
     {
-        //
+        
         $event=Event::find($request->id);
-//        return view('edit',compact('event'));
         return view('BackOffice.template', ['viewPath' => 'Event.admin.edit'],compact('event'));
 
 
@@ -442,7 +367,7 @@ public function  show2($id){
                 $participation->save();
 
 
-                return redirect("/JeParticipe");
+                return redirect()->back();
             } else {
 
                 return view('backOffice.404');

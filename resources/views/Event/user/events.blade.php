@@ -1,5 +1,5 @@
 
-@extends('FrontEnd.section.header')
+
 @section('pageTitle', 'Noisette')
 <html lang="en" class="calender-page">
 <head>

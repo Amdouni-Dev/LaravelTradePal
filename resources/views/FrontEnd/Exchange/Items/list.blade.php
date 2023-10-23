@@ -132,7 +132,7 @@
     
     <img src="/echange/items/{{ $donneesItem['picture'] }}" width="100" height="130" >	
     
-<br></br>
+
 <div id="negociate-offer-popup">
 @if (auth()->check() &&  $donneesItem['user_id'] !== auth()->user()->id)
     <a href="{{ route('request.new', $donneesItem['id']) }}">

@@ -699,13 +699,7 @@
                         <div id="main-menu-decoration-1"></div>
                         <div id="main-menu-decoration-2"></div>
 
-                        <li class="   showConcept block-menu div-showConcept ">
-                            <div class="hvr-grow">
-                                <a href="/work" class="waves waves-prune " data-wave-scale="20">
-                                    <span>Comment &ccedil;a marche ?</span>
-                                </a>
-                            </div>
-                        </li>
+                        
                         <li class="   showAddTroc block-menu div-showAddTroc ">
                             <div class="hvr-grow">
                                 <a href="/item" class="waves waves-prune " data-wave-scale="20">
@@ -716,15 +710,8 @@
 
                         <li class="   showAddTroc block-menu div-showAddTroc ">
                             <div class="hvr-grow">
-                                <a href="/JeParticipe" class="waves waves-prune " data-wave-scale="20">
+                                <a id="loginLink" href="/JeParticipe" class="waves waves-prune " data-wave-scale="20">
                                     <span>Je participe </span>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="   showSearch block-menu div-showSearch ">
-                            <div class="hvr-grow">
-                                <a href="/search" class="waves waves-prune " data-wave-scale="20">
-                                    <span>Je recherche</span>
                                 </a>
                             </div>
                         </li>
@@ -735,11 +722,12 @@
                                 </a>
                             </div>
                         </li>
+                        
                         @if(auth()->check() || (auth()->check() && auth()->user()->role !== 'user'))
-                       <li class=" active  showMyProfil block-menu div-showMyProfil ">
+                       <li class="   showCommunaute block-menu div-showCommunaute ">
                             <div class="hvr-grow">
-                                <a href="/profile" class="waves waves-prune " data-wave-scale="20">
-                                    <span>Mon Profil</span>
+                                <a href="/user/claim" class="waves waves-prune " data-wave-scale="20">
+                                    <span>Réclamations</span>
                                 </a>
                             </div>
                         </li>
@@ -856,5 +844,12 @@
                 linkButton.style.display = 'none'; // Hide the link button
             });
         </script>
+<script>
+    const loginLink = document.getElementById('loginLink');
 
+    loginLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        window.open(this.href, '_blank'); // Open the link in a new tab or window
+    });
+</script>
     </header>

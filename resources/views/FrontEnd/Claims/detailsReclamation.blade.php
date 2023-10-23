@@ -10,7 +10,8 @@
 <body>
 
 @extends('FrontEnd.section.header')
-@section('pageTitle', 'Comment ça marche')
+@section('pageTitle', 'Details réclamation')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 
 
 <div id="main">

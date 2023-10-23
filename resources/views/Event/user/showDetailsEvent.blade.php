@@ -3,7 +3,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <HTML lang="fr-FR">
 @extends('FrontEnd.section.header')
-@section('pageTitle', 'Connexion')
+@section('pageTitle', 'Détail participation')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+
 <style>
 
     @import url('https://fonts.googleapis.com/css?family=Open+Sans');
@@ -395,7 +397,7 @@
                 <div class="login-tab">
 
                     <div class="tab ">
-                        <a id="blogin" href="#form-login">J'ai d&eacute;j&agrave; <span>un compte</span></a>
+                        <a id="blogin" href="#form-login">Participer maintenant</span></a>
                     </div>
 
 {{--                    <div class="tab ">--}}

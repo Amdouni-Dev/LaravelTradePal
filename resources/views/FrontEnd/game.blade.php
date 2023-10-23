@@ -4,13 +4,14 @@
 <style>
     .slots {
         left: 15.1%;
-        top: -18.5rem;
+        top: -19.5rem;
         position: relative;
-        width: 13rem;
+        width: 21rem;
         height: 272px;
         display: flex;
         box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
         border-radius: 3px;
+}
     }
 
     .slots::before,

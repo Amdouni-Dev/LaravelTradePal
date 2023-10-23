@@ -1,13 +1,12 @@
 <HTML lang="fr-FR">
-<head>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body>
 
 @extends('FrontEnd.section.header')
-@section('pageTitle', 'Comment ça marche')
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@section('pageTitle', 'Réclamations')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+
 <div id="main">
 
     <div id="animation-banner" class="web">
@@ -59,7 +58,6 @@
                     </div>
                     <div class="buttons quarter">
 
-<!------------------------------------------------------------------ADD CLAIM-->
                        <div style="margin-bottom: 60px">
                         <label id="sort-select" for="sort" hidden="hidden" class="select" data-dashlane-label="true" >
                             <select id="sort" name="sort" data-dashlane-rid="f784bac106b2bca5" data-form-type="other">
@@ -81,8 +79,6 @@
 
 <article class="search">
 
-    <div id="reminder-login"></div>
-
     <div id="troc-list-result-search" class="troc-list">
 
         <div class="main-title">Liste Des Réclamations </div>
@@ -97,7 +93,7 @@
                             <img src="/claims/{{$claim->claimImage}}" alt="{{$claim->subject}}">
                         </a>                    </div>
                 </div>
-                <div class="c2" style="margin-top: 25px; margin-left: 5px;position: relative;">
+                <div class="c2" >
                     <form method="POST"  id="delete-form" action="{{ route('delete', $claim->id) }}">
                         @csrf
                         @method('DELETE')
@@ -174,7 +170,7 @@
 
 
 
-</article><br><br><br><br><br><br><br>
+</article>
 
 
 @extends('FrontEnd.Section.footer')
