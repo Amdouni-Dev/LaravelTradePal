@@ -1,7 +1,7 @@
         
         <!DOCTYPE html>
         @extends('FrontEnd.section.header')
-@section('pageTitle', 'Noisette')
+@section('pageTitle', 'Demandes')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
  

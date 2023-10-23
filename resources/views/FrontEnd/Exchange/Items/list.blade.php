@@ -1,7 +1,7 @@
 <div id="overlay" onclick="closeImagePopup()"></div>
 <HTML lang="fr-FR">
 @extends('FrontEnd.section.header')
-@section('pageTitle', 'Comment ça marche')
+@section('pageTitle', 'Objets')
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   
